@@ -25,3 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// main.js — tcnocenter
+import 'bootstrap'; // activa Drawer, Menu, etc. por data-bs-*

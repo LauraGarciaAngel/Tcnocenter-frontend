@@ -759,6 +759,139 @@
         }
     }
 
+
+// ============================================================================
+// contacto.scss — solo estilos propios de la página de contacto.
+// ============================================================================
+
+.tcno-contact-page {
+
+    // ---------- Banner ----------
+    .hero {
+        width: 100%;
+        background: linear-gradient(90deg, #F4FCFC, #DFF7F6);
+    }
+
+    .hero-text {
+        padding: 3.5rem 3rem 3.5rem 4rem;
+    }
+
+    .hero-eyebrow {
+        font-family: var(--tcno-font-body, 'Inter', sans-serif);
+        font-size: .8rem;
+        font-weight: 700;
+        letter-spacing: .5px;
+        color: var(--tcno-primary, #019D93);
+    }
+
+    .hero-title {
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: clamp(2.6rem, 5vw, 4rem);
+        font-weight: 700;
+        line-height: 1.05;
+        color: var(--tcno-primary, #019D93);
+    }
+
+    .hero-sub {
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: clamp(1.1rem, 2vw, 1.6rem);
+        color: #34444f;
+        margin-bottom: 1.1rem;
+    }
+
+    .hero-desc {
+        font-family: var(--tcno-font-body, 'Inter', sans-serif);
+        font-size: 1rem;
+        color: #3f505b;
+        max-width: 520px;
+    }
+
+    // ---------- Títulos de sección (color principal + espaciado) ----------
+    .section-title {
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--tcno-primary, #019D93);
+        text-align: center;
+        margin: 0 0 1.75rem;
+    }
+
+    // ---------- Formulario ----------
+    .form-card {
+        background-color: var(--tcno-white, #FEFEFE);
+        border: 1px solid #E2E8F0;
+        border-radius: 1.25rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, .03);
+        padding: 1.75rem;
+    }
+
+    .form-label {
+        font-family: var(--tcno-font-body, 'Inter', sans-serif);
+        font-size: .85rem;
+        font-weight: 600;
+        margin-bottom: .3rem;
+    }
+
+    .form-control {
+        font-family: var(--tcno-font-body, 'Inter', sans-serif);
+        font-size: .9rem;
+        background: #fbfcfc;
+    }
+
+    .form-text {
+        font-size: .75rem;
+    }
+
+    #mensaje {
+        min-height: 120px;
+        resize: none;
+    }
+
+    // ---------- Redes ----------
+    .social-ico {
+        font-size: 1.5rem;
+        line-height: 1;
+        color: var(--tcno-primary, #019D93);
+    }
+
+    .social-facebook { color: #1877f2; }
+    .social-whatsapp { color: #25d366; }
+    .social-link { color: var(--tcno-primary, #019D93); }
+
+    // ---------- Caja de ubicación ----------
+    .location-card {
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(180deg, #e8f8f6, #f4fcfc);
+        border: 1px solid #d2efec;
+        border-radius: 1.25rem;
+        padding: 1.25rem;
+    }
+
+    .location-title {
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--tcno-primary, #019D93);
+        margin: 0 0 .75rem;
+    }
+
+    .map-ratio {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: .75rem;
+        overflow: hidden;
+    }
+
+    .map-ratio iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+}
+
+
     // Footer Component
     .tcno-footer {
         background-color: var(--tcno-primary, #019D93);
