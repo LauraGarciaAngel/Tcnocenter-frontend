@@ -889,6 +889,91 @@
         height: 100%;
         border: 0;
     }
+
+    // ---------- Preguntas frecuentes ----------
+    .tcno-faq {
+        max-width: 760px;
+        min-height: 480px;
+    }
+
+    .tcno-faq-list {
+        display: grid;
+        gap: .85rem;
+        text-align: left;
+    }
+
+    .tcno-faq .accordion-item {
+        overflow: hidden;
+        border: 1px solid #d2efec;
+        border-radius: .9rem;
+        background: var(--tcno-white, #FEFEFE);
+        box-shadow: 0 4px 14px rgba(1, 157, 147, .06);
+        transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .tcno-faq .accordion-item:has(.accordion-collapse.show) {
+        border-color: var(--tcno-primary, #019D93);
+        box-shadow: 0 8px 22px rgba(1, 157, 147, .12);
+    }
+
+    .tecno-faq .accordion-header {
+        margin: 0;
+    }
+
+    .tcno-faq .accordion-button {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 1rem;
+        padding: 1.15rem 1.35rem;
+        border: 0;
+        background: var(--tcno-white, #FEFEFE);
+        color: var(--tcno-dark, #1F2937);
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: left;
+        transition: color .2s ease, background-color .2s ease;
+    }
+
+    .tcno-faq .accordion-button::after {
+        width: .65rem;
+        height: .65rem;
+        margin-left: auto;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        transform: rotate(45deg) translateY(-2px);
+        transition: transform .2s ease;
+        content: '';
+    }
+
+    .tcno-faq .accordion-button:hover,
+    .tcno-faq .accordion-button:not(.collapsed) {
+        // color: var(--tcno-primary, #019D93);
+        border-radius: .7rem;
+        background: #f1fbfa;
+    }
+
+    .tcno-faq .accordion-button:not(.collapsed)::after {
+        transform: rotate(225deg) translate(-2px, -2px);
+    }
+
+    .tcno-faq .accordion-button:focus-visible {
+        outline: 3px solid color-mix(in srgb, var(--tcno-primary, #019D93) 30%, transparent);
+        outline-offset: -3px;
+    }
+
+    .tcno-faq .accordion-collapse {
+        border-top: 1px solid #d2efec;
+    }
+
+    .tcno-faq .accordion-body {
+        padding: 1rem 1.35rem 1.25rem;
+        color: #53636b;
+        font-family: var(--tcno-font-body, 'Inter', sans-serif);
+        font-size: .92rem;
+        line-height: 1.7;
+    }
 }
 
 
