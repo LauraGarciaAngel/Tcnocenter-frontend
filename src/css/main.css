@@ -18277,6 +18277,7 @@
     src: url("https://fonts.gstatic.com/s/josefinsans/v34/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_N_XXME.ttf") format("truetype");
   }
   :root {
+    color-scheme: light;
     --tcno-primary: #019D93;
     --tcno-secondary: #24A9A1;
     --tcno-medium: #45B7B0;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -12,119 +12,12 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/src/css/main.css">
     <script src="/src/js/navbar-footer.js" defer></script>
+    <script src="../js/navbar-footer.js" defer></script>
 </head>
 
 <body>
     <!-- ==== NAVBAR ===== -->
     <div data-component="navbar"></div>
-    <template id="navbar-original-backup">
-    <nav class="navbar tcno-navbar">
-        <div class="container-fluid px-0">
-            <!-- Logotipo Oficial tcnocenter -->
-            <a class="navbar-brand tcno-navbar-brand me-lg-4" href="/" aria-label="tcnocenter inicio">
-                <svg class="tcno-navbar-logo" viewBox="0 0 251 251" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true">
-                    <path
-                        d="M125.5 251C56.1883 251 0 194.812 0 125.5C0 56.1883 56.1883 0 125.5 0C194.812 0 251 56.1883 251 125.5C251 125.5 251 169 224 190C192.403 214.575 137 211.692 121.5 190C114.881 180.736 110.5 169.886 110.5 158.5V104.5H94C89.5 104.5 78.5 104.5 78.5 91C78.5 77 86.9246 77 94 77H155.5C162.219 77 172.742 77 172.5 91C172.258 105 162.061 104.5 155.5 104.5H140V154.5C140 176 164.612 186.315 186 178.5C194 175.577 221 167 221 120C221 73 176.452 25 121.5 25C66.5477 25 22 69.5477 22 124.5C22 179.452 66.5477 224 121.5 224C121.5 224 140 222.283 140 238C140 251 125.5 251 125.5 251Z"
-                        fill="#019D93" />
-                </svg>
-                <span class="tcno-navbar-brand-text">
-                    <span class="tcno-brand-tcno">TCNO</span><span class="tcno-brand-center">CENTER</span>
-                </span>
-            </a>
-
-            <!-- Botón Hamburguesa Responsive (Móvil/Tablet) con icono Lucide Menu -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#tcnoNavbarV2"
-                aria-controls="tcnoNavbarV2" aria-expanded="false" aria-label="Alternar navegación">
-                <i data-lucide="menu" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="42" height="22" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="4" y1="12" x2="20" y2="12"></line>
-                        <line x1="4" y1="6" x2="20" y2="6"></line>
-                        <line x1="4" y1="18" x2="20" y2="18"></line>
-                    </svg>
-                </i>
-            </button>
-
-            <!-- Contenedor Principal (Visible en Desktop, Colapsable en Móvil) -->
-            <div class="tcno-navbar-collapse" id="tcnoNavbarV2">
-                <!-- Enlaces Centrales -->
-                <ul class="navbar-nav mx-auto align-items-lg-center gap-lg-2">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cátalogo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Garantía</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Acerca de nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
-                    </li>
-                </ul>
-
-                <!-- Barra de Búsqueda y Botones de Acción (Siempre en fila horizontal) -->
-                <div class="tcno-nav-right-group">
-                    <!-- Input de Búsqueda redondeado -->
-                    <form class="tcno-search-wrapper" role="search" onsubmit="event.preventDefault();">
-                        <span class="tcno-search-icon-prefix" aria-hidden="true">
-                            <i data-lucide="search">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                </svg>
-                            </i>
-                        </span>
-                        <input class="tcno-search-input" type="search" placeholder="Búsqueda..."
-                            aria-label="Buscar en la tienda" />
-                        <button class="tcno-search-btn-suffix" type="submit" aria-label="Ejecutar búsqueda">
-                            <i data-lucide="search">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                </svg>
-                            </i>
-                        </button>
-                    </form>
-
-                    <!-- Acciones: Perfil y Carrito con Lucide Icons -->
-                    <div class="tcno-nav-actions">
-                        <!-- Mi Cuenta -->
-                        <a href="#" class="tcno-nav-action-btn" aria-label="Mi Cuenta">
-                            <i data-lucide="user">
-                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                            </i>
-                        </a>
-                        <!-- Carrito de Compras -->
-                        <a href="#" class="tcno-nav-action-btn" aria-label="Carrito de compras">
-                            <i data-lucide="shopping-cart">
-                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <circle cx="8" cy="21" r="1"></circle>
-                                    <circle cx="19" cy="21" r="1"></circle>
-                                    <path
-                                        d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
-                                    </path>
-                                </svg>
-                            </i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-    </template>
-
 
     <!-- ==== ACERCA DE NOSOTROS (QUIENES SOMOS) ===== -->
     <section class="tcno-about-page py-3 py-lg-4">
@@ -273,7 +166,6 @@
         </div>
     </section>
     <!-- FIN ACERCA DE NOSOTROS -->
-
 
     <!-- ==== JHOINER (LO QUE NOS MUEVE, NUESTRO EQUIPO Y BENEFICIOS) ===== -->
     <section class="py-3 py-lg-4">
@@ -455,87 +347,8 @@
     </section>
     <!-- FIN SECCIÓN ASIGNADA -->
 
-
     <!-- ==== FOOTER ===== -->
-    <section>
-        <div data-component="footer"></div>
-        <template id="footer-original-backup">
-        <footer class="tcno-footer">
-            <div class="tcno-footer-container">
-                <div class="tcno-footer-main">
-                    <!-- Identidad de Marca y Slogan -->
-                    <div class="tcno-footer-brand">
-                        <a href="#" class="tcno-brand-link" aria-label="tcnocenter inicio">
-                            <svg class="tcno-logo-symbol" viewBox="0 0 251 251" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path
-                                    d="M125.5 251C56.1883 251 0 194.812 0 125.5C0 56.1883 56.1883 0 125.5 0C194.812 0 251 56.1883 251 125.5C251 125.5 251 169 224 190C192.403 214.575 137 211.692 121.5 190C114.881 180.736 110.5 169.886 110.5 158.5V104.5H94C89.5 104.5 78.5 104.5 78.5 91C78.5 77 86.9246 77 94 77H155.5C162.219 77 172.742 77 172.5 91C172.258 105 162.061 104.5 155.5 104.5H140V154.5C140 176 164.612 186.315 186 178.5C194 175.577 221 167 221 120C221 73 176.452 25 121.5 25C66.5477 25 22 69.5477 22 124.5C22 179.452 66.5477 224 121.5 224C121.5 224 140 222.283 140 238C140 251 125.5 251 125.5 251Z"
-                                    fill="#FEFEFE" />
-                            </svg>
-                            <span class="tcno-brand-title">TCNOCENTER</span>
-                        </a>
-                        <p class="tcno-slogan">Conectando el futuro</p>
-                    </div>
-
-                    <!-- Columnas de Navegación y Contacto -->
-                    <div class="tcno-footer-nav">
-                        <div class="tcno-footer-col">
-                            <h3 class="tcno-footer-heading">Categorías</h3>
-                            <ul class="tcno-footer-list">
-                                <li><a href="#" class="tcno-footer-link">Celulares</a></li>
-                                <li><a href="#" class="tcno-footer-link">Accesorios</a></li>
-                                <li><a href="#" class="tcno-footer-link">Monitores</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="tcno-footer-col">
-                            <h3 class="tcno-footer-heading">Atención al Cliente</h3>
-                            <ul class="tcno-footer-list">
-                                <li><a href="#" class="tcno-footer-link">Garantías</a></li>
-                                <li><a href="#" class="tcno-footer-link">Envíos</a></li>
-                                <li><a href="#" class="tcno-footer-link">Términos y Condiciones</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="tcno-footer-col">
-                            <h3 class="tcno-footer-heading">Contacto</h3>
-                            <ul class="tcno-footer-list">
-                                <li><a href="tel:+573123456789" class="tcno-footer-link tcno-footer-phone">+57 312
-                                        3456789</a></li>
-                                <li class="tcno-footer-text">Redes sociales</li>
-                                <li>
-                                    <div class="tcno-social-links">
-                                        <a href="https://www.facebook.com/Tcnocentercolombia/" class="tcno-social-icon"
-                                            target="_blank" rel="noopener noreferrer"
-                                            aria-label="Facebook de tcnocenter">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                                <path
-                                                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                                            </svg>
-                                        </a>
-                                        <a href="https://youtube.com" class="tcno-social-icon" target="_blank"
-                                            rel="noopener noreferrer" aria-label="YouTube de tcnocenter">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                                <path
-                                                    d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.25zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="tcno-footer-divider" />
-
-                <div class="tcno-copyright">
-                    <p class="mb-0">© 2026 tcnocenter. Todos los derechos reservados.</p>
-                </div>
-            </div>
-        </footer>
-        </template>
-    </section>
+    <div data-component="footer"></div>
 </body>
 
 </html>
