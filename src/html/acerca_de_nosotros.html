@@ -11,11 +11,13 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&family=Audiowide&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/src/css/main.css">
-    <script src="../js/main.js" defer></script>
+    <script src="/src/js/navbar-footer.js" defer></script>
 </head>
 
 <body>
     <!-- ==== NAVBAR ===== -->
+    <div data-component="navbar"></div>
+    <template id="navbar-original-backup">
     <nav class="navbar tcno-navbar">
         <div class="container-fluid px-0">
             <!-- Logotipo Oficial tcnocenter -->
@@ -121,6 +123,7 @@
             </div>
         </div>
     </nav>
+    </template>
 
 
     <!-- ==== ACERCA DE NOSOTROS (QUIENES SOMOS) ===== -->
@@ -455,6 +458,8 @@
 
     <!-- ==== FOOTER ===== -->
     <section>
+        <div data-component="footer"></div>
+        <template id="footer-original-backup">
         <footer class="tcno-footer">
             <div class="tcno-footer-container">
                 <div class="tcno-footer-main">
@@ -529,6 +534,7 @@
                 </div>
             </div>
         </footer>
+        </template>
     </section>
 </body>
 
