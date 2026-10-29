@@ -901,6 +901,13 @@
         font-family: var(--tcno-font-body, 'Inter', sans-serif);
         font-size: .9rem;
         background: #fbfcfc;
+        border-radius: .5rem;
+    }
+
+    .form-card .btn-solid {
+        --btn-bg: var(--tcno-primary, #019D93);
+        --btn-border-color: var(--tcno-primary, #019D93);
+        border-radius: .5rem;
     }
 
     .form-text {

@@ -18922,6 +18922,12 @@
     font-family: var(--tcno-font-body, "Inter", sans-serif);
     font-size: 0.9rem;
     background: #fbfcfc;
+    border-radius: 0.5rem;
+  }
+  .tcno-contact-page .form-card .btn-solid {
+    --btn-bg: var(--tcno-primary, #019D93);
+    --btn-border-color: var(--tcno-primary, #019D93);
+    border-radius: 0.5rem;
   }
   .tcno-contact-page .form-text {
     font-size: 0.75rem;
