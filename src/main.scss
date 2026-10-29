@@ -216,13 +216,11 @@
     }
 
     // Navbar Component — tcnocenter
-    .tcno-navbar {
+
+        .tcno-navbar {
         background-color: var(--tcno-white, #FEFEFE);
         border: 1px solid #E5E7EB;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom-left-radius: 1.5rem;
-        border-bottom-right-radius: 1.5rem;
+        border-radius: 0;
         padding: 0.85rem 1.75rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
         transition: box-shadow 0.2s ease;
@@ -405,7 +403,7 @@
         }
 
         @media (max-width: 991.98px) {
-            border-radius: 1rem;
+            border-radius: 0;
             padding: 0.75rem 1.25rem;
 
             .navbar-toggler {
@@ -759,16 +757,376 @@
         }
     }
 
-    // Footer Component
-    .tcno-footer {
-        background-color: var(--tcno-primary, #019D93);
+
+// ============================================================================
+// contacto.scss — solo estilos propios de la página de contacto.
+// ============================================================================
+
+.tcno-contact-page {
+
+    // ---------- Banner ----------
+    .hero {
+        position: relative;
+        overflow: hidden; // Recorta lo que se salga del banner
+        width: 100%;
+        background: linear-gradient(90deg, #F4FCFC, #DFF7F6);
+    }
+
+    // Decoración: oculta en móvil, visible desde tablet grande
+    .hero-deco {
+        display: none;
+    }
+
+    .hero-text {
+        position: relative;
+        z-index: 3; // Siempre por encima de la decoración y la imagen
+        padding: 2.5rem 2rem 1rem;
+
+        @media (min-width: 992px) {
+            max-width: 55%;
+            padding: 3.5rem 3rem 3.5rem 4rem;
+        }
+    }
+
+    .hero-phone {
+        position: relative;
+        z-index: 2;
+        display: block;
+        width: min(85%, 460px);
+        margin: 0 auto;
+        mix-blend-mode: multiply; // Hace que el fondo blanco de la imagen se funda con el banner
+
+        @media (min-width: 992px) {
+            position: absolute;
+            top: 50%;
+            right: -2%;
+            width: auto;
+            height: 135%; // Más alto que el banner, se recorta con overflow
+            margin: 0;
+            transform: translateY(-50%);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .hero-deco {
+            display: block;
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+
+        // Franja ancha y suave
+        &::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: 8%;
+            width: 34%;
+            height: 200%;
+            background: linear-gradient(180deg, rgba(1, 157, 147, .04), rgba(1, 157, 147, .16));
+            transform: rotate(32deg);
+        }
+
+        // Franja delgada de color fuerte
+        &::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -9%;
+            width: 9%;
+            height: 200%;
+            background: linear-gradient(180deg, #6BC4BE, var(--tcno-primary, #019D93));
+            transform: rotate(32deg);
+            }
+        }
+    }
+
+    .hero-eyebrow {
+        font-family: var(--tcno-font-body, 'Inter', sans-serif);
+        font-size: .8rem;
+        font-weight: 700;
+        letter-spacing: .5px;
+        color: var(--tcno-primary, #019D93);
+    }
+
+    .hero-title {
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: clamp(2.6rem, 5vw, 4rem);
+        font-weight: 700;
+        line-height: 1.05;
+        color: var(--tcno-primary, #019D93);
+    }
+
+    .hero-sub {
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: clamp(1.1rem, 2vw, 1.6rem);
+        color: #34444f;
+        margin-bottom: 1.1rem;
+    }
+
+    .hero-desc {
+        font-family: var(--tcno-font-body, 'Inter', sans-serif);
+        font-size: 1rem;
+        color: #3f505b;
+        max-width: 520px;
+    }
+
+    // ---------- Títulos de sección (color principal + espaciado) ----------
+    .section-title {
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--tcno-primary, #019D93);
+        text-align: center;
+        margin: 0 0 1.75rem;
+    }
+
+    // ---------- Formulario ----------
+    .form-card {
+        background-color: var(--tcno-white, #FEFEFE);
+        border: 1px solid #E2E8F0;
+        border-radius: 1.25rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, .03);
+        padding: 1.75rem;
+    }
+
+    .form-label {
+        font-family: var(--tcno-font-body, 'Inter', sans-serif);
+        font-size: .85rem;
+        font-weight: 600;
+        margin-bottom: .3rem;
+    }
+
+    .form-control {
+        font-family: var(--tcno-font-body, 'Inter', sans-serif);
+        font-size: .9rem;
+        background: #fbfcfc;
+    }
+
+    .form-text {
+        font-size: .75rem;
+    }
+
+    #mensaje {
+        min-height: 120px;
+        resize: none;
+    }
+
+    // ---------- Redes ----------
+    .social-ico {
+        font-size: 1.5rem;
+        line-height: 1;
+        color: var(--tcno-primary, #019D93);
+    }
+
+    .social-facebook { color: #1877f2; }
+    .social-whatsapp { color: #25d366; }
+    .social-link { color: var(--tcno-primary, #019D93); }
+
+    // ---------- Caja de ubicación ----------
+    .location-card {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1; // Ocupa el espacio sobrante hasta igualar al formulario
+        background: linear-gradient(180deg, #e8f8f6, #f4fcfc);
+        border: 1px solid #d2efec;
+        border-radius: 1.25rem;
+        padding: 1.25rem;
+    }
+
+    .location-title {
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--tcno-primary, #019D93);
+        margin: 0 0 .75rem;
+    }
+
+    .location-card .btn-solid {
         color: var(--tcno-white, #FEFEFE);
-        border-top-left-radius: 1.5rem;
-        border-top-right-radius: 1.5rem;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        padding: 2.25rem 2.5rem 1.25rem;
-        box-sizing: border-box;
+        text-decoration: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+        color: var(--tcno-white, #FEFEFE);
+        text-decoration: none;
+        }
+    }
+
+    .map-ratio {
+        flex-grow: 1; // El mapa absorbe la altura extra
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        min-height: 220px;
+        border-radius: .75rem;
+        overflow: hidden;
+    }
+
+    .map-ratio iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+// ---------- Mensaje de estado del formulario ----------
+#form-status {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin-top: 1rem;
+    padding: .75rem 1rem;
+    border: 1px solid transparent;
+    border-radius: .75rem;
+    font-family: var(--tcno-font-body, 'Inter', sans-serif);
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+
+    // Si no hay mensaje, no ocupa espacio
+    &:empty {
+        display: none;
+    }
+
+    // Ícono circular a la izquierda
+    &::before {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.35rem;
+        height: 1.35rem;
+        border-radius: 50%;
+        color: #fff;
+        font-size: .8rem;
+        font-weight: 700;
+    }
+
+    &.is-success {
+        background-color: #ECFDF3;
+        border-color: #A6E3BF;
+        color: #146C43;
+
+        &::before {
+            content: "✓";
+            background-color: #1E9E62;
+        }
+    }
+
+    &.is-error {
+        background-color: #FEF2F2;
+        border-color: #FECACA;
+        color: #B42318;
+
+        &::before {
+            content: "!";
+            background-color: #D92D20;
+        }
+    }
+}
+
+
+
+    // ---------- Preguntas frecuentes ----------
+    .tcno-faq {
+        max-width: 760px;
+        min-height: 480px;
+
+        @media (max-width: 768px) {
+        min-height: 620px;
+        }
+    }
+
+    .tcno-faq-list {
+        display: grid;
+        gap: .85rem;
+        text-align: left;
+    }
+
+    .tcno-faq .accordion-item {
+        overflow: hidden;
+        border: 1px solid #d2efec;
+        border-radius: .9rem;
+        background: var(--tcno-white, #FEFEFE);
+        box-shadow: 0 4px 14px rgba(1, 157, 147, .06);
+        transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .tcno-faq .accordion-item:has(.accordion-collapse.show) {
+        border-color: var(--tcno-primary, #019D93);
+        box-shadow: 0 8px 22px rgba(1, 157, 147, .12);
+    }
+
+    .tcno-faq .accordion-header {
+        margin: 0;
+    }
+
+    .tcno-faq .accordion-button {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 1rem;
+        padding: 1.15rem 1.35rem;
+        border: 0;
+        background: var(--tcno-white, #FEFEFE);
+        color: var(--tcno-dark, #1F2937);
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: left;
+        transition: color .2s ease, background-color .2s ease;
+    }
+
+    .tcno-faq .accordion-button::after {
+        width: .65rem;
+        height: .65rem;
+        margin-left: auto;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        transform: rotate(45deg) translateY(-2px);
+        transition: transform .2s ease;
+        content: '';
+    }
+
+    .tcno-faq .accordion-button:hover,
+    .tcno-faq .accordion-button:not(.collapsed) {
+        // color: var(--tcno-primary, #019D93);
+        border-radius: .7rem;
+        background: #f1fbfa;
+    }
+
+    .tcno-faq .accordion-button:not(.collapsed)::after {
+        transform: rotate(225deg) translate(-2px, -2px);
+    }
+
+    .tcno-faq .accordion-button:focus-visible {
+        outline: 3px solid color-mix(in srgb, var(--tcno-primary, #019D93) 30%, transparent);
+        outline-offset: -3px;
+    }
+
+    .tcno-faq .accordion-collapse {
+        border-top: 1px solid #d2efec;
+    }
+
+    .tcno-faq .accordion-body {
+        padding: 1rem 1.35rem 1.25rem;
+        color: #53636b;
+        font-family: var(--tcno-font-body, 'Inter', sans-serif);
+        font-size: .92rem;
+        line-height: 1.7;
+    }
+}
+
+
+
+    // Footer Component
+        .tcno-footer {
+            background-color: var(--tcno-primary, #019D93);
+            color: var(--tcno-white, #FEFEFE);
+            border-radius: 0;
+            padding: 2.25rem 2.5rem 1.25rem;
+            box-sizing: border-box;
 
         .tcno-footer-container {
             width: 100%;
