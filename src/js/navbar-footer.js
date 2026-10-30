@@ -30,7 +30,11 @@ function initializeComponents() {
 
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.tcno-navbar .nav-link[href]').forEach((link) => {
-    const linkPage = new URL(link.href, document.baseURI).pathname.split('/').pop();
+    const href = link.getAttribute('href');
+    const isPlaceholderLink = !href || href === '#' || href.startsWith('#');
+    const linkPage = isPlaceholderLink
+      ? null
+      : new URL(link.href, document.baseURI).pathname.split('/').pop();
     const isCurrentPage = linkPage === currentPage;
     link.classList.toggle('active', isCurrentPage);
 
