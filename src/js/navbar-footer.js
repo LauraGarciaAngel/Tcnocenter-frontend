@@ -28,6 +28,19 @@ function initializeComponents() {
     lucide.createIcons();
   }
 
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.tcno-navbar .nav-link[href]').forEach((link) => {
+    const linkPage = new URL(link.href, document.baseURI).pathname.split('/').pop();
+    const isCurrentPage = linkPage === currentPage;
+    link.classList.toggle('active', isCurrentPage);
+
+    if (isCurrentPage) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
+  });
+
   const togglers = document.querySelectorAll('[data-bs-toggle="collapse"]');
   togglers.forEach((toggler) => {
     toggler.addEventListener('click', (event) => {
