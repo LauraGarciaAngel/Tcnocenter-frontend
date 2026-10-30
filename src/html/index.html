@@ -22,19 +22,90 @@
   <script src="../js/lucide.min.js"></script>
   <script src="../js/main.js" defer></script>
   <script src="../js/navbar-footer.js" defer></script>
+  <script src="../js/Carrusel-categorias.js" defer></script>
 </head>
 
 <body>
   <!-- Ejemplo de uso: cada marcador se reemplaza por src/components/{nombre}.html -->
   <div data-component="navbar"></div>
 
-  <main class="container py-5">
-    <section class="py-5 text-center" aria-labelledby="construction-title">
-      <p class="mb-3 fs-1" aria-hidden="true">🚧</p>
-      <h1 id="construction-title" class="mb-3">¡Estamos en construcción!</h1>
-      <p class="mb-0 text-secondary">PROXIMAMENTE...</p>
-    </section>
-  </main>
+  <!-- Categorias destacadas -->
+<section class="categorias-destacadas" aria-labelledby="categorias-titulo">
+  <div class="container">
+    <h2 id="categorias-titulo" class="categorias-titulo">Categorías Destacadas</h2>
+
+    <div class="categorias-carousel">
+      <button class="carousel-btn carousel-btn-prev" aria-label="Anterior">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <ul class="lista-categorias">
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_apple.png" alt="Apple" class="logo-apple">
+          </a>
+        </li>
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_xiaomi.png" alt="Xiaomi" class="logo-xiaomi">
+          </a>
+        </li>
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_samsung.png" alt="Samsung" class="logo-samsung">
+          </a>
+        </li>
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_huawei.png" alt="Huawei" class="logo-huawei">
+          </a>
+        </li>
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_motorola.png" alt="Motorola" class="logo-motorola">
+          </a>
+        </li>
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_tecno.png" alt="Tecno" class="logo-tecno">
+          </a>
+        </li>
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_tecno.png" alt="Tecno" class="logo-tecno">
+          </a>
+        </li>
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_tecno.png" alt="Tecno" class="logo-tecno">
+          </a>
+        </li>
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_tecno.png" alt="Tecno" class="logo-tecno">
+          </a>
+        </li>
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_tecno.png" alt="Tecno" class="logo-tecno">
+          </a>
+        </li>
+        <li>
+          <a href="#" class="categoria-item">
+            <img src="/src/assets/images/logo_tecno.png" alt="Tecno" class="logo-tecno">
+          </a>
+        </li>
+      </ul>
+      <button class="carousel-btn carousel-btn-next" aria-label="Siguiente">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
 
   <div data-component="footer"></div>
 </body>
