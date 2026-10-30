@@ -45,7 +45,7 @@ function initializeComponents() {
     }
   });
 
-  const togglers = document.querySelectorAll('[data-bs-toggle="collapse"]');
+  const togglers = document.querySelectorAll('.navbar [data-bs-toggle="collapse"]');
   togglers.forEach((toggler) => {
     toggler.addEventListener('click', (event) => {
       event.preventDefault();
