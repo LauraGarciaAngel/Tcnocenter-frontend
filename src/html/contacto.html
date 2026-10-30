@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tcnocenter | Contáctanos</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&family=Audiowide&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="../js/main.js"></script>
+  <script src="../js/navbar-footer.js" defer></script>
+</head>
+
+<body class="tcno-contact-page">
+
+  <!-- Navbar -->
+  <div data-component="navbar"></div>
+
+  <!-- Banner de lado a lado -->
+<header class="hero">
+  <!-- Decoración de fondo (franjas diagonales) -->
+  <div class="hero-deco" aria-hidden="true"></div>
+
+  <div class="container-fluid p-0">
+    <div class="row g-0 align-items-stretch">
+      <div class="col-12 hero-text d-flex flex-column justify-content-center">
+        <p class="hero-eyebrow mb-1">ESTAMOS PARA TI</p>
+        <h1 class="hero-title">Contáctenos</h1>
+        <p class="hero-sub">Tu opinión y tus dudas son importantes</p>
+        <p class="hero-desc mb-0">¿Tienes alguna pregunta, necesitas soporte o quieres más información? Escríbenos, llámanos o visítanos. Nuestro equipo está listo para atenderte.</p>
+      </div>
+    </div>
+  </div>
+
+  <img class="hero-phone" src="../assets/images/movil.png" alt="Celular y tableta de Tcnocenter en tonos verde azulado">
+</header>
+
+  <!-- Contenido -->
+  <main class="container py-12">
+    <div class="row g-12">
+
+      <!-- Formulario -->
+      <section class="lg:col-6 d-flex flex-column">
+        <h2 class="section-title text-center mb-7">Formulario de atención</h2>
+
+        <form class="card form-card p-7 flex-grow-1" action="https://formspree.io/f/xppppkar" method="POST">
+          <div class="mb-5">
+            <label for="nombre" class="form-label">Nombre completo *</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ej: Juan Pérez" required>
+          </div>
+
+          <div class="mb-5">
+            <label for="correo" class="form-label">Correo electrónico *</label>
+            <input type="email" class="form-control" name="email" id="correo" placeholder="ejemplo@email.com" required>
+            <div class="form-text">Te enviaremos la confirmación a esta dirección.</div>
+          </div>
+
+          <div class="mb-5">
+            <label for="telefono" class="form-label">Teléfono *</label>
+            <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Ej: 300 123 4567"
+              inputmode="tel" pattern="[0-9\s+\-]{7,15}" required>
+            <div class="form-text">Para contactarte por llamada o WhatsApp si es necesario.</div>
+          </div>
+
+          <div class="mb-5">
+            <label for="asunto" class="form-label">Asunto *</label>
+            <input type="text" class="form-control" name="_subject" id="asunto"
+              placeholder="Ej: Consulta sobre garantía de producto" required>
+          </div>
+
+          <div class="mb-7 d-flex flex-column flex-grow-1">
+            <label for="mensaje" class="form-label">Mensaje *</label>
+            <textarea class="form-control flex-grow-1" name="mensaje" id="mensaje" rows="5"
+              placeholder="Escribe aquí tu consulta detallada..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-solid theme-primary w-100 py-3 fw-bold">Enviar mensaje</button>
+
+          <div id="form-status" class="mt-3" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <!-- Redes sociales + ubicación -->
+        <section class="lg:col-6 d-flex flex-column">
+        <h2 class="section-title text-center mb-7">Redes sociales</h2>
+
+        <div class="row g-7 mb-7 lg:px-5">
+          <div class="sm:col-6 d-flex gap-5">
+            <i class="bi bi-facebook social-ico social-facebook"></i>
+            <div class="small">
+              <strong class="d-block">Facebook</strong>
+              <a href="https://www.facebook.com/Tcnocentercolombia/" target="_blank" rel="noopener" class="social-link">Tcnocenter Colombia</a>
+            </div>
+          </div>
+
+          <div class="sm:col-6 d-flex gap-5">
+            <i class="bi bi-instagram social-ico"></i>
+            <div class="small">
+              <strong class="d-block">Instagram</strong>
+              <a href="https://www.instagram.com/tcnocenter_col_" target="_blank" rel="noopener" class="social-link">Tcnocenter Colombia</a>
+            </div>
+          </div>
+
+          <div class="sm:col-6 d-flex gap-5">
+            <i class="bi bi-envelope social-ico"></i>
+            <div class="small">
+              <strong class="d-block">Correo electrónico:</strong>
+              <a href="mailto:contacto@tcnocenter.com" class="social-link">contacto@tcnocenter.com</a>
+            </div>
+          </div>
+
+          <div class="sm:col-6 d-flex gap-5">
+            <i class="bi bi-whatsapp social-ico social-whatsapp"></i>
+            <div class="small">
+              <strong class="d-block">Whatsapp</strong>
+              <a href="https://wa.me/573046302133" target="_blank" rel="noopener" class="fg-body">+57 304 6302133</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="location-card p-5">
+          <h3 class="location-title">Nuestra ubicación</h3>
+
+          <div class="map-ratio">
+            <!-- Embed de Google Maps, q= lleva las coordenadas de TCNOCENTER -->
+            <iframe
+              src="https://www.google.com/maps?q=4.6571677,-74.0575171&output=embed"
+              title="Mapa de ubicación de TecnoCenter"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+
+          <div class="d-flex align-items-center gap-3 mt-5 small">
+            <i class="bi bi-geo-alt-fill fg-primary"></i>
+            <div class="lh-sm">
+              <strong class="d-block">Centro Comercial Avenida Chile, Calle 72 #10-34, Piso 3, Local 351.</strong>
+              <span class="fg-secondary">Bogotá, Colombia</span>
+            </div>
+          </div>
+
+          <a class="btn-solid theme-primary btn-sm rounded-pill w-100 mt-5 fw-bold" target="_blank" rel="noopener"
+            href="https://maps.app.goo.gl/ExCGc9mhbRZpTTgr7">Cómo llegar</a>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Preguntas frecuentes -->
+    <section class="tcno-faq py-5 lg:col-6 mx-auto mt-8" aria-labelledby="faq-title">
+      <h2 id="faq-title" class="section-title mb-5">Preguntas frecuentes</h2>
+
+      <div id="faqAccordion" class="tcno-faq-list accordion">
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="true" aria-controls="collapseOne">
+              ¿Cuál es el horario de atención al cliente?
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Nuestro horario de atención al cliente es de lunes a viernes de 10:00 a.m. a 7:00 p.m. y los sábados y domingos de 1:00 p.m. a 6:00 p.m.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+              aria-expanded="false" aria-controls="collapseTwo">
+              ¿Cómo puedo contactar con el servicio al cliente?
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Puedes escribirnos mediante el formulario de contacto, WhatsApp o nuestras redes sociales. Nuestro equipo te ayudará lo antes posible.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+              aria-expanded="false" aria-controls="collapseThree">
+              ¿Cuál es el tiempo de respuesta promedio para consultas de soporte?
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Nuestro tiempo de respuesta promedio para consultas de soporte es de 24 a 48 horas hábiles. Nos esforzamos por brindar asistencia rápida y eficiente a todos nuestros clientes.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div data-component="footer"></div>
+
+
+<script>
+  // Referencias al formulario y al contenedor donde se muestra el mensaje
+  const form = document.querySelector('.form-card');
+  const status = document.getElementById('form-status');
+
+  // Guarda el temporizador que oculta el mensaje, para poder cancelarlo si hace falta
+  let hideTimer;
+
+  // Mensaje genérico en español
+  const MENSAJE_GENERICO = 'No pudimos enviar tu mensaje. Inténtalo de nuevo o escríbenos por WhatsApp.';
+
+  // Traducción de los códigos de error de Formspree (llegan en inglés)
+  const ERRORES = {
+    TYPE_EMAIL: 'El correo electrónico no es válido.',
+    REQUIRED_FIELD_MISSING: 'Falta completar un campo obligatorio.',
+    REQUIRED_FIELD_EMPTY: 'Hay un campo obligatorio vacío.',
+    EMPTY: 'El formulario está vacío.',
+    TYPE_NUMERIC: 'Un campo numérico tiene un valor no válido.',
+    TYPE_TEXT: 'Un campo de texto tiene un valor no válido.',
+    INACTIVE: 'El formulario no está disponible en este momento.',
+    FORM_NOT_FOUND: 'El formulario no está disponible en este momento.',
+    PAYLOAD_TOO_LARGE: 'El mensaje es demasiado largo.',
+    BAD_METHOD: 'No se pudo enviar el formulario.'
+  };
+
+  // Nombres de los campos en español
+  const CAMPOS = {
+    nombre: 'Nombre completo',
+    email: 'Correo electrónico',
+    telefono: 'Teléfono',
+    _subject: 'Asunto',
+    mensaje: 'Mensaje'
+  };
+
+  // Convierte los errores de Formspree en un texto en español
+  function traducirErrores(data) {
+    if (!data.errors || !data.errors.length) return '';
+
+    return data.errors
+      .map((er) => {
+        const texto = ERRORES[er.code];
+        if (!texto) return '';
+        const campo = CAMPOS[er.field];
+        return campo ? `${campo}: ${texto}` : texto;
+      })
+      .filter(Boolean)
+      .join(' ');
+  }
+
+  // Se ejecuta cuando el usuario envía el formulario
+  form.addEventListener('submit', async (e) => {
+    // Evita el envío normal, que redirigiría al usuario a otra página
+    e.preventDefault();
+
+    const btn = form.querySelector('button[type="submit"]');
+
+    // Cancela cualquier temporizador anterior y limpia el mensaje previo
+    clearTimeout(hideTimer);
+    status.textContent = '';
+    status.className = '';
+
+    // Deshabilita el botón mientras se envía, para evitar envíos duplicados
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      // Envía los datos a Formspree sin salir de la página
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),                // Toma todos los campos del formulario
+        headers: { Accept: 'application/json' }  // Pide respuesta JSON en vez de redirección
+      });
+
+      // Si Formspree responde con error, muestra el detalle en la consola y salta al catch
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        console.error('Formspree respondió', res.status, JSON.stringify(data, null, 2));
+        throw new Error(traducirErrores(data));
+      }
+
+      // Éxito: muestra la alerta verde
+      status.className = 'is-success';
+      status.textContent = '¡Gracias! Recibimos tu mensaje y te responderemos pronto.';
+
+      // Limpia los campos del formulario
+      form.reset();
+
+      // Oculta el mensaje automáticamente a los 6 segundos
+      hideTimer = setTimeout(() => {
+        status.textContent = '';
+        status.className = '';
+      }, 6000);
+    } catch (err) {
+      // Error (de red o de Formspree): muestra la alerta roja
+      // Los campos NO se limpian, para que el usuario pueda reintentar
+      console.error('Error al enviar:', err);
+      status.className = 'is-error';
+      status.textContent = err.message
+        ? `No pudimos enviar tu mensaje. ${err.message}`
+        : MENSAJE_GENERICO;
+    } finally {
+      // Siempre, haya éxito o error, vuelve a habilitar el botón
+      btn.disabled = false;
+      btn.textContent = 'Enviar mensaje';
+    }
+  });
+
+</script>
+
+</body>
+
+</html>
