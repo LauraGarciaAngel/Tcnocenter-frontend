@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Tienda en línea de tcnocenter — E-commerce oficial." />
-  <title>tcnocenter | Componentes y Vista Previa</title>
+  <title>tcnocenter | Inicio</title>
 
   <!-- Google Fonts Preconnect & Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,12 +19,23 @@
 
   <!-- Lucide Icons y Comportamiento JavaScript -->
   <script src="../js/lucide.min.js"></script>
-  <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
   <script src="../js/main.js" defer></script>
+  <script src="../js/navbar-footer.js" defer></script>
 </head>
 
-<body class="bg-body py-4">
+<body>
+  <!-- Ejemplo de uso: cada marcador se reemplaza por src/components/{nombre}.html -->
+  <div data-component="navbar"></div>
 
+  <main class="container py-5">
+    <section class="py-5 text-center" aria-labelledby="construction-title">
+      <p class="mb-3 fs-1" aria-hidden="true">🚧</p>
+      <h1 id="construction-title" class="mb-3">¡Estamos en construcción!</h1>
+      <p class="mb-0 text-secondary">PROXIMAMENTE...</p>
+    </section>
+  </main>
+
+  <div data-component="footer"></div>
 </body>
 
 </html>
