@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es" data-bs-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explora celulares y smartphones en el catálogo de Tcnocenter." />
+  <title>tcnocenter | Catálogo de celulares</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/catalogo.css" />
+
+  <script src="../js/lucide.min.js"></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/navbar-footer.js" defer></script>
+  <script src="../js/catalogo.js" defer></script>
+</head>
+
+<body>
+  <div data-component="navbar"></div>
+
+  <main class="tcno-catalog">
+    <header class="tcno-catalog-hero">
+      <div class="tcno-catalog-hero-inner">
+        <p>Catálogo de productos</p>
+        <h1>Celulares</h1>
+        <span>Encuentra el smartphone perfecto para ti. Calidad, rendimiento y la mejor tecnología.</span>
+      </div>
+    </header>
+
+    <div class="tcno-catalog-layout">
+      <aside class="tcno-catalog-sidebar" aria-label="Filtros del catálogo">
+        <div class="tcno-filter-heading">
+          <h2>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10m-7 6h4" /></svg>
+            Filtros
+          </h2>
+          <button class="tcno-filter-clear" type="button" data-clear-filters>Limpiar</button>
+        </div>
+
+        <form class="tcno-filter-form" data-filter-form>
+          <fieldset class="tcno-filter-group">
+            <legend>Rango de precio</legend>
+            <div class="tcno-price-values">
+              <span>$ 0</span>
+              <span data-price-value>$ 5.000.000</span>
+            </div>
+            <label class="tcno-visually-hidden" for="catalog-price">Precio máximo</label>
+            <input id="catalog-price" class="tcno-price-range" type="range" min="0" max="5000000" step="50000"
+              value="5000000" data-price-filter />
+            <div class="tcno-price-values tcno-price-limits">
+              <span>$0</span>
+              <span>$5.000.000</span>
+            </div>
+          </fieldset>
+
+          <fieldset class="tcno-filter-group">
+            <legend>Marca</legend>
+            <label class="tcno-check-option"><input type="checkbox" name="brand" value="Samsung" /><span>Samsung</span><small>(3)</small></label>
+            <label class="tcno-check-option"><input type="checkbox" name="brand" value="Apple" /><span>Apple</span><small>(2)</small></label>
+            <label class="tcno-check-option"><input type="checkbox" name="brand" value="Xiaomi" /><span>Xiaomi</span><small>(2)</small></label>
+            <label class="tcno-check-option"><input type="checkbox" name="brand" value="Motorola" /><span>Motorola</span><small>(1)</small></label>
+          </fieldset>
+
+          <fieldset class="tcno-filter-group">
+            <legend>Almacenamiento</legend>
+            <label class="tcno-check-option"><input type="checkbox" name="storage" value="64" /><span>64 GB</span><small>(1)</small></label>
+            <label class="tcno-check-option"><input type="checkbox" name="storage" value="128" /><span>128 GB</span><small>(3)</small></label>
+            <label class="tcno-check-option"><input type="checkbox" name="storage" value="256" /><span>256 GB</span><small>(3)</small></label>
+            <label class="tcno-check-option"><input type="checkbox" name="storage" value="512" /><span>512 GB</span><small>(1)</small></label>
+          </fieldset>
+
+          <fieldset class="tcno-filter-group tcno-rating-filter">
+            <legend>Valoración</legend>
+            <label class="tcno-rating-option"><input type="radio" name="rating" value="0" checked /><span>Todas las calificaciones</span></label>
+            <label class="tcno-rating-option"><input type="radio" name="rating" value="4" /><span class="tcno-stars" aria-label="4 estrellas o más">★★★★★</span><small>(4 o más)</small></label>
+            <label class="tcno-rating-option"><input type="radio" name="rating" value="3" /><span class="tcno-stars" aria-label="3 estrellas o más">★★★★<span>★</span></span><small>(3 o más)</small></label>
+            <label class="tcno-rating-option"><input type="radio" name="rating" value="2" /><span class="tcno-stars" aria-label="2 estrellas o más">★★★<span>★★</span></span><small>(2 o más)</small></label>
+            <label class="tcno-rating-option"><input type="radio" name="rating" value="1" /><span class="tcno-stars" aria-label="1 estrella o más">★★<span>★★★</span></span><small>(1 o más)</small></label>
+          </fieldset>
+
+          <button class="tcno-apply-filters" type="submit">Aplicar filtros</button>
+        </form>
+      </aside>
+
+      <section class="tcno-catalog-results" aria-label="Productos disponibles">
+        <div class="tcno-catalog-toolbar">
+          <div class="tcno-brand-chips" role="group" aria-label="Filtrar por marca">
+            <button type="button" class="tcno-brand-chip is-active" data-brand-chip="Todos" aria-pressed="true">Todos</button>
+            <button type="button" class="tcno-brand-chip" data-brand-chip="Samsung" aria-pressed="false">Samsung</button>
+            <button type="button" class="tcno-brand-chip" data-brand-chip="Apple" aria-pressed="false">Apple</button>
+            <button type="button" class="tcno-brand-chip" data-brand-chip="Xiaomi" aria-pressed="false">Xiaomi</button>
+            <button type="button" class="tcno-brand-chip" data-brand-chip="Motorola" aria-pressed="false">Motorola</button>
+          </div>
+
+          <div class="tcno-sort-controls">
+            <label for="catalog-sort">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10m-7 6h4" /><circle cx="8" cy="6" r="2" /><circle cx="16" cy="12" r="2" /></svg>
+              <span class="tcno-visually-hidden">Ordenar productos</span>
+            </label>
+            <select id="catalog-sort" data-sort>
+              <option value="popular">Ordenar por: Más vendidos</option>
+              <option value="price-asc">Precio: menor a mayor</option>
+              <option value="price-desc">Precio: mayor a menor</option>
+              <option value="rating">Mejor valoración</option>
+            </select>
+            <span class="tcno-product-count" data-product-count aria-live="polite">Cargando productos…</span>
+          </div>
+        </div>
+
+        <div class="tcno-product-grid" data-product-grid aria-live="polite"></div>
+        <p class="tcno-catalog-empty" data-empty-state hidden>No encontramos productos con esos filtros. Prueba con otra selección.</p>
+        <p class="tcno-cart-feedback" data-cart-feedback role="status" aria-live="polite"></p>
+      </section>
+    </div>
+  </main>
+
+  <div data-component="footer"></div>
+</body>
+
+</html>
