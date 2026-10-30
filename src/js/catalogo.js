@@ -1,5 +1,5 @@
-// Edita los datos de cada tarjeta en este arreglo. Deja image vacío hasta guardar la foto en assets.
-// Ejemplo con foto: image: '../assets/images/samsung-a35.png'
+// Compañeros, aquí editamos los datos de cada celular. Cuando tengamos la foto, la guardamos en assets y ponemos su ruta en image.
+// Ejemplo: image: '../assets/images/samsung-a35.png'
 const catalogProducts = [
   { name: 'Samsung Galaxy S24 Ultra', brand: 'Samsung', price: 4299900, oldPrice: 4999900, discount: '14%', storage: 256, rating: 4.8, reviews: 124, sold: 98, badge: 'En oferta', colors: '', image: '' },
   { name: 'iPhone 15 Pro', brand: 'Apple', price: 3799900, storage: 128, rating: 4.7, reviews: 98, sold: 95, badge: 'Nuevo', colors: 'is-apple', image: '' },
