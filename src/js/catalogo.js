@@ -60,6 +60,30 @@ async function initializeCatalog() {
   const formatPrice = (price) => `$ ${Number(price).toLocaleString('es-CO')}`;
   let selectedChipBrand = 'Todos';
 
+  // Obtener la marca enviada desde la URL
+  const params = new URLSearchParams(window.location.search);
+  const selectedBrand = params.get('marca');
+
+  // Buscar el checkbox correspondiente a la marca
+  if (selectedBrand) {
+    const brandCheckbox = Array.from(
+      form.querySelectorAll('input[name="brand"]')
+    ).find(input => input.value.toLowerCase() === selectedBrand.toLowerCase());
+
+    if (brandCheckbox) {
+      brandCheckbox.checked = true;
+      selectedChipBrand = brandCheckbox.value;
+
+      // Activar el botón de marca correspondiente
+      brandChips.forEach((chip) => {
+        const isActive = chip.dataset.brandChip === brandCheckbox.value;
+
+        chip.classList.toggle('is-active', isActive);
+        chip.setAttribute('aria-pressed', String(isActive));
+      });
+    }
+  }
+
   function getSelectedValues(name) {
     return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`), (input) => input.value);
   }
@@ -168,16 +192,16 @@ async function initializeCatalog() {
 
     const cartButton = event.target.closest('[data-add-cart]');
     if (!cartButton || !grid.contains(cartButton)) {
-    return;
-}
+      return;
+    }
 
     const productName = cartButton.closest('[data-product]').querySelector('[data-product-name]').textContent;
     const originalContent = cartButton.innerHTML;
     cartButton.classList.add('is-added');
     cartButton.textContent = 'Agregado al carrito';
     if (cartFeedback) {
-    cartFeedback.textContent = `${productName} se agregó al carrito.`;
-}
+      cartFeedback.textContent = `${productName} se agregó al carrito.`;
+    }
     window.setTimeout(() => {
       cartButton.classList.remove('is-added');
       cartButton.innerHTML = originalContent;
