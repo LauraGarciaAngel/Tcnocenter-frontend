@@ -459,6 +459,78 @@
     }
 
 
+/* HOME — HERO */
+.tcno-hero {
+  background: linear-gradient(135deg, #F4FCFC 0%, #DFF7F6 50%, #E8F8F6 100%);
+  padding: 3.5rem 0 3rem;
+  border-bottom: 1px solid #e5e7eb;
+
+  .tcno-hero-content {
+    max-width: 640px;
+  }
+
+  .tcno-hero-eyebrow {
+    font-family: var(--tcno-font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--tcno-primary, #019D93);
+    margin: 0 0 0.75rem;
+  }
+
+  .tcno-hero-title {
+    font-family: var(--tcno-font-heading);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    color: var(--tcno-dark, #1F2937);
+    line-height: 1.15;
+    margin: 0 0 1rem;
+  }
+
+  .tcno-hero-desc {
+    font-family: var(--tcno-font-body);
+    font-size: 1.05rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 1.75rem;
+    max-width: 480px;
+  }
+
+  .tcno-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.75rem;
+    font-family: var(--tcno-font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--tcno-primary, #019D93);
+    border-radius: 50rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: #017a72;
+      color: #fff;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    padding: 2.5rem 0 2rem;
+
+    .tcno-hero-title {
+      font-size: 1.75rem;
+    }
+
+    .tcno-hero-desc {
+      font-size: 0.95rem;
+    }
+  }
+}
 
 /* HOME — PRODUCTOS MÁS VENDIDOS */
 
@@ -655,6 +727,22 @@
 
     .logo-tecno {
         height: 34px;
+    }
+
+    .logo-oppo {
+        height: 36px;
+    }
+
+    .logo-honor {
+        height: 34px;
+    }
+
+    .logo-infinix {
+        height: 32px;
+    }
+
+    .logo-nubia {
+        height: 35px;
     }
 
     /* Botones de navegación */
