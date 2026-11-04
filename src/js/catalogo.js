@@ -1,5 +1,6 @@
 // Compañeros, aquí editamos los datos de cada celular. Cuando tengamos la foto, la guardamos en assets y ponemos su ruta en image.
 // Ejemplo: image: '../assets/images/samsung-a35.png'
+
 const catalogProducts = [
   { name: 'Samsung Galaxy S24 Ultra', brand: 'Samsung', price: 4299900, oldPrice: 4999900, discount: '14%', storage: 256, rating: 4.8, reviews: 124, sold: 98, badge: 'En oferta', colors: '', image: '' },
   { name: 'iPhone 15 Pro', brand: 'Apple', price: 3799900, storage: 128, rating: 4.7, reviews: 98, sold: 95, badge: 'Nuevo', colors: 'is-apple', image: '' },
@@ -10,6 +11,9 @@ const catalogProducts = [
   { name: 'Xiaomi Poco X6 Pro', brand: 'Xiaomi', price: 1499900, oldPrice: 1799900, discount: '17%', storage: 512, rating: 4.5, reviews: 37, sold: 58, badge: 'En oferta', colors: 'is-xiaomi', image: '' },
   { name: 'Samsung Galaxy A15', brand: 'Samsung', price: 899900, storage: 64, rating: 4.2, reviews: 28, sold: 45, badge: 'Nuevo', colors: 'is-samsung', image: '' }
 ];
+
+window.catalogProducts = catalogProducts;
+window.createProductCard = createProductCard;
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeCatalog().catch((error) => {
@@ -152,7 +156,7 @@ async function initializeCatalog() {
 
   document.addEventListener('click', (event) => {
     const favoriteButton = event.target.closest('[data-favorite]');
-    if (favoriteButton) {
+    if (favoriteButton && grid.contains(favoriteButton)) {
       const isFavorite = favoriteButton.getAttribute('aria-pressed') === 'true';
       favoriteButton.setAttribute('aria-pressed', String(!isFavorite));
       favoriteButton.setAttribute(
@@ -163,13 +167,17 @@ async function initializeCatalog() {
     }
 
     const cartButton = event.target.closest('[data-add-cart]');
-    if (!cartButton) return;
+    if (!cartButton || !grid.contains(cartButton)) {
+    return;
+}
 
     const productName = cartButton.closest('[data-product]').querySelector('[data-product-name]').textContent;
     const originalContent = cartButton.innerHTML;
     cartButton.classList.add('is-added');
     cartButton.textContent = 'Agregado al carrito';
+    if (cartFeedback) {
     cartFeedback.textContent = `${productName} se agregó al carrito.`;
+}
     window.setTimeout(() => {
       cartButton.classList.remove('is-added');
       cartButton.innerHTML = originalContent;

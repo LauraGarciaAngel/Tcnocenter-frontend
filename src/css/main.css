@@ -18793,8 +18793,94 @@
       gap: 1rem;
     }
   }
+  /* HOME — PRODUCTOS MÁS VENDIDOS */
+  .productos-destacados {
+    padding: 2.5rem 0;
+  }
+  .productos-destacados .productos-titulo {
+    font-family: var(--tcno-font-heading, "Josefin Sans", sans-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--tcno-dark, #1F2937);
+    margin-bottom: 1.75rem;
+  }
+  .productos-destacados .productos-carousel {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .productos-destacados .lista-productos {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    gap: 1.25rem;
+    padding: 0.5rem 0;
+    margin: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .productos-destacados .lista-productos::-webkit-scrollbar {
+    display: none;
+  }
+  .productos-destacados .lista-productos > * {
+    flex: 0 0 calc((100% - 5rem) / 5);
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+  .productos-destacados .carousel-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: #6b7280;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .productos-destacados .carousel-btn:hover {
+    background-color: #4b5563;
+    transform: scale(1.05);
+  }
+  .productos-destacados .carousel-btn svg {
+    display: block;
+  }
+  @media (max-width: 991.98px) {
+    .productos-destacados .lista-productos > * {
+      flex-basis: calc((100% - 2.5rem) / 3);
+    }
+  }
+  @media (max-width: 767.98px) {
+    .productos-destacados {
+      padding: 2rem 0;
+    }
+    .productos-destacados .lista-productos > * {
+      flex-basis: calc((100% - 1.25rem) / 2);
+    }
+    .productos-destacados .carousel-btn {
+      flex-basis: 36px;
+      width: 36px;
+      height: 36px;
+    }
+  }
+  @media (max-width: 480px) {
+    .productos-destacados .productos-carousel {
+      gap: 0.5rem;
+    }
+    .productos-destacados .lista-productos > * {
+      flex-basis: 85%;
+    }
+  }
+  /* HOME — CATEGORÍAS DESTACADAS */
   .categorias-destacadas {
-    padding: 2.5rem 0 2.5rem;
+    padding: 2.5rem 0;
   }
   .categorias-destacadas .categorias-titulo {
     font-family: var(--tcno-font-heading, "Josefin Sans", sans-serif);
@@ -18804,15 +18890,15 @@
     margin-bottom: 1.75rem;
   }
   .categorias-destacadas .categorias-carousel {
-    position: relative;
     display: flex;
     align-items: center;
     gap: 1rem;
-    overflow: hidden;
+    width: 100%;
   }
   .categorias-destacadas .lista-categorias {
     display: flex;
-    flex-wrap: nowrap;
+    flex: 1;
+    min-width: 0;
     align-items: center;
     gap: 1.25rem;
     list-style: none;
@@ -18820,6 +18906,13 @@
     margin: 0;
     overflow-x: auto;
     scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .categorias-destacadas .lista-categorias::-webkit-scrollbar {
+    display: none;
+  }
+  .categorias-destacadas .lista-categorias li {
+    flex: 0 0 auto;
   }
   .categorias-destacadas .categoria-item {
     display: flex;
@@ -18827,25 +18920,29 @@
     justify-content: center;
     width: 140px;
     height: 110px;
+    padding: 1rem;
     background-color: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     text-decoration: none;
-    flex-shrink: 0;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   .categorias-destacadas .categoria-item:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-    text-decoration: none;
   }
   .categorias-destacadas .categoria-item img {
     display: block;
-    width: auto;
     max-width: 85%;
+    max-height: 52px;
+    width: auto;
+    height: auto;
     -o-object-fit: contain;
        object-fit: contain;
+  }
+  .categorias-destacadas {
+    /* Tamaño de los logos */
   }
   .categorias-destacadas .logo-xiaomi {
     height: 48px;
@@ -18865,18 +18962,22 @@
   .categorias-destacadas .logo-tecno {
     height: 34px;
   }
+  .categorias-destacadas {
+    /* Botones de navegación */
+  }
   .categorias-destacadas .carousel-btn {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 0 0 40px;
     width: 40px;
     height: 40px;
+    padding: 0;
+    border: none;
     border-radius: 50%;
     background-color: #6b7280;
     color: #ffffff;
-    border: none;
     cursor: pointer;
-    flex-shrink: 0;
     transition: background-color 0.2s ease, transform 0.2s ease;
   }
   .categorias-destacadas .carousel-btn:hover {
@@ -18888,7 +18989,7 @@
   }
   @media (max-width: 767.98px) {
     .categorias-destacadas {
-      padding: 2rem 0 1.75rem;
+      padding: 2rem 0;
     }
     .categorias-destacadas .categoria-item {
       width: 120px;
@@ -18913,6 +19014,7 @@
       height: 30px;
     }
     .categorias-destacadas .carousel-btn {
+      flex-basis: 36px;
       width: 36px;
       height: 36px;
     }
