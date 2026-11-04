@@ -34,3 +34,6 @@ Integrantes organizados alfabéticamente por nombre:
 - Jhoiner Andretty
 - Juan Andres Bohórquez Acevedo
 - Laura García Ángel
+
+### Link despliegue
+https://lauragarciaangel.github.io/Tcnocenter-frontend/
