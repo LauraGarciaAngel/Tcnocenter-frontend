@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../assets/images/Logo.png">
+  <title>Tcnocenter | Gestión de productos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="../css/main.css" rel="stylesheet">
+  <link href="../css/admin_productos.css" rel="stylesheet">
+
+  <script type="module" src="../js/main.js"></script>
+</head>
+<body class="tca-body">
+
+<div class="tca-app">
+
+  <!-- ============ MENÚ LATERAL ============ -->
+  <aside class="tca-sidebar" aria-label="Navegación principal">
+    <a href="#" class="tca-brand" aria-label="TecnoCenter, ir al inicio">
+      <img class="tca-brand__logo-v" src="../assets/images/LogoVertical.png" alt="TecnoCenter" width="2000" height="778">
+    </a>
+
+    <nav class="tca-nav">
+      <a href="#" class="tca-nav__link"><i class="bi bi-house-door"></i>Inicio</a>
+      <a href="#" class="tca-nav__link"><i class="bi bi-receipt"></i>Pedidos<span class="tca-nav__badge">4</span></a>
+      <a href="#" class="tca-nav__link is-active" aria-current="page"><i class="bi bi-box-seam"></i>Productos</a>
+      <a href="#" class="tca-nav__link"><i class="bi bi-people"></i>Clientes</a>
+      <a href="#" class="tca-nav__link"><i class="bi bi-truck"></i>Envíos</a>
+      <a href="#" class="tca-nav__link"><i class="bi bi-credit-card"></i>Pagos</a>
+      <a href="#" class="tca-nav__link"><i class="bi bi-graph-up-arrow"></i>Reportes</a>
+      <a href="#" class="tca-nav__link"><i class="bi bi-tag"></i>Descuentos</a>
+    </nav>
+
+    <div class="tca-sidebar__foot">
+      <a href="#" class="tca-nav__link"><i class="bi bi-gear"></i>Configuración</a>
+    </div>
+  </aside>
+
+  <!-- ============ ÁREA DE TRABAJO ============ -->
+  <div class="tca-main">
+
+    <header class="tca-topbar">
+      <label class="tca-search tca-search--global">
+        <i class="bi bi-search"></i>
+        <input type="search" placeholder="Buscar en el panel" aria-label="Buscar en el panel">
+      </label>
+      <div class="tca-topbar__right">
+        <button class="tca-icon-btn" aria-label="Notificaciones"><i class="bi bi-bell"></i><span class="tca-dot"></span></button>
+        <div class="tca-user">
+          <span class="tca-user__avatar">LN</span>
+          <span class="tca-user__txt"><strong>Admin</strong><small>Administradora</small></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="tca-content">
+
+      <div class="tca-head">
+        <div>
+          <h1 class="tca-head__title">Gestión de productos</h1>
+          <p class="tca-head__desc">Administra el inventario, los precios y la disponibilidad de tu tienda.</p>
+        </div>
+        <button class="tca-btn btn-solid theme-primary fw-bold" id="btnAdd" type="button">
+          <i class="bi bi-plus-lg"></i>Agregar producto
+        </button>
+      </div>
+
+      <!-- Indicadores -->
+      <section class="tca-kpis" aria-label="Indicadores">
+        <article class="card tca-kpi">
+          <span class="tca-kpi__icon"><i class="bi bi-box-seam"></i></span>
+          <div class="tca-kpi__body">
+            <span class="tca-kpi__label">Productos registrados</span>
+            <strong class="tca-kpi__value" id="kpiTotal">0</strong>
+          </div>
+          <span class="tca-kpi__trend is-up"><i class="bi bi-arrow-up-short"></i>+8 este mes</span>
+        </article>
+        <article class="card tca-kpi">
+          <span class="tca-kpi__icon"><i class="bi bi-check2-circle"></i></span>
+          <div class="tca-kpi__body">
+            <span class="tca-kpi__label">Productos disponibles</span>
+            <strong class="tca-kpi__value" id="kpiAvail">0</strong>
+          </div>
+          <span class="tca-kpi__trend">En venta ahora</span>
+        </article>
+        <article class="card tca-kpi tca-kpi--warn">
+          <span class="tca-kpi__icon"><i class="bi bi-exclamation-triangle"></i></span>
+          <div class="tca-kpi__body">
+            <span class="tca-kpi__label">Stock bajo</span>
+            <strong class="tca-kpi__value" id="kpiLow">0</strong>
+          </div>
+          <span class="tca-kpi__trend is-down">Menos de 10 unidades</span>
+        </article>
+      </section>
+
+      <!-- Tabla -->
+      <section class="card tca-card tca-table-card">
+
+        <div class="tca-toolbar">
+          <label class="tca-search">
+            <i class="bi bi-search"></i>
+            <input type="search" id="fSearch" placeholder="Buscar por nombre o categoría" aria-label="Buscar producto">
+          </label>
+          <select class="tca-select" id="fCat" aria-label="Filtrar por categoría">
+            <option value="">Todas las categorías</option>
+            <option>Celulares</option><option>Portátiles</option><option>Audio</option>
+            <option>Wearables</option><option>Accesorios</option><option>Gaming</option>
+          </select>
+          <div class="tca-seg" role="group" aria-label="Disponibilidad">
+            <button type="button" class="is-active" data-status="">Todos</button>
+            <button type="button" data-status="activo">Activos</button>
+            <button type="button" data-status="bajo">Stock bajo</button>
+            <button type="button" data-status="agotado">Agotados</button>
+          </div>
+        </div>
+
+        <div class="tca-table-wrap">
+          <table class="tca-table">
+            <thead>
+              <tr>
+                <th>Producto</th><th>Categoría</th><th class="text-end">Precio</th>
+                <th class="text-end">Stock</th><th>Estado</th><th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+
+        <footer class="tca-pager">
+          <span id="counter">Mostrando 0 de 0 productos</span>
+          <nav aria-label="Paginación"><ul class="tca-pager__list" id="pager"></ul></nav>
+        </footer>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============ PANEL LATERAL (slide-out drawer) ============ -->
+<aside class="tca-drawer" id="drawer" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="drawerTitle">
+  <div class="tca-drawer__head">
+    <div>
+      <h2 id="drawerTitle">Agregar producto</h2>
+      <p id="drawerSub">Completa los datos para publicarlo en la tienda.</p>
+    </div>
+    <button type="button" class="tca-icon-btn" data-close aria-label="Cerrar"><i class="bi bi-x-lg"></i></button>
+  </div>
+
+  <form class="tca-drawer__body" id="form">
+    <div class="tca-field">
+      <span class="form-label tca-label">Imagen del producto</span>
+      <label class="tca-upload" id="upload" for="fImg">
+        <img id="preview" alt="Vista previa del producto" hidden>
+        <span class="tca-upload__empty" id="uploadEmpty">
+          <i class="bi bi-cloud-arrow-up"></i>
+          <strong>Arrastra una imagen o <u>explora</u></strong>
+          <small>PNG o JPG, máximo 2 MB</small>
+        </span>
+      </label>
+      <input type="file" id="fImg" accept="image/*" hidden>
+    </div>
+
+    <div class="tca-field">
+      <label class="form-label tca-label" for="pImage">Ruta de la imagen</label>
+      <input class="form-control tca-input" id="pImage" type="text" placeholder="../assets/images/samsung-a35.png">
+      <div class="form-text">Guarda el archivo en assets/images y escribe aquí su ruta (campo image del catálogo).</div>
+    </div>
+
+    <div class="tca-field">
+      <label class="form-label tca-label" for="pName">Nombre del producto</label>
+      <input class="form-control tca-input" id="pName" type="text" placeholder="Ej. Samsung Galaxy S24 Ultra" required>
+    </div>
+
+    <div class="tca-field__row">
+      <div class="tca-field">
+        <label class="form-label tca-label" for="pBrand">Marca</label>
+        <select class="form-control tca-input" id="pBrand" required>
+          <option value="">Selecciona una marca</option>
+          <option>Samsung</option><option>Apple</option><option>Xiaomi</option><option>Motorola</option>
+        </select>
+      </div>
+      <div class="tca-field">
+        <label class="form-label tca-label" for="pCat">Categoría</label>
+        <select class="form-control tca-input" id="pCat" required>
+          <option value="">Selecciona una categoría</option>
+          <option>Celulares</option><option>Portátiles</option><option>Audio</option>
+          <option>Wearables</option><option>Accesorios</option><option>Gaming</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tca-field__row">
+      <div class="tca-field">
+        <label class="form-label tca-label" for="pStorage">Almacenamiento</label>
+        <select class="form-control tca-input" id="pStorage" required>
+          <option value="">Selecciona</option>
+          <option value="64">64 GB</option><option value="128">128 GB</option>
+          <option value="256">256 GB</option><option value="512">512 GB</option>
+        </select>
+      </div>
+      <div class="tca-field">
+        <label class="form-label tca-label" for="pBadge">Etiqueta</label>
+        <select class="form-control tca-input" id="pBadge">
+          <option value="">Sin etiqueta</option>
+          <option>Nuevo</option><option>En oferta</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tca-field__row">
+      <div class="tca-field">
+        <label class="form-label tca-label" for="pPrice">Precio de venta</label>
+        <div class="tca-input-group"><span>$</span><input class="form-control tca-input" id="pPrice" type="number" min="0" placeholder="0" required></div>
+      </div>
+      <div class="tca-field">
+        <label class="form-label tca-label" for="pOld">Precio anterior</label>
+        <div class="tca-input-group"><span>$</span><input class="form-control tca-input" id="pOld" type="number" min="0" placeholder="Opcional"></div>
+        <div class="form-text" id="discountTxt">El descuento se calcula solo.</div>
+      </div>
+    </div>
+
+    <div class="tca-field">
+      <label class="form-label tca-label" for="pStock">Stock disponible</label>
+      <input class="form-control tca-input" id="pStock" type="number" min="0" placeholder="0" required>
+    </div>
+
+    <div class="tca-field">
+      <span class="form-label tca-label">Estado</span>
+      <div class="tca-switch-row">
+        <div>
+          <strong id="stateTxt">Activo</strong>
+          <small>Los productos activos se muestran en la tienda.</small>
+        </div>
+        <label class="tca-switch"><input type="checkbox" id="pActive" checked role="switch" aria-label="Producto activo"><span></span></label>
+      </div>
+    </div>
+  </form>
+
+  <div class="tca-drawer__foot">
+    <button type="button" class="tca-btn tca-btn--ghost" data-close>Cancelar</button>
+    <button type="submit" form="form" class="tca-btn btn-solid theme-primary fw-bold" id="btnSave">Guardar producto</button>
+  </div>
+</aside>
+<div class="tca-scrim" id="scrim"></div>
+
+
+
+</body>
+</html>
