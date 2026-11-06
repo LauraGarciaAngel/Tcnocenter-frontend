@@ -1,18 +1,56 @@
-// Compañeros, aquí editamos los datos de cada celular. Cuando tengamos la foto, la guardamos en assets y ponemos su ruta en image.
-// Ejemplo: image: '../assets/images/samsung-a35.png'
+// Los datos de los celulares viven en src/data/celulares.json.
+// Este archivo carga el JSON, pinta las tarjetas del catálogo y aplica los filtros.
+// También expone los productos y createProductCard para el carrusel del index (Carrusel-categorias.js).
+const PRODUCTS_URL = new URL('../data/celulares.json', window.location.href);
 
-const catalogProducts = [
-  { name: 'Samsung Galaxy S24 Ultra', brand: 'Samsung', price: 4299900, oldPrice: 4999900, discount: '14%', storage: 256, rating: 4.8, reviews: 124, sold: 98, badge: 'En oferta', colors: '', image: '' },
-  { name: 'iPhone 15 Pro', brand: 'Apple', price: 3799900, storage: 128, rating: 4.7, reviews: 98, sold: 95, badge: 'Nuevo', colors: 'is-apple', image: '' },
-  { name: 'Xiaomi Redmi Note 13', brand: 'Xiaomi', price: 1199900, oldPrice: 1499900, discount: '20%', storage: 128, rating: 4.6, reviews: 76, sold: 82, badge: 'En oferta', colors: 'is-xiaomi', image: '' },
-  { name: 'Samsung Galaxy A55', brand: 'Samsung', price: 1899900, storage: 256, rating: 4.5, reviews: 63, sold: 71, badge: 'Nuevo', colors: '', image: '' },
-  { name: 'Motorola Edge 40', brand: 'Motorola', price: 1649900, oldPrice: 1899900, discount: '13%', storage: 256, rating: 4.5, reviews: 52, sold: 68, badge: 'En oferta', colors: 'is-moto', image: '' },
-  { name: 'iPhone 14', brand: 'Apple', price: 2299900, storage: 128, rating: 4.3, reviews: 41, sold: 61, badge: 'Nuevo', colors: 'is-apple', image: '' },
-  { name: 'Xiaomi Poco X6 Pro', brand: 'Xiaomi', price: 1499900, oldPrice: 1799900, discount: '17%', storage: 512, rating: 4.5, reviews: 37, sold: 58, badge: 'En oferta', colors: 'is-xiaomi', image: '' },
-  { name: 'Samsung Galaxy A15', brand: 'Samsung', price: 899900, storage: 64, rating: 4.2, reviews: 28, sold: 45, badge: 'Nuevo', colors: 'is-samsung', image: '' }
-];
+// Imagen local que se muestra si la foto de un celular no carga.
+const FALLBACK_IMAGE = new URL('../assets/images/movil.png', window.location.href).href;
 
-window.catalogProducts = catalogProducts;
+// Clases de color de las tarjetas según la marca (las demás usan los puntos por defecto).
+const BRAND_COLOR_CLASSES = {
+  Apple: 'is-apple',
+  Xiaomi: 'is-xiaomi',
+  Motorola: 'is-moto',
+  Samsung: 'is-samsung'
+};
+
+let catalogProducts = [];
+
+// Convierte un objeto del JSON al formato que usa createProductCard.
+function mapProduct(item) {
+  const startsWithBrand = item.modelo.toLowerCase().startsWith(item.marca.toLowerCase());
+
+  return {
+    id: item.id,
+    name: startsWithBrand ? item.modelo : `${item.marca} ${item.modelo}`,
+    brand: item.marca,
+    price: item.precio,
+    oldPrice: item.precioAnterior,
+    discount: item.descuento ? `${item.descuento}%` : '',
+    storage: item.almacenamiento,
+    rating: item.rating,
+    reviews: item.reviews,
+    // El JSON no trae ventas; se usa la cantidad de reseñas como referencia de popularidad.
+    sold: item.reviews,
+    badge: item.etiqueta || '',
+    colors: BRAND_COLOR_CLASSES[item.marca] || '',
+    image: item.imagen ? new URL(item.imagen, window.location.href).href : ''
+  };
+}
+
+async function loadCatalogProducts() {
+  const response = await fetch(PRODUCTS_URL);
+  if (!response.ok) {
+    throw new Error(`No se pudo cargar ${PRODUCTS_URL}: ${response.status} ${response.statusText}`);
+  }
+
+  catalogProducts = (await response.json()).map(mapProduct);
+  window.catalogProducts = catalogProducts;
+  return catalogProducts;
+}
+
+// Promesa compartida: Carrusel-categorias.js espera a que los datos estén listos.
+window.catalogProductsReady = loadCatalogProducts();
 window.createProductCard = createProductCard;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -54,8 +92,19 @@ async function initializeCatalog() {
     throw new Error('La plantilla de tarjeta de producto no tiene una estructura válida.');
   }
 
+  await window.catalogProductsReady;
+
   const cards = catalogProducts.map((product) => createProductCard(product, productTemplate));
   grid.replaceChildren(...cards);
+
+  // Los contadores de marca y almacenamiento se calculan con los datos cargados.
+  ['brand', 'storage'].forEach((name) => {
+    form.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
+      const total = cards.filter((card) => card.dataset[name] === input.value).length;
+      const counter = input.closest('label')?.querySelector('small');
+      if (counter) counter.textContent = `(${total})`;
+    });
+  });
 
   const formatPrice = (price) => `$ ${Number(price).toLocaleString('es-CO')}`;
   let selectedChipBrand = 'Todos';
@@ -218,6 +267,7 @@ function createProductCard(product, template) {
   const oldPrice = card.querySelector('[data-product-old-price]');
   const favoriteButton = card.querySelector('[data-favorite]');
 
+  if (product.id !== undefined) card.dataset.id = String(product.id);
   card.dataset.brand = product.brand;
   card.dataset.price = String(product.price);
   card.dataset.storage = String(product.storage);
@@ -231,12 +281,13 @@ function createProductCard(product, template) {
   badge.textContent = product.badge;
   badge.hidden = !product.badge;
   badge.classList.toggle('is-new', product.badge === 'Nuevo');
-  if (product.image) {
-    image.src = new URL(product.image, document.baseURI).href;
-    image.alt = `Imagen de ${product.name}`;
-  } else {
-    image.hidden = true;
-  }
+  image.src = product.image || FALLBACK_IMAGE;
+  image.alt = `Imagen de ${product.name}`;
+  image.addEventListener('error', () => {
+    // Si la foto no carga (archivo inexistente o ruta incorrecta) se muestra la imagen de respaldo.
+    console.warn(`No cargó la imagen de ${product.name}: ${product.image}`);
+    if (image.src !== FALLBACK_IMAGE) image.src = FALLBACK_IMAGE;
+  }, { once: true });
   favoriteButton.setAttribute('aria-label', `Agregar ${product.name} a favoritos`);
 
   if (product.oldPrice) {
