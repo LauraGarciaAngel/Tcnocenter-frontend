@@ -36,6 +36,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!lista) return;
 
     try {
+        // Esperar a que catalogo.js termine de cargar los productos
+        await window.catalogProductsReady;
+
         // Verificar que los datos y la función estén disponibles
         if (!window.catalogProducts || !window.createProductCard) {
             throw new Error('No se encontraron los datos o la función de tarjetas.');
