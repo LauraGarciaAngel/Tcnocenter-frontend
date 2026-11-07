@@ -33,9 +33,11 @@ async function loadAdminLayoutComponent() {
 
 /**
  * Inicializa la interactividad y accesibilidad (WAI-ARIA) del Admin Dashboard:
- * - Colapso en escritorio (≥ 992px) mediante clase `.collapsed`
- * - Panel deslizante Off-Canvas y Backdrop en móvil/tablet (< 992px)
- * - Dropdown accesible de perfil de usuario en ES6 puro
+ * - Botón exclusivo de colapso/expansión dentro de la Sidebar (`#sidebarToggle`)
+ * - Alternancia fluida de clases `.expanded` / `.collapsed` en escritorio (≥ 992px)
+ *   y `.is-sidebar-collapsed` en `document.body` con persistencia en `localStorage`
+ * - Expansión sobrepuesta con Backdrop en resoluciones < 992px
+ * - Dropdown neutro y accesible de perfil de administrador en ES6 puro
  */
 function initAdminDashboard() {
   const sidebar = document.getElementById('adminSidebar');
@@ -56,27 +58,42 @@ function initAdminDashboard() {
   const profileMenu = document.getElementById('userProfileMenu');
 
   /**
-   * Sincroniza `aria-expanded` en el botón hamburguesa según el modo actual.
+   * Aplica las clases `.collapsed` / `.expanded` en la Sidebar y `.is-sidebar-collapsed` en body.
+   * @param {boolean} isCollapsed - true para contraer a ~72px, false para expandir a 250px.
    */
-  const syncAriaState = () => {
+  const applyDesktopCollapseState = (isCollapsed) => {
+    sidebar.classList.toggle('collapsed', isCollapsed);
+    sidebar.classList.toggle('expanded', !isCollapsed);
+    document.body.classList.toggle('is-sidebar-collapsed', isCollapsed);
+  };
+
+  /**
+   * Sincroniza `aria-expanded`, `aria-label` y `title` en el control interno de la Sidebar.
+   */
+  const syncToggleAttributes = () => {
     const isExpanded = desktopQuery.matches
       ? !sidebar.classList.contains('collapsed')
       : sidebar.classList.contains('is-mobile-open');
 
+    const actionLabel = isExpanded ? 'Colapsar menú lateral' : 'Expandir menú lateral';
+    const tooltipLabel = isExpanded ? 'Colapsar menú' : 'Expandir menú';
+
     toggleBtn.setAttribute('aria-expanded', String(isExpanded));
+    toggleBtn.setAttribute('aria-label', actionLabel);
+    toggleBtn.setAttribute('title', tooltipLabel);
   };
 
   /**
-   * Controla la apertura/cierre del panel Off-Canvas en resoluciones < 992px.
-   * @param {boolean} shouldOpen - true para abrir, false para cerrar.
-   * @param {boolean} [restoreFocus=false] - Devuelve el foco al toggle al cerrar.
+   * Controla la expansión/cierre sobrepuesto de la Sidebar en resoluciones < 992px.
+   * @param {boolean} shouldOpen - true para expandir a 250px, false para volver al rail de 72px.
+   * @param {boolean} [restoreFocus=false] - Devuelve el foco al botón al contraer.
    */
-  const setMobileDrawer = (shouldOpen, restoreFocus = false) => {
+  const setMobileSidebarOpen = (shouldOpen, restoreFocus = false) => {
     sidebar.classList.toggle('is-mobile-open', shouldOpen);
     backdrop.classList.toggle('is-visible', shouldOpen);
     backdrop.setAttribute('aria-hidden', String(!shouldOpen));
     document.body.classList.toggle('is-scroll-locked', shouldOpen);
-    syncAriaState();
+    syncToggleAttributes();
 
     if (!shouldOpen && restoreFocus) {
       toggleBtn.focus();
@@ -101,34 +118,33 @@ function initAdminDashboard() {
   };
 
   /**
-   * Alterna colapso en escritorio o drawer deslizante en móvil/tablet.
+   * Escucha el clic en el botón interno de la Sidebar y alterna `.collapsed` / `.expanded`.
    */
   const handleSidebarToggle = () => {
     if (desktopQuery.matches) {
-      const isCollapsed = sidebar.classList.toggle('collapsed');
-      document.body.classList.toggle('is-sidebar-collapsed', isCollapsed);
+      const nextCollapsed = !sidebar.classList.contains('collapsed');
+      applyDesktopCollapseState(nextCollapsed);
 
       try {
-        localStorage.setItem(STORAGE_KEY, String(isCollapsed));
+        localStorage.setItem(STORAGE_KEY, String(nextCollapsed));
       } catch (_) {
         // Continuar sin persistencia si el navegador bloquea localStorage
       }
-      syncAriaState();
+      syncToggleAttributes();
     } else {
       const isOpen = sidebar.classList.contains('is-mobile-open');
-      setMobileDrawer(!isOpen);
+      setMobileSidebarOpen(!isOpen);
     }
   };
 
-  // Restaurar estado colapsado guardado en escritorio
+  // Restaurar preferencia guardada de colapso en escritorio
+  let initialCollapsed = false;
   try {
-    if (localStorage.getItem(STORAGE_KEY) === 'true') {
-      sidebar.classList.add('collapsed');
-      document.body.classList.add('is-sidebar-collapsed');
-    }
+    initialCollapsed = localStorage.getItem(STORAGE_KEY) === 'true';
   } catch (_) {
-    // Estado expandido por defecto
+    initialCollapsed = false;
   }
+  applyDesktopCollapseState(initialCollapsed);
 
   // Marcar enlace activo según la URL actual
   const currentPage = window.location.pathname.split('/').pop();
@@ -148,9 +164,9 @@ function initAdminDashboard() {
     });
   }
 
-  // Eventos de la Sidebar y Backdrop
+  // Eventos del botón de colapso interno y del Backdrop
   toggleBtn.addEventListener('click', handleSidebarToggle);
-  backdrop.addEventListener('click', () => setMobileDrawer(false, true));
+  backdrop.addEventListener('click', () => setMobileSidebarOpen(false, true));
 
   navLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
@@ -169,8 +185,8 @@ function initAdminDashboard() {
         link.setAttribute('aria-current', 'page');
       }
 
-      if (!desktopQuery.matches) {
-        setMobileDrawer(false);
+      if (!desktopQuery.matches && sidebar.classList.contains('is-mobile-open')) {
+        setMobileSidebarOpen(false);
       }
     });
   });
@@ -194,7 +210,7 @@ function initAdminDashboard() {
     });
   }
 
-  // Cierre accesible con tecla Escape (Drawer móvil y Dropdown de perfil)
+  // Cierre accesible con tecla Escape
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
 
@@ -203,16 +219,16 @@ function initAdminDashboard() {
     }
 
     if (!desktopQuery.matches && sidebar.classList.contains('is-mobile-open')) {
-      setMobileDrawer(false, true);
+      setMobileSidebarOpen(false, true);
     }
   });
 
-  // Sincronización limpia al redimensionar la ventana entre móvil y escritorio
+  // Sincronización limpia al redimensionar entre móvil y escritorio
   const handleViewportChange = (event) => {
     if (event.matches) {
-      setMobileDrawer(false);
+      setMobileSidebarOpen(false);
     } else {
-      syncAriaState();
+      syncToggleAttributes();
     }
   };
 
@@ -222,7 +238,7 @@ function initAdminDashboard() {
     desktopQuery.addListener(handleViewportChange);
   }
 
-  syncAriaState();
+  syncToggleAttributes();
 }
 
 window.initAdminDashboard = initAdminDashboard;
