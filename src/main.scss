@@ -3068,8 +3068,9 @@ $admin-z-navbar: 1038;
 
         &__brand-text {
             font-family: $admin-font-logo;
-            font-size: 1.25rem;
+            font-size: 1.45rem;
             letter-spacing: 0.06em;
+            font-weight: 700;
             text-transform: uppercase;
             color: $admin-ink-dark;
             line-height: 1;
