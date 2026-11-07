@@ -21236,8 +21236,9 @@
   }
   .admin-navbar__brand-text {
     font-family: "Audiowide", sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.45rem;
     letter-spacing: 0.06em;
+    font-weight: 700;
     text-transform: uppercase;
     color: #1F2937;
     line-height: 1;
