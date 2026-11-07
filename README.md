@@ -9,6 +9,7 @@ Sitio web de Tcnocenter, una tienda de tecnología orientada a ofrecer una exper
 - **Contáctanos** — información y formulario de contacto.
 - **Acerca de nosotros** — información sobre Tcnocenter.
 - **Garantía** — página informativa en construcción.
+- **Admin Page** https://lauragarciaangel.github.io/Tcnocenter-frontend/admin_productos.html o Dandole click al icono de User de la navbar
 
 ## Tecnologías
 

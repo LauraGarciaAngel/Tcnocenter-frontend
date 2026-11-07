@@ -2898,3 +2898,1503 @@
         }
     }
 }
+
+// ============================================================================
+// INICIO: COMPONENTE REUTILIZABLE ADMIN DASHBOARD (NAVBAR & SIDEBAR)
+// ============================================================================
+
+// 1. Tokens de Diseño e Identidad Visual (Guía de Estilo Oficial)
+$color-primary: #019D93;       // Verde azulado principal - marca, acciones primarias, foco
+$color-secondary: #24A9A1;     // Turquesa secundario - botones secundarios, estados activos/hover
+$color-teal-medium: #45B7B0;   // Turquesa medio - bordes destacados, elementos de apoyo
+$color-teal-light: #6BC4BE;    // Turquesa claro - fondos suaves, badges decorativos
+$color-neutral-gray: #7F7F7F;  // Gris neutro - divisores, bordes de 1px, texto secundario
+$color-surface-white: #FEFEFE; // Blanco casi puro - fondo principal, texto sobre fondos oscuros
+
+// Superficies neutras y derivados de alto contraste WCAG AA (≥ 4.5:1)
+$admin-surface-subtle: #F8F9FA;
+$admin-ink-dark: #1F2937;
+$admin-primary-contrast: #016A63;
+$admin-gray-contrast: #565656;
+$admin-canvas-bg: #F4F7F7;
+$admin-border-subtle: rgba($color-neutral-gray, 0.22);
+$admin-danger: #B42318;
+
+// Tipografías y Dimensiones
+$admin-font-logo: 'Audiowide', sans-serif;
+$admin-font-heading: 'Josefin Sans', sans-serif;
+$admin-font-body: 'Inter', sans-serif;
+$admin-navbar-height: 64px;
+$admin-sidebar-width: 250px;
+$admin-sidebar-collapsed-width: 72px;
+$admin-breakpoint-lg: 992px;
+$admin-sidebar-transition: width 0.3s ease, box-shadow 0.3s ease;
+
+// Capas Z-Index (por debajo de .tca-scrim 1040 y .tca-drawer 1050)
+$admin-z-backdrop: 1030;
+$admin-z-sidebar: 1034;
+$admin-z-navbar: 1038;
+
+// 2. Mixins Modulares
+@mixin admin-focus-ring($ring-color: $color-primary) {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($ring-color, 0.35);
+}
+
+@mixin admin-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@layer custom {
+    // Cuerpo y bloqueo de scroll para expansión móvil
+    .admin-body {
+        font-family: $admin-font-body;
+        font-size: 1rem;
+        color: $admin-ink-dark;
+        background-color: $admin-canvas-bg;
+        min-height: 100vh;
+        overflow-x: hidden;
+
+        &.is-scroll-locked {
+            overflow: hidden;
+        }
+    }
+
+    // Enlace de salto accesible por teclado
+    .admin-skip-link {
+        @include admin-visually-hidden;
+
+        &:focus {
+            position: fixed;
+            top: 0.75rem;
+            left: 0.75rem;
+            width: auto;
+            height: auto;
+            margin: 0;
+            padding: 0.5rem 1rem;
+            overflow: visible;
+            clip: auto;
+            z-index: $admin-z-navbar + 10;
+            font-family: $admin-font-body;
+            font-weight: 600;
+            color: $color-surface-white;
+            background-color: $color-primary;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            @include admin-focus-ring($color-secondary);
+        }
+    }
+
+    // ---------- A. Navbar Superior Fijo (100% Estático, sin hovers turquesa) ----------
+    .admin-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: $admin-navbar-height;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: $color-surface-white;
+        border-bottom: 1px solid $admin-border-subtle;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        font-family: $admin-font-body;
+        z-index: $admin-z-navbar;
+
+        @media (max-width: 575.98px) {
+            padding: 0 1rem;
+        }
+
+        &__left {
+            display: flex;
+            align-items: center;
+            margin: 0;
+        }
+
+        &__right {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        // Logo / Brand: 100% estático, sin fondo hover, sin cambio de opacidad ni color
+        &__brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0;
+            margin: 0;
+            background-color: transparent;
+            border: 0;
+            color: $admin-ink-dark;
+            text-decoration: none;
+            opacity: 1;
+            cursor: pointer;
+            transition: none;
+
+            &:hover,
+            &:focus,
+            &:active {
+                background-color: transparent;
+                color: $admin-ink-dark;
+                opacity: 1;
+                text-decoration: none;
+                box-shadow: none;
+                outline: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid rgba($color-neutral-gray, 0.45);
+                outline-offset: 4px;
+                border-radius: 0.25rem;
+            }
+        }
+
+        &__logo {
+            width: 34px;
+            height: 34px;
+            color: $color-primary;
+            flex-shrink: 0;
+        }
+
+        &__brand-text {
+            font-family: $admin-font-logo;
+            font-size: 1.25rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: $admin-ink-dark;
+            line-height: 1;
+
+            @media (max-width: 380px) {
+                font-size: 1.05rem;
+            }
+        }
+
+        &__brand-accent {
+            color: $color-primary;
+        }
+    }
+
+    // Módulo de Perfil de Usuario (Dropdown sobrio y neutro, libre de turquesa)
+    .admin-profile {
+        position: relative;
+
+        &__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.35rem 0.65rem;
+            font-family: $admin-font-body;
+            color: $admin-ink-dark;
+            background-color: $color-surface-white;
+            border: 1px solid transparent;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+
+            &::after {
+                display: none;
+            }
+
+            &:hover,
+            &:focus,
+            &:active {
+                background-color: $admin-surface-subtle;
+                border-color: $admin-border-subtle;
+                color: $admin-ink-dark;
+                box-shadow: none;
+                outline: none;
+            }
+
+            &:focus-visible {
+                background-color: $admin-surface-subtle;
+                border-color: rgba($color-neutral-gray, 0.45);
+                outline: 2px solid rgba($color-neutral-gray, 0.4);
+                outline-offset: 2px;
+                box-shadow: none;
+            }
+        }
+
+        &.is-open &__btn {
+            background-color: $admin-surface-subtle;
+            border-color: $admin-border-subtle;
+        }
+
+        &__avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: $color-primary;
+            border: 2px solid #E5E7EB;
+            color: $color-surface-white;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            flex-shrink: 0;
+        }
+
+        &__meta {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            line-height: 1.2;
+
+            @media (max-width: 575.98px) {
+                display: none;
+            }
+        }
+
+        &__name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $admin-ink-dark;
+        }
+
+        &__role {
+            font-size: 0.75rem;
+            color: $admin-gray-contrast;
+        }
+
+        &__chevron {
+            display: inline-flex;
+            align-items: center;
+            color: $color-neutral-gray;
+            transition: transform 0.2s ease;
+        }
+
+        &.is-open &__chevron {
+            transform: rotate(180deg);
+        }
+
+        &__menu {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            right: 0;
+            left: auto;
+            display: none;
+            min-width: 215px;
+            padding: 0.5rem;
+            margin: 0;
+            background-color: $color-surface-white;
+            border: 1px solid $admin-border-subtle;
+            border-radius: 0.625rem;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+            z-index: $admin-z-navbar + 2;
+
+            &.show {
+                display: block;
+            }
+        }
+
+        &__mobile-info {
+            display: none;
+            padding: 0.45rem 0.75rem 0.6rem;
+            margin-bottom: 0.35rem;
+            border-bottom: 1px solid $admin-border-subtle;
+            color: $admin-ink-dark;
+
+            strong {
+                display: block;
+                font-size: 0.875rem;
+            }
+
+            span {
+                font-size: 0.75rem;
+                color: $admin-gray-contrast;
+            }
+
+            @media (max-width: 575.98px) {
+                display: block;
+            }
+        }
+
+        &__divider {
+            height: 0;
+            margin: 0.35rem 0;
+            border-top: 1px solid $admin-border-subtle;
+        }
+
+        &__item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.55rem 0.75rem;
+            font-family: $admin-font-body;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: $admin-ink-dark;
+            background-color: transparent;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            transition: background-color 0.15s ease, color 0.15s ease;
+
+            &:hover,
+            &:focus {
+                background-color: $admin-surface-subtle;
+                color: $admin-ink-dark;
+                text-decoration: none;
+                outline: none;
+            }
+
+            &:focus-visible {
+                background-color: $admin-surface-subtle;
+                outline: 2px solid rgba($color-neutral-gray, 0.4);
+                outline-offset: -2px;
+            }
+
+            &--logout {
+                color: $admin-danger;
+
+                &:hover,
+                &:focus {
+                    background-color: #FEF2F2;
+                    color: $admin-danger;
+                }
+            }
+        }
+    }
+
+    // ---------- B. Sidebar Lateral con Control de Colapso Integrado (.admin-sidebar) ----------
+    .admin-sidebar {
+        position: fixed;
+        top: $admin-navbar-height;
+        left: 0;
+        width: $admin-sidebar-width;
+        height: calc(100vh - #{$admin-navbar-height});
+        height: calc(100dvh - #{$admin-navbar-height});
+        display: flex;
+        flex-direction: column;
+        background-color: $color-surface-white;
+        border-right: 1px solid $admin-border-subtle;
+        font-family: $admin-font-body;
+        z-index: $admin-z-sidebar;
+        transition: $admin-sidebar-transition;
+
+        // Cabecera superior de la Sidebar con botón exclusivo de colapso
+        &__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 52px;
+            padding: 0.6rem 0.85rem 0.6rem 1rem;
+            border-bottom: 1px solid rgba($color-neutral-gray, 0.16);
+            flex-shrink: 0;
+        }
+
+        &__section-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: $admin-gray-contrast;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        &__collapse-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            margin-left: auto;
+            color: $admin-gray-contrast;
+            background-color: transparent;
+            border: 1px solid rgba($color-neutral-gray, 0.24);
+            border-radius: 0.45rem;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+            &:hover {
+                background-color: $admin-surface-subtle;
+                border-color: rgba($color-neutral-gray, 0.45);
+                color: $admin-ink-dark;
+            }
+
+            &:focus-visible {
+                border-color: $color-primary;
+                @include admin-focus-ring($color-primary);
+            }
+        }
+
+        &__collapse-icon {
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        &__nav {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            min-height: 0;
+            padding: 0.85rem 0.75rem 1rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        &__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        &__link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            min-height: 46px;
+            padding: 0.65rem 0.9rem;
+            color: $admin-gray-contrast;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease, padding 0.3s ease;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 20%;
+                bottom: 20%;
+                width: 4px;
+                border-radius: 0 4px 4px 0;
+                background-color: transparent;
+                transition: background-color 0.2s ease;
+            }
+
+            &:hover {
+                background-color: rgba($color-secondary, 0.12);
+                color: $admin-primary-contrast;
+                text-decoration: none;
+
+                .admin-sidebar__icon {
+                    color: $color-secondary;
+                }
+            }
+
+            &:focus,
+            &:focus-visible {
+                text-decoration: none;
+                @include admin-focus-ring($color-primary);
+            }
+
+            &.is-active {
+                background-color: rgba($color-teal-light, 0.2);
+                color: $admin-primary-contrast;
+                font-weight: 600;
+
+                &::before {
+                    background-color: $color-primary;
+                }
+
+                .admin-sidebar__icon {
+                    color: $color-primary;
+                }
+            }
+
+            &--reserved {
+                opacity: 0.88;
+                cursor: not-allowed;
+            }
+        }
+
+        &__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            font-size: 1.1rem;
+            color: $color-neutral-gray;
+            flex-shrink: 0;
+            transition: color 0.2s ease;
+        }
+
+        &__text {
+            white-space: nowrap;
+        }
+
+        &__badge {
+            margin-left: auto;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            background-color: rgba($color-teal-light, 0.28);
+            border: 1px solid rgba($color-teal-medium, 0.5);
+            color: $admin-primary-contrast;
+            border-radius: 50rem;
+        }
+
+        &__footer {
+            margin-top: auto;
+            padding-top: 0.85rem;
+            border-top: 1px solid $admin-border-subtle;
+        }
+
+        // Desktop (≥ 992px): Gestión fluida de estados .expanded (250px) y .collapsed (72px)
+        @media (min-width: $admin-breakpoint-lg) {
+            &.expanded {
+                width: $admin-sidebar-width;
+            }
+
+            &.collapsed {
+                width: $admin-sidebar-collapsed-width;
+                overflow: visible;
+
+                .admin-sidebar__header {
+                    justify-content: center;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+                .admin-sidebar__section-label {
+                    display: none;
+                }
+
+                .admin-sidebar__collapse-btn {
+                    margin-left: 0;
+                }
+
+                // Invierte el chevron hacia la derecha para indicar expansión
+                .admin-sidebar__collapse-icon {
+                    transform: rotate(180deg);
+                }
+
+                .admin-sidebar__nav {
+                    padding-left: 0.65rem;
+                    padding-right: 0.65rem;
+                    overflow: visible;
+                }
+
+                .admin-sidebar__link {
+                    justify-content: center;
+                    padding-left: 0;
+                    padding-right: 0;
+                    gap: 0;
+
+                    // Tooltip limpio en :hover y :focus-visible
+                    &::after {
+                        content: attr(data-tooltip);
+                        position: absolute;
+                        left: calc(100% + 14px);
+                        top: 50%;
+                        transform: translateY(-50%) translateX(-6px);
+                        padding: 0.4rem 0.75rem;
+                        background-color: $admin-ink-dark;
+                        color: $color-surface-white;
+                        border-left: 3px solid $color-primary;
+                        border-radius: 0.375rem;
+                        font-size: 0.8rem;
+                        font-weight: 500;
+                        white-space: nowrap;
+                        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+                        opacity: 0;
+                        visibility: hidden;
+                        pointer-events: none;
+                        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+                        z-index: $admin-z-navbar + 5;
+                    }
+
+                    &:hover::after,
+                    &:focus-visible::after {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: translateY(-50%) translateX(0);
+                    }
+                }
+
+                // Oculta limpiamente los textos y badges manteniendo el icono centrado
+                .admin-sidebar__text,
+                .admin-sidebar__badge {
+                    display: none;
+                }
+            }
+        }
+
+        // Mobile / Tablet (< 992px): Rail compacto de 72px por defecto, expandible a 250px
+        @media (max-width: ($admin-breakpoint-lg - 0.02px)) {
+            width: $admin-sidebar-collapsed-width;
+            box-shadow: none;
+
+            .admin-sidebar__header {
+                justify-content: center;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .admin-sidebar__section-label,
+            .admin-sidebar__text,
+            .admin-sidebar__badge {
+                display: none;
+            }
+
+            .admin-sidebar__collapse-btn {
+                margin-left: 0;
+            }
+
+            .admin-sidebar__collapse-icon {
+                transform: rotate(180deg);
+            }
+
+            .admin-sidebar__nav {
+                padding-left: 0.65rem;
+                padding-right: 0.65rem;
+            }
+
+            .admin-sidebar__link {
+                justify-content: center;
+                padding-left: 0;
+                padding-right: 0;
+                gap: 0;
+            }
+
+            // Estado expandido sobrepuesto en móvil/tablet al pulsar el toggle interno
+            &.is-mobile-open {
+                width: $admin-sidebar-width;
+                box-shadow: 12px 0 32px rgba(15, 23, 42, 0.18);
+
+                .admin-sidebar__header {
+                    justify-content: space-between;
+                    padding-left: 1rem;
+                    padding-right: 0.85rem;
+                }
+
+                .admin-sidebar__section-label {
+                    display: inline;
+                }
+
+                .admin-sidebar__collapse-btn {
+                    margin-left: auto;
+                }
+
+                .admin-sidebar__collapse-icon {
+                    transform: rotate(0deg);
+                }
+
+                .admin-sidebar__nav {
+                    padding-left: 0.75rem;
+                    padding-right: 0.75rem;
+                }
+
+                .admin-sidebar__link {
+                    justify-content: flex-start;
+                    padding-left: 0.9rem;
+                    padding-right: 0.9rem;
+                    gap: 0.85rem;
+                }
+
+                .admin-sidebar__text,
+                .admin-sidebar__badge {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    // ---------- C. Overlay / Backdrop Móvil (.admin-backdrop) ----------
+    .admin-backdrop {
+        position: fixed;
+        top: $admin-navbar-height;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(15, 23, 42, 0.45);
+        z-index: $admin-z-backdrop;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+
+        @media (max-width: ($admin-breakpoint-lg - 0.02px)) {
+            &.is-visible {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    // ---------- D. Contenedor Principal (<main class="admin-main">) ----------
+    .admin-main {
+        padding-top: $admin-navbar-height;
+        min-height: 100vh;
+        transition: margin-left 0.3s ease;
+
+        @media (min-width: $admin-breakpoint-lg) {
+            margin-left: $admin-sidebar-width;
+        }
+
+        @media (max-width: ($admin-breakpoint-lg - 0.02px)) {
+            margin-left: $admin-sidebar-collapsed-width;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &__title {
+            font-family: $admin-font-heading;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: $admin-ink-dark;
+        }
+
+        > .tca-content {
+            padding-top: 1.5rem;
+        }
+    }
+
+    // Ajuste fluido del margen izquierdo cuando la Sidebar se colapsa en Desktop
+    @media (min-width: $admin-breakpoint-lg) {
+        .admin-sidebar.collapsed ~ .admin-main,
+        .is-sidebar-collapsed .admin-main {
+            margin-left: $admin-sidebar-collapsed-width;
+        }
+    }
+
+    // Accesibilidad: reducción de animaciones según preferencia del sistema
+    @media (prefers-reduced-motion: reduce) {
+        .admin-sidebar,
+        .admin-main,
+        .admin-backdrop,
+        .admin-sidebar__collapse-icon,
+        .admin-sidebar__link,
+        .admin-sidebar__link::after {
+            transition: none !important;
+        }
+    }
+}
+
+// ============================================================================
+// FIN: COMPONENTE REUTILIZABLE ADMIN DASHBOARD (NAVBAR & SIDEBAR)
+// ============================================================================
+
+// ============================================================================
+// INICIO: VISTA PRINCIPAL ADMIN DASHBOARD (_dashboard.scss)
+// ============================================================================
+
+// 1. Tokens adicionales de la vista Dashboard (complementan la paleta oficial)
+$color-bg-light: #F8F9FA; // Gris claro de fondo para el lienzo del dashboard
+
+// Estados semánticos de alto contraste WCAG AA (≥ 4.5:1)
+$dash-status-pending-fg: #92400E;
+$dash-status-pending-bg: #FEF3C7;
+$dash-status-shipped-fg: #016A63;
+$dash-status-shipped-bg: rgba($color-teal-light, 0.24);
+$dash-status-completed-fg: #065F46;
+$dash-status-completed-bg: #D1FAE5;
+$dash-status-canceled-fg: #991B1B;
+$dash-status-canceled-bg: #FEE2E2;
+
+// Geometría y sombras
+$dash-radius: 0.75rem;
+$dash-radius-sm: 0.5rem;
+$dash-shadow-sm: 0 2px 10px rgba(15, 23, 42, 0.04);
+$dash-shadow-hover: 0 10px 24px rgba(1, 157, 147, 0.12);
+
+@layer custom {
+    // ---------- Lienzo y Contenedor ----------
+    .dashboard-content {
+        background-color: $color-bg-light;
+        font-family: $admin-font-body;
+        color: $admin-ink-dark;
+    }
+
+    .tc-dash-container {
+        width: 100%;
+        padding: 1.75rem 2rem 2.5rem;
+
+        @media (max-width: 767.98px) {
+            padding: 1.25rem 1rem 2rem;
+        }
+    }
+
+    // ---------- A. Encabezado de Sección (.tc-dash-header) ----------
+    .tc-dash-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+
+        &__greeting {
+            margin: 0 0 0.2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $admin-primary-contrast;
+            letter-spacing: 0.01em;
+        }
+
+        &__title {
+            margin: 0 0 0.25rem;
+            font-family: $admin-font-heading;
+            font-size: clamp(1.6rem, 2.5vw, 2rem);
+            font-weight: 700;
+            color: $admin-ink-dark;
+            line-height: 1.2;
+        }
+
+        &__meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin: 0;
+            font-size: 0.875rem;
+            color: $admin-gray-contrast;
+
+            time {
+                font-weight: 600;
+                color: $admin-ink-dark;
+            }
+        }
+
+        &__actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+    }
+
+    // Botones de acción rápida
+    .tc-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 42px;
+        padding: 0 1.05rem;
+        font-family: $admin-font-body;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: $dash-radius-sm;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+
+        &:focus,
+        &:focus-visible {
+            @include admin-focus-ring($color-primary);
+        }
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        &--primary {
+            background-color: $color-primary;
+            border: 1px solid $color-primary;
+            color: $color-surface-white;
+
+            &:hover:not(:disabled) {
+                background-color: $admin-primary-contrast;
+                border-color: $admin-primary-contrast;
+                color: $color-surface-white;
+                transform: translateY(-1px);
+            }
+        }
+
+        &--secondary {
+            background-color: $color-surface-white;
+            border: 1px solid rgba($color-teal-medium, 0.65);
+            color: $admin-primary-contrast;
+
+            &:hover:not(:disabled) {
+                background-color: rgba($color-teal-light, 0.16);
+                border-color: $color-secondary;
+                color: $admin-primary-contrast;
+            }
+        }
+
+        &.is-refreshing &__icon {
+            display: inline-block;
+            animation: tc-dash-spin 0.65s linear infinite;
+        }
+    }
+
+    @keyframes tc-dash-spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    // ---------- B. Grid de Métricas KPI (.tc-kpi-grid & .tc-kpi-card) ----------
+    .tc-kpi-section {
+        margin-bottom: 1.75rem;
+    }
+
+    .tc-kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.15rem;
+
+        @media (max-width: 1199.98px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (max-width: 575.98px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .tc-kpi-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.65rem;
+        padding: 1.2rem 1.25rem;
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-left: 4px solid $color-primary;
+        border-radius: $dash-radius;
+        box-shadow: $dash-shadow-sm;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: $dash-shadow-hover;
+        }
+
+        &--primary {
+            border-left-color: $color-primary;
+        }
+
+        &--secondary {
+            border-left-color: $color-secondary;
+        }
+
+        &--medium {
+            border-left-color: $color-teal-medium;
+        }
+
+        &--stock {
+            border-left-color: $color-teal-light;
+        }
+
+        &__top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        &__label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $admin-gray-contrast;
+        }
+
+        &__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 0.625rem;
+            background-color: rgba($color-teal-light, 0.18);
+            color: $color-primary;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        &:hover &__icon {
+            background-color: $color-primary;
+            color: $color-surface-white;
+        }
+
+        &__value {
+            font-family: $admin-font-body;
+            font-size: 1.65rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+            color: $admin-ink-dark;
+            line-height: 1.15;
+        }
+
+        &__foot {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-top: 0.1rem;
+        }
+
+        &__hint {
+            font-size: 0.78rem;
+            color: $admin-gray-contrast;
+        }
+    }
+
+    .tc-kpi-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.2rem 0.55rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        border-radius: 50rem;
+
+        &--up {
+            background-color: $dash-status-completed-bg;
+            color: $dash-status-completed-fg;
+        }
+
+        &--priority {
+            background-color: $dash-status-shipped-bg;
+            color: $dash-status-shipped-fg;
+        }
+
+        &--alert {
+            background-color: $dash-status-pending-bg;
+            color: $dash-status-pending-fg;
+        }
+    }
+
+    // ---------- C. Sección de Pedidos Recientes (.tc-orders-card) ----------
+    .tc-orders-card {
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-radius: $dash-radius;
+        box-shadow: $dash-shadow-sm;
+        overflow: hidden;
+
+        &__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid $admin-border-subtle;
+
+            @media (max-width: 575.98px) {
+                padding: 1rem;
+            }
+        }
+
+        &__title-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        &__title {
+            margin: 0;
+            font-family: $admin-font-heading;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: $admin-ink-dark;
+        }
+
+        &__count {
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: $admin-primary-contrast;
+            background-color: rgba($color-teal-light, 0.22);
+            border: 1px solid rgba($color-teal-medium, 0.45);
+            border-radius: 50rem;
+        }
+
+        &__subtitle {
+            margin: 0.2rem 0 0;
+            font-size: 0.85rem;
+            color: $admin-gray-contrast;
+        }
+
+        &__controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        &__all-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $admin-primary-contrast;
+            text-decoration: none;
+            transition: color 0.2s ease;
+
+            i {
+                transition: transform 0.2s ease;
+            }
+
+            &:hover {
+                color: $color-primary;
+                text-decoration: underline;
+
+                i {
+                    transform: translateX(3px);
+                }
+            }
+
+            &:focus-visible {
+                border-radius: 0.25rem;
+                @include admin-focus-ring($color-primary);
+            }
+        }
+    }
+
+    // Selector de filtro rápido
+    .tc-filter-group {
+        display: inline-flex;
+        padding: 0.25rem;
+        background-color: $color-bg-light;
+        border: 1px solid $admin-border-subtle;
+        border-radius: $dash-radius-sm;
+
+        &__btn {
+            padding: 0.35rem 0.8rem;
+            font-family: $admin-font-body;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: $admin-gray-contrast;
+            background-color: transparent;
+            border: 0;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+
+            &:hover {
+                color: $admin-ink-dark;
+            }
+
+            &:focus-visible {
+                @include admin-focus-ring($color-primary);
+            }
+
+            &.is-active {
+                background-color: $color-surface-white;
+                color: $admin-primary-contrast;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            }
+        }
+    }
+
+    // Tabla de Pedidos Recientes
+    .tc-orders-table {
+        width: 100%;
+        min-width: 780px;
+        border-collapse: collapse;
+        font-family: $admin-font-body;
+
+        thead th {
+            padding: 0.85rem 1.5rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: $admin-gray-contrast;
+            background-color: $color-bg-light;
+            border-bottom: 1px solid $admin-border-subtle;
+            text-align: left;
+            white-space: nowrap;
+
+            &.text-end {
+                text-align: right;
+            }
+        }
+
+        tbody td {
+            padding: 0.95rem 1.5rem;
+            font-size: 0.9rem;
+            color: $admin-ink-dark;
+            border-bottom: 1px solid rgba($color-neutral-gray, 0.14);
+            vertical-align: middle;
+
+            &.text-end {
+                text-align: right;
+            }
+        }
+
+        tbody tr {
+            transition: background-color 0.15s ease;
+
+            &:hover {
+                background-color: rgba($color-teal-light, 0.08);
+            }
+
+            &:last-child td {
+                border-bottom: 0;
+            }
+        }
+
+        &__id {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: $admin-primary-contrast;
+            white-space: nowrap;
+        }
+
+        &__date {
+            color: $admin-gray-contrast;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        &__amount {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        &__empty {
+            padding: 2.75rem 1rem !important;
+            text-align: center !important;
+            color: $admin-gray-contrast;
+            font-weight: 500;
+        }
+    }
+
+    // Celda de Cliente
+    .tc-customer {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        &__avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba($color-teal-light, 0.24);
+            border: 1px solid rgba($color-teal-medium, 0.5);
+            color: $admin-primary-contrast;
+            font-size: 0.78rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.25;
+        }
+
+        &__name {
+            font-weight: 600;
+            color: $admin-ink-dark;
+        }
+
+        &__email {
+            font-size: 0.78rem;
+            color: $admin-gray-contrast;
+        }
+    }
+
+    // Badges semánticos de estado
+    .tc-status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.28rem 0.7rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        border-radius: 50rem;
+        white-space: nowrap;
+
+        &::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+
+        &--pendiente {
+            background-color: $dash-status-pending-bg;
+            color: $dash-status-pending-fg;
+        }
+
+        &--enviado {
+            background-color: $dash-status-shipped-bg;
+            color: $dash-status-shipped-fg;
+        }
+
+        &--completado {
+            background-color: $dash-status-completed-bg;
+            color: $dash-status-completed-fg;
+        }
+
+        &--cancelado {
+            background-color: $dash-status-canceled-bg;
+            color: $dash-status-canceled-fg;
+        }
+    }
+
+    // Botón "Ver detalle"
+    .tc-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.38rem 0.75rem;
+        font-family: $admin-font-body;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: $admin-primary-contrast;
+        background-color: transparent;
+        border: 1px solid rgba($color-teal-medium, 0.55);
+        border-radius: 0.45rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+
+        &:hover {
+            background-color: $color-primary;
+            border-color: $color-primary;
+            color: $color-surface-white;
+        }
+
+        &:focus-visible {
+            @include admin-focus-ring($color-primary);
+        }
+    }
+
+    // Diálogo nativo <dialog> para resumen de pedido
+    .tc-order-dialog {
+        width: min(440px, 92vw);
+        padding: 0;
+        border: 1px solid $admin-border-subtle;
+        border-top: 4px solid $color-primary;
+        border-radius: $dash-radius;
+        background-color: $color-surface-white;
+        color: $admin-ink-dark;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.22);
+
+        &::backdrop {
+            background-color: rgba(15, 23, 42, 0.48);
+        }
+
+        &__head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.2rem 1.4rem 1rem;
+            border-bottom: 1px solid $admin-border-subtle;
+        }
+
+        &__eyebrow {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: $admin-primary-contrast;
+        }
+
+        &__title {
+            margin: 0.15rem 0 0;
+            font-family: $admin-font-heading;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        &__close {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            color: $admin-gray-contrast;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 0.4rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $color-bg-light;
+                color: $admin-ink-dark;
+            }
+
+            &:focus-visible {
+                @include admin-focus-ring($color-primary);
+            }
+        }
+
+        &__list {
+            margin: 0;
+            padding: 1.1rem 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+
+            div {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+
+            dt {
+                font-size: 0.85rem;
+                font-weight: 500;
+                color: $admin-gray-contrast;
+            }
+
+            dd {
+                margin: 0;
+                font-size: 0.9rem;
+                font-weight: 600;
+                text-align: right;
+            }
+        }
+
+        &__amount {
+            font-size: 1.05rem !important;
+            font-weight: 700 !important;
+            color: $admin-primary-contrast;
+            font-variant-numeric: tabular-nums;
+        }
+
+        &__foot {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.9rem 1.4rem;
+            border-top: 1px solid $admin-border-subtle;
+            background-color: $color-bg-light;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .tc-kpi-card,
+        .tc-btn,
+        .tc-action-btn,
+        .tc-btn.is-refreshing .tc-btn__icon {
+            transition: none !important;
+            animation: none !important;
+        }
+    }
+}
+
+// ============================================================================
+// FIN: VISTA PRINCIPAL ADMIN DASHBOARD (_dashboard.scss)
+// ============================================================================
