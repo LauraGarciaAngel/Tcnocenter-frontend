@@ -1116,9 +1116,12 @@
     }
 
 
-    // =========================================================================
-    // VISTA · Catálogo de Productos (.tcno-catalog-page, .tcno-catalog)
-    // =========================================================================
+ // =========================================================================
+ // VISTA · Catálogo de Productos (.tcno-catalog-page, .tcno-catalog)
+ // =========================================================================
+
+/* #region Catalo */
+
     .tcno-catalog-page {
         display: flex;
         min-height: 100vh;
@@ -1826,10 +1829,14 @@
     }
 
 
+  /* #endregion */
+
+
+
 // ============================================================================
 // contacto.scss — solo estilos propios de la página de contacto
 // ============================================================================
-
+/* #region Contac */
 .tcno-contact-page {
 
     // ---------- Banner ----------
@@ -2192,503 +2199,9 @@
         line-height: 1.7;
     }
 }
-
-
-// =====================================================================
-// VISTA: Admin · Gestión de productos
-// =====================================================================
-/* #region Admin  */
-    .tca-body {
-      --tca-teal:        var(--tcno-primary, #019D93);
-      --tca-teal-dark:   color-mix(in oklch, var(--tcno-primary, #019D93) 82%, #000);
-      --tca-teal-soft:   rgba(1, 157, 147, .08);
-      --tca-teal-ring:   color-mix(in oklch, var(--tcno-primary, #019D93) 20%, transparent);
-
-      --tca-bg:          #F4F6F7;
-      --tca-surface:     var(--tcno-white, #FEFEFE);
-      --tca-line:        #E2E8F0;
-      --tca-line-soft:   #F1F5F9;
-      --tca-ink:         var(--tcno-dark, #1F2937);
-      --tca-ink-2:       #64748B;
-      --tca-ink-3:       #94A3B8;
-
-      --tca-ok:          #146C43;  --tca-ok-bg:   #ECFDF3;
-      --tca-warn:        #B26A00;  --tca-warn-bg: #FFF2DA;
-      --tca-bad:         #B42318;  --tca-bad-bg:  #FEF2F2;
-
-      --tca-radius-sm:   .5rem;
-      --tca-radius:      .75rem;
-      --tca-radius-lg:   1.25rem;
-
-      --tca-shadow-sm:   0 2px 6px rgba(0, 0, 0, .03);
-      --tca-shadow-md:   0 6px 16px rgba(0, 0, 0, .07);
-      --tca-shadow-drawer: -16px 0 40px rgba(21, 32, 43, .12);
-
-      --tca-sidebar-w:   248px;
-      --tca-drawer-w:    38vw;
-      --tca-font:        var(--tcno-font-body, 'Inter', 'Segoe UI', sans-serif);
-    }
-
-    // ---------- Base ----------
-    .tca-body {
-      margin: 0;
-      font-family: var(--tca-font);
-      font-size: 14px;
-      color: var(--tca-ink);
-      background: var(--tca-bg);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .tca-app { display: flex; min-height: 100vh; }
-
-    // ---------- Botones ----------
-    .tca-btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-      height: 42px; padding: 0 1.1rem;
-      font: 600 14px/1 var(--tca-font);
-      border-radius: var(--tca-radius-sm);
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: background .15s, border-color .15s, box-shadow .15s;
-
-      &:focus-visible { outline: 0; border-color: var(--tca-teal); box-shadow: 0 0 0 3px var(--tca-teal-ring); }
-
-      // El color y el hover del botón principal salen de .btn-solid.theme-primary (Bootstrap)
-      &--ghost {
-        background: var(--tca-surface); color: var(--tca-ink); border-color: var(--tca-line);
-        &:hover { background: var(--tca-bg); }
-      }
-    }
-
-    .tca-icon-btn {
-      position: relative;
-      display: inline-grid; place-items: center;
-      width: 36px; height: 36px;
-      color: var(--tca-ink-2); background: transparent;
-      border: 1px solid transparent; border-radius: var(--tca-radius-sm);
-      cursor: pointer; transition: background .15s, color .15s;
-
-      &:hover { background: var(--tca-line-soft); color: var(--tca-ink); }
-      &:focus-visible { outline: 0; border-color: var(--tca-teal); box-shadow: 0 0 0 3px var(--tca-teal-ring); }
-      &--danger:hover { background: var(--tca-bad-bg); color: var(--tca-bad); }
-    }
-
-    // ---------- Sidebar ----------
-    .tca-sidebar {
-      position: sticky; top: 0;
-      width: var(--tca-sidebar-w); height: 100vh; flex: none;
-      display: flex; flex-direction: column;
-      padding: 1.25rem 1rem;
-      background: var(--tca-surface);
-      border-right: 1px solid var(--tca-line);
-
-      @media (max-width: 991px) { display: none; }
-    }
-
-    .tca-brand {
-      display: flex; align-items: center; justify-content: center; gap: .65rem;
-      padding: .25rem .5rem 1.5rem;
-      text-decoration: none; color: var(--tca-ink);
-
-      &__mark {
-        display: grid; place-items: center;
-        width: 36px; height: 36px;
-        font-size: 19px; color: #fff;
-        background: var(--tca-teal); border-radius: 10px;
-      }
-      &__logo { width: 36px; height: 36px; object-fit: contain; border-radius: 10px; }
-      &__logo-v { display: block; width: 100%; max-width: 180px; height: auto; margin: 0 auto; }
-      &__name {
-        font-family: var(--tcno-font-logo, 'Audiowide', sans-serif);
-        font-size: 1.2rem; letter-spacing: .06em; text-transform: uppercase; color: var(--tcno-dark, #1F2937);
-        span { color: var(--tcno-primary, #019D93); }
-      }
-    }
-
-    .tca-nav {
-      display: flex; flex-direction: column; gap: 2px;
-
-      &__link {
-        position: relative;
-        display: flex; align-items: center; gap: .75rem;
-        height: 42px; padding: 0 .75rem;
-        font-weight: 600; color: var(--tca-ink-2); text-decoration: none;
-        border-radius: var(--tca-radius-sm);
-        transition: background .15s, color .15s;
-
-        i { font-size: 18px; }
-        &:hover { background: var(--tca-bg); color: var(--tca-ink); }
-
-        &.is-active {
-          background: var(--tca-teal-soft); color: var(--tca-teal-dark);
-          &::before {
-            content: ''; position: absolute; left: -1rem; top: 9px; bottom: 9px;
-            width: 3px; border-radius: 0 3px 3px 0; background: var(--tca-teal);
-          }
-        }
-      }
-
-      &__badge {
-        margin-left: auto;
-        min-width: 20px; padding: 2px 6px;
-        font-size: 11px; font-weight: 700; text-align: center;
-        color: #fff; background: var(--tca-bad); border-radius: 999px;
-      }
-    }
-
-    .tca-sidebar__foot { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--tca-line-soft); }
-
-    // ---------- Main ----------
-    .tca-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-
-    .tca-topbar {
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-      height: 68px; padding: 0 2rem;
-      background: color-mix(in oklch, var(--tca-bg) 85%, transparent); backdrop-filter: blur(8px);
-      position: sticky; top: 0; z-index: 5;
-
-      @media (max-width: 575px) { padding: 0 1rem; }
-
-      &__right { display: flex; align-items: center; gap: 1rem; }
-    }
-
-    .tca-dot {
-      position: absolute; top: 8px; right: 9px;
-      width: 8px; height: 8px;
-      background: var(--tca-teal); border: 2px solid var(--tca-bg); border-radius: 50%;
-    }
-
-    .tca-user {
-      display: flex; align-items: center; gap: .65rem;
-
-      &__avatar {
-        display: grid; place-items: center;
-        width: 36px; height: 36px;
-        font-size: 12px; font-weight: 800; color: var(--tca-teal-dark);
-        background: var(--tca-teal-soft); border-radius: 50%;
-      }
-      &__txt {
-        display: flex; flex-direction: column; line-height: 1.25;
-        strong { font-size: 13px; }
-        small  { font-size: 12px; color: var(--tca-ink-3); }
-        @media (max-width: 575px) { display: none; }
-      }
-    }
-
-    .tca-content {
-      flex: 1;
-      display: flex; flex-direction: column; gap: 1.25rem;
-      padding: .5rem 2rem 2rem;
-
-      @media (max-width: 575px) { padding: .5rem 1rem 1.5rem; }
-    }
-
-    // ---------- Encabezado ----------
-    .tca-head {
-      display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-
-      &__title { margin: 0 0 .25rem; font-size: 26px; font-weight: 700; letter-spacing: -.03em; }
-      &__desc  { margin: 0; color: var(--tca-ink-2); }
-    }
-
-    // ---------- Búsqueda ----------
-    .tca-search {
-      position: relative; display: block; flex: 1; max-width: 340px; min-width: 200px;
-
-      i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--tca-ink-3); pointer-events: none; }
-      input {
-        width: 100%; height: 42px; padding: 0 .9rem 0 2.2rem;
-        font: 500 14px var(--tca-font); color: var(--tca-ink);
-        background: var(--tca-surface); border: 1px solid var(--tca-line); border-radius: 50rem;
-        &::placeholder { color: var(--tca-ink-3); }
-        &:focus { outline: 0; border-color: var(--tca-teal); box-shadow: 0 0 0 3px var(--tca-teal-ring); }
-      }
-
-      &--global { max-width: 380px; }
-    }
-
-    // ---------- KPIs (cajitas superiores) ----------
-    .tca-kpis {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
-
-      @media (max-width: 991px) { grid-template-columns: 1fr; }
-    }
-
-    .tca-kpi {
-      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .9rem;
-      padding: 1rem 1.15rem;
-      background: var(--tca-surface); border: 1px solid var(--tca-line); border-radius: var(--tca-radius);
-      box-shadow: var(--tca-shadow-sm);
-
-      &__icon {
-        display: grid; place-items: center;
-        width: 44px; height: 44px; font-size: 20px;
-        color: var(--tca-teal-dark); background: var(--tca-teal-soft); border-radius: 10px;
-      }
-      &__body  { display: flex; flex-direction: column; line-height: 1.2; }
-      &__label { font-size: 13px; font-weight: 600; color: var(--tca-ink-2); }
-      &__value { font-size: 28px; font-weight: 800; letter-spacing: -.03em; }
-
-      &__trend {
-        align-self: flex-start;
-        display: inline-flex; align-items: center;
-        padding: 3px 8px;
-        font-size: 11.5px; font-weight: 700; color: var(--tca-ink-2);
-        background: var(--tca-bg); border-radius: 999px;
-
-        &.is-up   { color: var(--tca-ok);   background: var(--tca-ok-bg); }
-        &.is-down { color: var(--tca-warn); background: var(--tca-warn-bg); }
-      }
-
-      &--warn &__icon { color: var(--tca-warn); background: var(--tca-warn-bg); }
-    }
-
-    // ---------- Tarjeta / tabla ----------
-    .tca-card {
-      background: var(--tca-surface); border: 1px solid var(--tca-line); border-radius: var(--tca-radius-lg);
-      box-shadow: var(--tca-shadow-sm);
-    }
-
-    .tca-table-card { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-
-    .tca-toolbar {
-      display: flex; align-items: center; flex-wrap: wrap; gap: .75rem;
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--tca-line-soft);
-
-      .tca-search { flex: 0 1 320px; }
-    }
-
-    .tca-select {
-      height: 42px; padding: 0 2.2rem 0 .9rem;
-      font: 600 14px var(--tca-font); color: var(--tca-ink);
-      background: var(--tca-surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%238B96A1' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m2 4 4 4 4-4'/%3E%3C/svg%3E") no-repeat right .8rem center;
-      border: 1px solid var(--tca-line); border-radius: var(--tca-radius-sm);
-      appearance: none; cursor: pointer;
-      &:focus { outline: 0; border-color: var(--tca-teal); box-shadow: 0 0 0 3px var(--tca-teal-ring); }
-    }
-
-    .tca-seg {
-      display: inline-flex; margin-left: auto; padding: 3px;
-      background: var(--tca-bg); border-radius: var(--tca-radius-sm);
-
-      button {
-        height: 36px; padding: 0 .9rem;
-        font: 600 13px var(--tca-font); color: var(--tca-ink-2);
-        background: transparent; border: 0; border-radius: 6px; cursor: pointer;
-        &:hover { color: var(--tca-ink); }
-        &.is-active { color: var(--tca-teal-dark); background: var(--tca-surface); box-shadow: var(--tca-shadow-sm); }
-      }
-
-      @media (max-width: 1199px) { margin-left: 0; }
-    }
-
-    .tca-table-wrap { flex: 1; overflow-x: auto; }
-
-    .tca-table {
-      width: 100%; border-collapse: collapse; min-width: 760px;
-
-      th {
-        padding: .8rem 1.25rem;
-        font-size: 12.5px; font-weight: 700; color: var(--tca-ink-3); text-align: left; white-space: nowrap;
-        background: #FAFBFB; border-bottom: 1px solid var(--tca-line);
-        &.text-end { text-align: right; }
-      }
-      td {
-        padding: .8rem 1.25rem; vertical-align: middle;
-        border-bottom: 1px solid var(--tca-line-soft);
-        &.text-end { text-align: right; }
-      }
-      tbody tr { transition: background .12s; &:hover { background: #FAFBFB; } }
-    }
-
-    .tca-num { font-weight: 700; font-variant-numeric: tabular-nums; }
-
-    .tca-prod {
-      display: flex; align-items: center; gap: .85rem;
-      div { display: flex; flex-direction: column; line-height: 1.3; }
-      strong { font-weight: 700; }
-      small { font-size: 12px; color: var(--tca-ink-3); }
-    }
-
-    .tca-thumb {
-      display: grid; place-items: center; flex: none;
-      width: 48px; height: 48px; overflow: hidden;
-      font-size: 22px; color: var(--tca-ink-2);
-      border: 1px solid var(--tca-line-soft); border-radius: 10px;
-      img { width: 100%; height: 100%; object-fit: cover; }
-    }
-
-    .tca-tag {
-      display: inline-flex; align-items: center; gap: .4rem;
-      padding: 4px 10px; font-size: 12px; font-weight: 700; border-radius: 999px;
-      &::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-
-      &--activo  { color: var(--tca-ok);   background: var(--tca-ok-bg); }
-      &--bajo    { color: var(--tca-warn); background: var(--tca-warn-bg); }
-      &--agotado { color: var(--tca-bad);  background: var(--tca-bad-bg); }
-    &--inactivo { color: var(--tca-ink-2); background: var(--tca-line-soft); }
-    }
-
-    .tca-actions { display: inline-flex; gap: 2px; }
-    .tca-empty { padding: 3rem 1rem !important; text-align: center !important; color: var(--tca-ink-3); }
-
-    // ---------- Paginación ----------
-    .tca-pager {
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .75rem;
-      padding: .9rem 1.25rem; color: var(--tca-ink-2);
-
-      &__list {
-        display: flex; gap: 4px; margin: 0; padding: 0; list-style: none;
-
-        button {
-          min-width: 36px; height: 36px; padding: 0 .5rem;
-          font: 600 13px var(--tca-font); color: var(--tca-ink-2);
-          background: var(--tca-surface); border: 1px solid var(--tca-line); border-radius: var(--tca-radius-sm); cursor: pointer;
-          &:hover:not(:disabled) { background: var(--tca-bg); }
-          &:disabled { opacity: .4; cursor: not-allowed; }
-          &.is-active { color: #fff; background: var(--tca-teal); border-color: var(--tca-teal); }
-        }
-      }
-    }
-
-    // =========================================================
-    // PANEL LATERAL (slide-out drawer, independiente de Bootstrap)
-    // =========================================================
-    .tca-drawer {
-      position: fixed; top: 0; right: 0; bottom: 0; z-index: 1050;
-      display: flex; flex-direction: column;
-      width: var(--tca-drawer-w); min-width: 440px; max-width: 100%;
-      background: var(--tca-surface); border-left: 1px solid var(--tca-line); box-shadow: var(--tca-shadow-drawer);
-      font-family: var(--tca-font);
-      transform: translateX(100%); visibility: hidden;
-      transition: transform .32s cubic-bezier(.22, .8, .3, 1), visibility 0s .32s;
-
-      &.is-open { transform: none; visibility: visible; transition: transform .32s cubic-bezier(.22, .8, .3, 1), visibility 0s; }
-
-      @media (max-width: 767px) { width: 100vw; min-width: 0; border-left: 0; }
-    }
-
-    // Velo muy sutil: la tabla sigue visible detrás
-    .tca-scrim {
-      position: fixed; inset: 0; z-index: 1040;
-      background: color-mix(in oklch, var(--tca-ink) 18%, transparent);
-      opacity: 0; visibility: hidden;
-      transition: opacity .25s, visibility 0s .25s;
-      &.is-open { opacity: 1; visibility: visible; transition: opacity .25s; }
-    }
-
-    .tca-drawer {
-      &__head {
-        display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
-        padding: 1.4rem 1.5rem 1.1rem;
-        border-bottom: 1px solid var(--tca-line);
-
-        h2 { margin: 0 0 .2rem; font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
-        p  { margin: 0; font-size: 13px; color: var(--tca-ink-2); }
-      }
-
-      &__body {
-        flex: 1; overflow-y: auto;
-        display: flex; flex-direction: column; gap: 1.2rem;
-        padding: 1.4rem 1.5rem;
-      }
-
-      &__foot {
-        display: flex; justify-content: flex-end; gap: .75rem;
-        padding: 1rem 1.5rem;
-        background: var(--tca-surface); border-top: 1px solid var(--tca-line);
-
-        @media (max-width: 767px) { .tca-btn { flex: 1; } }
-      }
-    }
-
-    // ---------- Formulario ----------
-    .tca-field {
-      display: flex; flex-direction: column; gap: .45rem; min-width: 0;
-
-      &__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    }
-
-    .tca-label { font-size: 13px; font-weight: 700; color: var(--tca-ink); }
-
-    .tca-input {
-      width: 100%; height: 44px; padding: 0 .9rem;
-      font: 500 14px var(--tca-font); color: var(--tca-ink);
-      background: var(--tca-surface); border: 1px solid var(--tca-line); border-radius: var(--tca-radius-sm);
-      transition: border-color .15s, box-shadow .15s;
-
-      &::placeholder { color: var(--tca-ink-3); }
-      &:focus { outline: 0; border-color: var(--tca-teal); box-shadow: 0 0 0 3px var(--tca-teal-ring); }
-      &:is(select) {
-        appearance: none; cursor: pointer;
-        background: var(--tca-surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%238B96A1' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m2 4 4 4 4-4'/%3E%3C/svg%3E") no-repeat right .9rem center;
-      }
-    }
-
-    .was-validated .tca-input:invalid { border-color: var(--tca-bad); box-shadow: 0 0 0 4px color-mix(in oklch, var(--tca-bad) 12%, transparent); }
-
-    .tca-input-group {
-      display: flex; align-items: stretch;
-      span {
-        display: grid; place-items: center; width: 40px;
-        font-weight: 700; color: var(--tca-ink-2);
-        background: var(--tca-bg); border: 1px solid var(--tca-line); border-right: 0;
-        border-radius: var(--tca-radius-sm) 0 0 var(--tca-radius-sm);
-      }
-      .tca-input { border-radius: 0 var(--tca-radius-sm) var(--tca-radius-sm) 0; }
-    }
-
-    // Carga de imagen
-    .tca-upload {
-      position: relative; display: grid; place-items: center;
-      height: 190px; overflow: hidden; cursor: pointer;
-      background: #FAFBFB; border: 1.5px dashed #C9D0D5; border-radius: var(--tca-radius);
-      transition: border-color .15s, background .15s;
-
-      &:hover { border-color: var(--tca-teal); background: var(--tca-teal-soft); }
-
-      img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: var(--tca-surface); padding: .75rem; }
-
-      &__empty {
-        display: flex; flex-direction: column; align-items: center; gap: .25rem; text-align: center;
-        i { font-size: 28px; color: var(--tca-teal); }
-        strong { font-size: 13.5px; u { color: var(--tca-teal-dark); text-underline-offset: 3px; } }
-        small { color: var(--tca-ink-3); }
-      }
-    }
-
-    // Estado
-    .tca-switch-row {
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-      padding: .85rem 1rem; border: 1px solid var(--tca-line); border-radius: var(--tca-radius-sm);
-
-      div { display: flex; flex-direction: column; line-height: 1.35; }
-      small { font-size: 12.5px; color: var(--tca-ink-2); }
-
-    }
-
-    .tca-switch {
-      position: relative; flex: none; width: 44px; height: 26px;
-      input { position: absolute; inset: 0; z-index: 1; margin: 0; opacity: 0; cursor: pointer; }
-      span {
-        position: absolute; inset: 0; background: #C9D0D5; border-radius: 999px; transition: background .2s;
-        &::after {
-          content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px;
-          background: #fff; border-radius: 50%; box-shadow: 0 1px 2px rgba(0, 0, 0, .2); transition: transform .2s;
-        }
-      }
-      input:checked + span { background: var(--tca-teal); &::after { transform: translateX(18px); } }
-      input:focus-visible + span { box-shadow: 0 0 0 4px var(--tca-teal-ring); }
-    }
-
-    // ---------- Accesibilidad ----------
-    @media (prefers-reduced-motion: reduce) {
-      .tca-drawer, .tca-scrim { transition: none !important; }
-      * { transition: none !important; }
-    }
     /* #endregion */
 
+    
 
 
     // Footer Component
@@ -4399,3 +3912,1698 @@ $dash-shadow-hover: 0 10px 24px rgba(1, 157, 147, 0.12);
 // ============================================================================
 // FIN: VISTA PRINCIPAL ADMIN DASHBOARD (_dashboard.scss)
 // ============================================================================
+
+
+
+// =====================================================================
+// VISTA: Admin · Gestión de productos
+// =====================================================================
+/* #region Admin  */
+// =============================================================================
+// TecnoCenter · Panel admin · Gestión de productos
+// Prefijo de clases: .tca-*   |   Prefijo de variables locales: $tca-*
+//
+// Contenido: encabezado, KPIs (4 tarjetas), tabla de inventario (toolbar,
+// filtros, casillas, orden, publicación, acciones, paginación), menú de la
+// fila, panel lateral (drawer), campos del formulario y modal de confirmación.
+//
+// Dependencias externas (definidas en otros parciales del proyecto):
+//   Colores:     $color-primary, $color-secondary, $color-teal-light,
+//                $color-teal-medium, $color-neutral-gray, $color-surface-white
+//   Admin:       $admin-font-body, $admin-font-heading, $admin-ink-dark,
+//                $admin-gray-contrast, $admin-primary-contrast,
+//                $admin-border-subtle
+//   Mixins:      admin-focus-ring($color)
+//
+//
+// Clases que agrega el JavaScript (no se aplican en el HTML estático):
+//   .is-open    → .tca-drawer, .tca-scrim y .tca-dialog (abrir/cerrar)
+//   .is-active  → .tca-sort y .tca-page (columna ordenada y página actual)
+//   .is-selected → fila de la tabla con su casilla marcada
+//   .is-up / .is-down / .is-danger → .tca-kpi__trend (tono de la tendencia)
+//   .is-success → .form-text dentro de .tca-field (descuento calculado)
+//   .is-money   → .form-text dentro de .tca-field (valor del precio en palabras)
+//   --p (variable CSS) → .tca-ring: porcentaje del anillo (0 a 100)
+// =============================================================================
+
+// ---------- Tokens locales (prefijo $tca- para no chocar con otras variables) ----------
+$tca-bg: #F8F9FA;
+$tca-radius: 0.75rem;
+$tca-radius-sm: 0.5rem;
+$tca-shadow-sm: 0 2px 10px rgba(15, 23, 42, 0.04);
+$tca-shadow-hover: 0 10px 24px rgba(1, 157, 147, 0.12);
+$tca-shadow-drawer: -18px 0 48px rgba(15, 23, 42, 0.22);
+$tca-shadow-menu: 0 12px 32px rgba(15, 23, 42, 0.18);
+$tca-shadow-dialog: 0 24px 60px rgba(15, 23, 42, 0.32);
+$tca-border-control: rgba($color-neutral-gray, 0.45);
+
+// Segunda línea de la celda de producto (modelo | almacenamiento): gris azulado
+$tca-meta-fg: #51608F;
+
+// Estados semánticos (contraste WCAG AA ≥ 4.5:1)
+$tca-ok-fg: #065F46;
+$tca-ok-bg: #D1FAE5;
+$tca-warn-fg: #92400E;
+$tca-warn-bg: #FEF3C7;
+$tca-warn-accent: #F59E0B;   // borde de la tarjeta "Stock bajo"
+$tca-danger-fg: #991B1B;
+$tca-danger-bg: #FEE2E2;
+$tca-danger-accent: #EF4444; // borde de la tarjeta "Agotados" y del modal de eliminar
+$tca-danger-solid: #DC2626;  // botón rojo sólido (confirmar eliminación)
+$tca-danger-solid-hover: #B91C1C;
+$tca-info-fg: #0E7490;       // ícono sobre el fondo pastel (contraste AA)
+$tca-info-bg: #DFF6F9;       // fondo suave del ícono
+$tca-info-accent: #B3EBF2;   // borde de la tarjeta "Productos activos" (azul claro pastel)
+$tca-info-ring: #6FD3E2;     // anillo del porcentaje (un tono más fuerte para que se lea)
+$tca-info-hover: #22A9C0;    // fondo del ícono al pasar el mouse
+$tca-muted-fg: #475569;
+$tca-muted-bg: #E2E8F0;
+
+// Flecha de los <select> (no depende de Bootstrap)
+$tca-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+// Marcas de las casillas (palomita y guion en blanco)
+$tca-check-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3.5 8.5 3 3 6-7'/%3E%3C/svg%3E");
+$tca-check-dash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M4 8h8'/%3E%3C/svg%3E");
+
+// Base compartida por inputs, selects y buscador
+@mixin tca-control {
+    height: 44px;
+    padding: 0 0.9rem;
+    font-family: $admin-font-body;
+    font-size: 0.9rem;
+    color: $admin-ink-dark;
+    background-color: $color-surface-white;
+    border: 1px solid $tca-border-control;
+    border-radius: $tca-radius-sm;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+    &::placeholder {
+        color: $admin-gray-contrast;
+        opacity: 0.75;
+    }
+
+    &:hover {
+        border-color: rgba($color-teal-medium, 0.8);
+    }
+
+    &:focus,
+    &:focus-visible {
+        outline: 0;
+        border-color: $color-primary;
+        box-shadow: 0 0 0 3px rgba($color-primary, 0.18);
+    }
+}
+
+// Entrada de los KPIs y del menú: aparecen subiendo 6px con fade
+@keyframes tca-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// Capa "custom": queda por encima de Bootstrap en el orden de @layer,
+// así estos estilos ganan sin necesidad de subir la especificidad.
+@layer custom {
+
+    // ---------- Lienzo y contenedor ----------
+    .tca-body .admin-main {
+        background-color: $tca-bg;
+        font-family: $admin-font-body;
+        color: $admin-ink-dark;
+    }
+
+    .tca-content {
+        width: 100%;
+        padding: 1.75rem 2rem 2.5rem;
+
+        @media (max-width: 767.98px) {
+            padding: 1.25rem 1rem 2rem;
+        }
+    }
+
+    // ---------- Encabezado ----------
+    .tca-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+
+        &__title {
+            margin: 0 0 0.25rem;
+            font-family: $admin-font-heading;
+            font-size: clamp(1.6rem, 2.5vw, 2rem);
+            font-weight: 700;
+            line-height: 1.2;
+            color: $admin-ink-dark;
+        }
+
+        &__desc {
+            margin: 0;
+            font-size: 0.9rem;
+            color: $admin-gray-contrast;
+        }
+    }
+
+    // ---------- Botones ----------
+    .tca-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 42px;
+        padding: 0 1.1rem;
+        font-family: $admin-font-body;
+        font-size: 0.875rem;
+        font-weight: 600;
+        white-space: nowrap;
+        border: 1px solid transparent;
+        border-radius: $tca-radius-sm;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+        &:focus,
+        &:focus-visible {
+            @include admin-focus-ring($color-primary);
+        }
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        // .btn-solid se mantiene por compatibilidad con el HTML original
+        &--primary,
+        &.btn-solid {
+            background-color: $color-primary;
+            border-color: $color-primary;
+            color: $color-surface-white;
+
+            &:hover:not(:disabled) {
+                background-color: $admin-primary-contrast;
+                border-color: $admin-primary-contrast;
+                color: $color-surface-white;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 16px rgba($color-primary, 0.28);
+            }
+        }
+
+        &--ghost {
+            background-color: $color-surface-white;
+            border-color: rgba($color-teal-medium, 0.65);
+            color: $admin-primary-contrast;
+
+            &:hover:not(:disabled) {
+                background-color: rgba($color-teal-light, 0.16);
+                border-color: $color-secondary;
+                color: $admin-primary-contrast;
+            }
+        }
+
+        // Acción destructiva (eliminar selección): contorno rojo, relleno al pasar el mouse
+        &--danger {
+            background-color: $color-surface-white;
+            border-color: rgba($tca-danger-fg, 0.35);
+            color: $tca-danger-fg;
+
+            &:hover:not(:disabled) {
+                background-color: $tca-danger-bg;
+                border-color: rgba($tca-danger-fg, 0.55);
+                color: $tca-danger-fg;
+            }
+        }
+
+        // Acción destructiva confirmada (botón del modal de eliminar): rojo sólido
+        &--danger-solid {
+            background-color: $tca-danger-solid;
+            border-color: $tca-danger-solid;
+            color: $color-surface-white;
+
+            &:hover:not(:disabled) {
+                background-color: $tca-danger-solid-hover;
+                border-color: $tca-danger-solid-hover;
+                color: $color-surface-white;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 16px rgba($tca-danger-solid, 0.3);
+            }
+
+            &:focus,
+            &:focus-visible {
+                @include admin-focus-ring($tca-danger-accent);
+            }
+        }
+
+        // Tamaño compacto (barra de selección)
+        &--sm {
+            height: 34px;
+            padding: 0 0.85rem;
+            font-size: 0.82rem;
+        }
+    }
+
+    // Botón cuadrado con solo ícono (editar, más acciones, cerrar el drawer, limpiar filtros)
+    .tca-icon-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+        color: $admin-gray-contrast;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.45rem;
+        cursor: pointer;
+        transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+
+        &:hover {
+            background-color: rgba($color-teal-light, 0.16);
+            border-color: rgba($color-teal-medium, 0.45);
+            color: $admin-primary-contrast;
+        }
+
+        // Deshabilitado (p. ej. "Limpiar filtros" sin filtros activos): se ve apagado.
+        // Va después de :hover para que el hover no lo "encienda".
+        &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            color: $admin-gray-contrast;
+            background-color: $color-surface-white;
+            border-color: $admin-border-subtle;
+        }
+
+        &:focus-visible {
+            @include admin-focus-ring($color-primary);
+        }
+
+        // Con borde visible (botones de acción de la tabla)
+        &--outline {
+            color: $admin-ink-dark;
+            background-color: $color-surface-white;
+            border-color: $admin-border-subtle;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+
+        // Misma altura que los selects de la barra (44px)
+        &--lg {
+            width: 44px;
+            height: 44px;
+            font-size: 1.1rem;
+        }
+
+        // Eliminar: siempre en rojo; al pasar el mouse se rellena el fondo
+        &--danger {
+            color: $tca-danger-fg;
+
+            &:hover {
+                background-color: $tca-danger-bg;
+                border-color: rgba($tca-danger-fg, 0.25);
+                color: $tca-danger-fg;
+            }
+        }
+    }
+
+    // ---------- Indicadores (KPI) ----------
+    // 4 tarjetas: en pantallas anchas van en una sola fila
+    .tca-kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
+        gap: 1.15rem;
+        margin-bottom: 1.75rem;
+    }
+
+    // Layout en grid: texto a la izquierda, ícono a la derecha y la fila
+    // inferior (tendencia o porcentaje) ocupa todo el ancho
+    .tca-kpi {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "body icon"
+            "foot foot";
+        align-items: start;
+        gap: 0.75rem 1rem;
+        padding: 1.2rem 1.25rem;
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-left: 4px solid $color-primary;
+        border-radius: $tca-radius;
+        box-shadow: $tca-shadow-sm;
+        animation: tca-fade-up 0.45s ease both;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+        // Las tarjetas entran en cascada (0s, 0.05s, 0.1s, 0.15s).
+        // El color del borde de cada una lo da su variante: la 1.ª usa el verde
+        // por defecto, la 2.ª --info (azul), la 3.ª --warn y la 4.ª --danger.
+        &:nth-child(2) {
+            animation-delay: 0.05s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+
+        &:nth-child(4) {
+            animation-delay: 0.15s;
+        }
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: $tca-shadow-hover;
+        }
+
+        &__body {
+            grid-area: body;
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            min-width: 0;
+        }
+
+        &__label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $admin-gray-contrast;
+        }
+
+        &__value {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums; // dígitos de igual ancho: no "bailan" al cambiar
+            color: $admin-ink-dark;
+        }
+
+        &__icon {
+            grid-area: icon;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            font-size: 1.4rem;
+            color: $color-primary;
+            background-color: rgba($color-teal-light, 0.18);
+            border-radius: 0.7rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        // Al pasar el mouse por la tarjeta, el ícono se rellena de color
+        &:hover &__icon {
+            background-color: $color-primary;
+            color: $color-surface-white;
+        }
+
+        // Fila inferior: píldora de tendencia, anillo de porcentaje y texto de apoyo
+        &__foot {
+            grid-area: foot;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.6rem;
+            min-height: 26px;
+        }
+
+        &__hint {
+            font-size: 0.8rem;
+            color: $admin-gray-contrast;
+        }
+
+        &__pct {
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: $admin-ink-dark;
+        }
+
+        // Píldora de tendencia. Neutra por defecto; el HTML agrega .is-up, .is-down o .is-danger
+        &__trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.65rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: $admin-primary-contrast;
+            background-color: rgba($color-teal-light, 0.2);
+            border-radius: 50rem;
+
+            i {
+                font-size: 0.85rem;
+            }
+
+            // El puntito del KPI "Agotados" es más pequeño que un ícono normal
+            i.bi-circle-fill {
+                font-size: 0.45rem;
+            }
+
+            &.is-up {
+                color: $tca-ok-fg;
+                background-color: $tca-ok-bg;
+            }
+
+            &.is-down {
+                color: $tca-warn-fg;
+                background-color: $tca-warn-bg;
+            }
+
+            &.is-danger {
+                color: $tca-danger-fg;
+                background-color: $tca-danger-bg;
+            }
+        }
+
+        // Variante azul (productos activos)
+        &--info {
+            border-left-color: $tca-info-accent;
+
+            .tca-kpi__icon {
+                color: $tca-info-fg;
+                background-color: $tca-info-bg;
+            }
+
+            &:hover {
+                box-shadow: 0 10px 24px rgba($tca-info-accent, 0.4);
+            }
+
+            &:hover .tca-kpi__icon {
+                background-color: $tca-info-hover;
+                color: $color-surface-white;
+            }
+
+            // El anillo del porcentaje también pasa a azul pastel
+            .tca-ring {
+                background: conic-gradient($tca-info-ring calc(var(--p) * 1%), rgba($tca-info-accent, 0.45) 0);
+            }
+        }
+
+        // Variante de alerta (stock bajo)
+        &--warn {
+            border-left-color: $tca-warn-accent;
+
+            .tca-kpi__icon {
+                color: $tca-warn-fg;
+                background-color: $tca-warn-bg;
+            }
+
+            &:hover .tca-kpi__icon {
+                background-color: #D97706;
+                color: $color-surface-white;
+            }
+        }
+
+        // Variante crítica (agotados)
+        &--danger {
+            border-left-color: $tca-danger-accent;
+
+            .tca-kpi__icon {
+                color: $tca-danger-fg;
+                background-color: $tca-danger-bg;
+            }
+
+            &:hover .tca-kpi__icon {
+                background-color: #DC2626;
+                color: $color-surface-white;
+            }
+        }
+    }
+
+    // Anillo de progreso (KPI "Productos activos"). El JS fija --p con el porcentaje.
+    // conic-gradient dibuja el arco y la máscara radial deja solo el borde del círculo.
+    .tca-ring {
+        --p: 0;
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: conic-gradient($color-primary calc(var(--p) * 1%), rgba($color-teal-light, 0.3) 0);
+        -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+        mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+    }
+
+    // ---------- Tarjeta de la tabla ----------
+    // overflow: hidden recorta las esquinas redondeadas del encabezado y el pie
+    .tca-card {
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-radius: $tca-radius;
+        box-shadow: $tca-shadow-sm;
+        overflow: hidden;
+    }
+
+    // Barra de herramientas: align-items: flex-end alinea el buscador y el botón de
+    // limpiar con la base de los selects (que llevan su etiqueta arriba)
+    .tca-toolbar {
+        display: flex;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding: 1.1rem 1.5rem;
+        border-bottom: 1px solid $admin-border-subtle;
+
+        @media (max-width: 575.98px) {
+            padding: 1rem;
+        }
+
+        // Línea vertical que separa el buscador de los filtros
+        &__divider {
+            align-self: stretch;
+            width: 1px;
+            margin: 0 0.25rem;
+            background-color: $admin-border-subtle;
+
+            @media (max-width: 991.98px) {
+                display: none;
+            }
+        }
+    }
+
+    // Buscador con ícono posicionado dentro del input (por eso el padding-left extra)
+    .tca-search {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex: 1 1 220px;
+        max-width: 340px;
+        margin: 0;
+
+        i {
+            position: absolute;
+            left: 0.9rem;
+            font-size: 0.95rem;
+            color: $admin-gray-contrast;
+            pointer-events: none; // el clic pasa al input
+        }
+
+        input {
+            @include tca-control;
+            width: 100%;
+            padding-left: 2.5rem;
+            background-color: $tca-bg;
+
+            &:focus {
+                background-color: $color-surface-white;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            flex-basis: 100%;
+            max-width: none;
+        }
+    }
+
+    // Filtro con etiqueta pequeña encima del select
+    .tca-filter {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        flex: 0 1 175px;
+        min-width: 150px;
+
+        &__label {
+            margin: 0;
+            padding-left: 0.1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: $admin-gray-contrast;
+        }
+
+        .tca-select {
+            width: 100%;
+            min-width: 0;
+        }
+
+        @media (max-width: 575.98px) {
+            flex: 1 1 100%;
+        }
+    }
+
+    // appearance: none quita la flecha nativa; se reemplaza por $tca-chevron
+    .tca-select,
+    select.tca-input {
+        @include tca-control;
+        appearance: none;
+        padding-right: 2.4rem;
+        background-image: $tca-chevron;
+        background-repeat: no-repeat;
+        background-position: right 0.8rem center;
+        cursor: pointer;
+    }
+
+    // ---------- Barra de acciones de la selección ----------
+    // Aparece solo cuando hay filas marcadas (el JS quita/pone [hidden])
+    .tca-bulk {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        padding: 0.65rem 1.5rem;
+        background-color: rgba($color-teal-light, 0.14);
+        border-bottom: 1px solid $admin-border-subtle;
+
+        // `display: flex` pisaría el atributo hidden; se refuerza aquí
+        &[hidden] {
+            display: none;
+        }
+
+        &__count {
+            margin-right: auto;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: $admin-primary-contrast;
+        }
+
+        @media (max-width: 575.98px) {
+            padding: 0.65rem 1rem;
+        }
+    }
+
+    // ---------- Tabla ----------
+    // El wrapper permite scroll horizontal en pantallas pequeñas
+    // sin romper el layout de la página (la tabla tiene min-width).
+    .tca-table-wrap {
+        overflow-x: auto;
+    }
+
+    .tca-table {
+        width: 100%;
+        min-width: 980px;
+        border-collapse: collapse;
+        font-family: $admin-font-body;
+
+        thead th {
+            padding: 0.85rem 1rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-align: left;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            color: $admin-gray-contrast;
+            background-color: $tca-bg;
+            border-bottom: 1px solid $admin-border-subtle;
+        }
+
+        tbody td {
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+            vertical-align: middle;
+            color: $admin-ink-dark;
+            border-bottom: 1px solid rgba($color-neutral-gray, 0.14);
+        }
+
+        // Alineaciones (más específicas que `thead th` / `tbody td`)
+        .text-center {
+            text-align: center;
+        }
+
+        // Columna de casillas: estrecha y con el margen izquierdo de la tarjeta
+        .tca-col-check {
+            width: 52px;
+            padding-left: 1.5rem;
+            padding-right: 0.25rem;
+        }
+
+        tbody tr {
+            transition: background-color 0.15s ease;
+
+            &:hover {
+                background-color: rgba($color-teal-light, 0.08);
+            }
+
+            // Fila con su casilla marcada
+            &.is-selected {
+                background-color: rgba($color-teal-light, 0.14);
+            }
+
+            // La última fila no lleva línea inferior (ya la da el borde de la tarjeta)
+            &:last-child td {
+                border-bottom: 0;
+            }
+        }
+
+        // Fila "sin resultados". Los !important son necesarios para ganarle al
+        // padding y la alineación que las reglas de `tbody td` aplican arriba.
+        &__empty {
+            padding: 2.75rem 1rem !important;
+            text-align: center !important;
+            font-weight: 500;
+            color: $admin-gray-contrast;
+        }
+    }
+
+    // Encabezado ordenable: botón sin aspecto de botón que hereda el estilo del <th>
+    .tca-sort {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0;
+        font: inherit;
+        letter-spacing: inherit;
+        text-transform: inherit;
+        color: inherit;
+        background: none;
+        border: 0;
+        cursor: pointer;
+        transition: color 0.15s ease;
+
+        i {
+            font-size: 0.8rem;
+            opacity: 0.55;
+            transition: opacity 0.15s ease, color 0.15s ease;
+        }
+
+        &:hover {
+            color: $admin-ink-dark;
+
+            i {
+                opacity: 1;
+            }
+        }
+
+        &:focus-visible {
+            border-radius: 0.25rem;
+            @include admin-focus-ring($color-primary);
+        }
+
+        // Columna por la que se está ordenando
+        &.is-active {
+            color: $admin-primary-contrast;
+
+            i {
+                color: $color-primary;
+                opacity: 1;
+            }
+        }
+    }
+
+    // Casilla personalizada (appearance: none) con palomita y estado intermedio
+    .tca-check {
+        appearance: none;
+        -webkit-appearance: none;
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        vertical-align: middle;
+        cursor: pointer;
+        background-color: $color-surface-white;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 12px;
+        border: 1.5px solid rgba($color-neutral-gray, 0.7);
+        border-radius: 5px;
+        transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+            border-color: $color-primary;
+        }
+
+        &:checked,
+        &:indeterminate {
+            background-color: $color-primary;
+            border-color: $color-primary;
+        }
+
+        &:checked {
+            background-image: $tca-check-mark;
+        }
+
+        // Selección parcial en la casilla de la cabecera
+        &:indeterminate {
+            background-image: $tca-check-dash;
+        }
+
+        &:focus-visible {
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba($color-primary, 0.3);
+        }
+    }
+
+    // Celda de producto (miniatura + nombre + "modelo | almacenamiento")
+    .tca-product {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0; // permite que el nombre largo se corte con "…" dentro del flex
+            line-height: 1.3;
+        }
+
+        &__name {
+            display: block;
+            max-width: 240px;
+            overflow: hidden;
+            font-weight: 600;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: $admin-ink-dark;
+        }
+
+        // Segunda línea: modelo | almacenamiento (el JS pone el separador entre ambos)
+        &__meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.2rem 0.6rem;
+        }
+
+        &__model,
+        &__storage {
+            font-size: 0.82rem;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+            color: $tca-meta-fg;
+        }
+
+        &__sep {
+            font-size: 0.82rem;
+            color: rgba($color-neutral-gray, 0.7);
+        }
+    }
+
+    .tca-thumb {
+        flex-shrink: 0;
+        width: 46px;
+        height: 46px;
+        padding: 3px;
+        object-fit: contain;
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-radius: 0.65rem;
+
+        // Marcador cuando el producto no tiene imagen (muestra un ícono)
+        &--empty {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            font-size: 1.15rem;
+            color: $color-primary;
+            background-color: rgba($color-teal-light, 0.18);
+            border-color: rgba($color-teal-medium, 0.35);
+        }
+    }
+
+    .tca-price {
+        display: block;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+
+        // Precio anterior tachado (cuando hay descuento)
+        &__old {
+            display: block;
+            font-size: 0.76rem;
+            color: $admin-gray-contrast;
+            text-decoration: line-through;
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    .tca-stock {
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+
+        &--low {
+            color: $tca-warn-fg;
+        }
+
+        &--out {
+            color: $tca-danger-fg;
+        }
+    }
+
+    // Badges de disponibilidad
+    // Todos llevan un puntito a la izquierda (::before) que hereda el color del texto.
+    .tca-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.28rem 0.75rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        white-space: nowrap;
+        border-radius: 50rem;
+
+        &::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+
+        &--success {
+            color: $tca-ok-fg;
+            background-color: $tca-ok-bg;
+        }
+
+        &--warning {
+            color: $tca-warn-fg;
+            background-color: $tca-warn-bg;
+        }
+
+        &--danger {
+            color: $tca-danger-fg;
+            background-color: $tca-danger-bg;
+        }
+
+        &--muted {
+            color: $tca-muted-fg;
+            background-color: $tca-muted-bg;
+        }
+    }
+
+    .tca-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    // ---------- Menú de la fila (⋯) ----------
+    // position: fixed: el JS lo coloca junto al botón. Así no lo recorta el
+    // overflow de la tabla ni queda tapado por la última fila.
+    .tca-menu {
+        position: fixed;
+        z-index: 1070;
+        min-width: 170px;
+        padding: 0.35rem;
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-radius: $tca-radius-sm;
+        box-shadow: $tca-shadow-menu;
+        animation: tca-fade-up 0.15s ease both;
+
+        // `display` de arriba no debe anular el atributo hidden
+        &[hidden] {
+            display: none;
+        }
+
+        &__item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            width: 100%;
+            padding: 0.55rem 0.75rem;
+            font-family: $admin-font-body;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-align: left;
+            color: $admin-ink-dark;
+            background: none;
+            border: 0;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+
+            i {
+                font-size: 1rem;
+                color: $admin-gray-contrast;
+            }
+
+            &:hover,
+            &:focus-visible {
+                outline: 0;
+                background-color: rgba($color-teal-light, 0.16);
+            }
+
+            // Eliminar en rojo
+            &--danger {
+                color: $tca-danger-fg;
+
+                i {
+                    color: $tca-danger-fg;
+                }
+
+                &:hover,
+                &:focus-visible {
+                    background-color: $tca-danger-bg;
+                }
+            }
+        }
+    }
+
+    // ---------- Paginación ----------
+    .tca-pager {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding: 0.9rem 1.5rem;
+        font-size: 0.85rem;
+        color: $admin-gray-contrast;
+        background-color: $tca-bg;
+        border-top: 1px solid $admin-border-subtle;
+
+        &__list {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        @media (max-width: 575.98px) {
+            padding: 0.9rem 1rem;
+        }
+    }
+
+    .tca-page {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 0.6rem;
+        font-family: $admin-font-body;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: $admin-gray-contrast;
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-radius: 0.45rem;
+        cursor: pointer;
+        transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+
+        &:hover:not(:disabled) {
+            color: $admin-primary-contrast;
+            border-color: rgba($color-teal-medium, 0.65);
+            background-color: rgba($color-teal-light, 0.12);
+        }
+
+        &:focus-visible {
+            @include admin-focus-ring($color-primary);
+        }
+
+        // Flechas anterior/siguiente en los extremos
+        &:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        // Página actual (la marca el JS)
+        &.is-active {
+            color: $color-surface-white;
+            background-color: $color-primary;
+            border-color: $color-primary;
+        }
+
+        // Los puntos suspensivos entre rangos de páginas: sin caja ni clic
+        &--gap {
+            background: transparent;
+            border-color: transparent;
+            cursor: default;
+        }
+    }
+
+    // ---------- Panel lateral (drawer) ----------
+    // z-index: el scrim (1050) va debajo del drawer (1060); el menú ⋯ (1070) y el
+    // modal de confirmación (1080) van por encima. Se abren agregando .is-open desde JS.
+
+    // Fondo oscuro detrás del drawer. Con opacity + pointer-events: none
+    // está invisible y no bloquea clics mientras está cerrado.
+    .tca-scrim {
+        position: fixed;
+        inset: 0;
+        z-index: 1050;
+        background-color: rgba(15, 23, 42, 0.48);
+        backdrop-filter: blur(2px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+
+        &.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+    .tca-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1060;
+        display: flex;
+        flex-direction: column;
+        width: min(480px, 100vw);
+        background-color: $color-surface-white;
+        border-top: 4px solid $color-primary;
+        box-shadow: $tca-shadow-drawer;
+
+        // Cerrado: fuera de pantalla (a la derecha) y con visibility: hidden.
+        // Así sus campos no reciben foco con Tab ni los lee el lector de pantalla.
+        // El `visibility 0s linear 0.32s` retrasa el ocultamiento hasta que termina
+        // la animación de salida (0.32s); si no, el panel desaparecería de golpe.
+        transform: translateX(100%);
+        visibility: hidden;
+        transition: transform 0.32s cubic-bezier(0.22, 0.8, 0.3, 1), visibility 0s linear 0.32s;
+
+        // Abierto: visibility cambia al instante (0s, sin retraso) para que el
+        // panel sea visible durante toda la animación de entrada.
+        &.is-open {
+            transform: none;
+            visibility: visible;
+            transition: transform 0.32s cubic-bezier(0.22, 0.8, 0.3, 1), visibility 0s;
+        }
+
+        &__head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem 1rem;
+            border-bottom: 1px solid $admin-border-subtle;
+
+            h2 {
+                margin: 0;
+                font-family: $admin-font-heading;
+                font-size: 1.35rem;
+                font-weight: 700;
+                color: $admin-ink-dark;
+            }
+
+            p {
+                margin: 0.2rem 0 0;
+                font-size: 0.85rem;
+                color: $admin-gray-contrast;
+            }
+        }
+
+        // Solo el cuerpo hace scroll; cabecera y pie quedan fijos.
+        // overscroll-behavior evita que el scroll "se escape" a la página de atrás.
+        &__body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+            padding: 1.25rem 1.5rem;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        &__foot {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.65rem;
+            padding: 0.9rem 1.5rem;
+            background-color: $tca-bg;
+            border-top: 1px solid $admin-border-subtle;
+        }
+
+        @media (max-width: 575.98px) {
+
+            &__head,
+            &__body,
+            &__foot {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    }
+
+    // ---------- Modal de confirmación (eliminar) ----------
+    // Mensaje centrado sobre un fondo oscuro con desenfoque, en la misma línea del
+    // drawer: borde superior de color, esquinas redondeadas y botones .tca-btn.
+    // Cerrado: invisible y sin clics (visibility con retraso para dejar ver la salida).
+    .tca-dialog {
+        position: fixed;
+        inset: 0;
+        z-index: 1080;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background-color: rgba(15, 23, 42, 0.55);
+        backdrop-filter: blur(3px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.22s ease, visibility 0s linear 0.22s;
+
+        &.is-open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition: opacity 0.22s ease, visibility 0s;
+        }
+
+        &__box {
+            width: min(420px, 100%);
+            padding: 1.9rem 1.75rem 1.5rem;
+            text-align: center;
+            background-color: $color-surface-white;
+            border: 1px solid $admin-border-subtle;
+            border-top: 4px solid $tca-danger-accent;
+            border-radius: $tca-radius;
+            box-shadow: $tca-shadow-dialog;
+            transform: translateY(14px) scale(0.96);
+            transition: transform 0.28s cubic-bezier(0.22, 0.8, 0.3, 1);
+        }
+
+        // La caja entra subiendo y creciendo un poco cuando el modal se abre
+        &.is-open &__box {
+            transform: none;
+        }
+
+        // Ícono grande en círculo rojo suave con un halo alrededor
+        &__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.1rem;
+            font-size: 1.7rem;
+            color: $tca-danger-fg;
+            background-color: $tca-danger-bg;
+            border-radius: 50%;
+            box-shadow: 0 0 0 8px rgba($tca-danger-accent, 0.1);
+        }
+
+        &__title {
+            margin: 0 0 0.4rem;
+            font-family: $admin-font-heading;
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.25;
+            color: $admin-ink-dark;
+        }
+
+        &__msg {
+            margin: 0 0 1.15rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: $admin-gray-contrast;
+        }
+
+        // Tarjeta con el producto (miniatura + nombre + marca · modelo)
+        &__item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 1rem;
+            padding: 0.7rem 0.9rem;
+            text-align: left;
+            background-color: $tca-bg;
+            border: 1px solid $admin-border-subtle;
+            border-radius: $tca-radius-sm;
+
+            // `display: flex` pisaría el atributo hidden
+            &[hidden] {
+                display: none;
+            }
+        }
+
+        &__item-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            line-height: 1.3;
+
+            strong {
+                overflow: hidden;
+                font-size: 0.92rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                color: $admin-ink-dark;
+            }
+
+            small {
+                overflow: hidden;
+                font-size: 0.78rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                color: $tca-meta-fg;
+            }
+        }
+
+        &__warn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin: 0 0 1.35rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: $tca-danger-fg;
+        }
+
+        // Dos botones del mismo ancho; en pantallas muy pequeñas pasan a una columna
+        &__actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+
+            @media (max-width: 399.98px) {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+
+    // ---------- Campos del formulario ----------
+    .tca-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        min-width: 0;
+
+        // Dos campos por fila (p. ej. precio y stock); en pantallas muy pequeñas pasan a una columna
+        &__row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+
+            @media (max-width: 479.98px) {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-text {
+            margin: 0;
+            font-size: 0.78rem;
+            color: $admin-gray-contrast;
+
+            // Descuento calculado
+            &.is-success {
+                font-weight: 600;
+                color: $tca-ok-fg;
+            }
+
+            // Valor del precio en palabras ("Son 3 millones 500 mil pesos")
+            &.is-money {
+                font-weight: 600;
+                color: $admin-primary-contrast;
+            }
+        }
+    }
+
+    .tca-label {
+        margin: 0;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: $admin-ink-dark;
+    }
+
+    .tca-input {
+        @include tca-control;
+        width: 100%;
+    }
+
+    // Campo de dinero: números más grandes, de igual ancho y alineados a la derecha
+    .tca-input--money {
+        font-size: 1rem;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.01em;
+        text-align: right;
+
+        &::placeholder {
+            font-weight: 500;
+        }
+    }
+
+    // Input con prefijo (p. ej. "$" antes del precio)
+    .tca-input-group {
+        display: flex;
+        align-items: stretch;
+
+        >span {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 0.85rem;
+            font-weight: 600;
+            color: $admin-gray-contrast;
+            background-color: $tca-bg;
+            border: 1px solid $tca-border-control;
+            border-right: 0;
+            border-radius: $tca-radius-sm 0 0 $tca-radius-sm;
+            transition: border-color 0.2s ease;
+        }
+
+        // Se quitan las esquinas izquierdas del input para que se una al prefijo
+        .tca-input {
+            flex: 1;
+            min-width: 0;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        // Al enfocar el input, el prefijo también resalta su borde
+        &:focus-within>span {
+            border-color: $color-primary;
+        }
+    }
+
+    // Zona de carga de imagen
+    // Estados: vacía (muestra __empty) o con vista previa (muestra <img>).
+    // El JS alterna el atributo [hidden] entre ambos.
+    .tca-upload {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 168px;
+        overflow: hidden;
+        cursor: pointer;
+        background-color: rgba($color-teal-light, 0.06);
+        border: 2px dashed rgba($color-teal-medium, 0.65);
+        border-radius: $tca-radius;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+
+        &:hover,
+        &:focus-within {
+            background-color: rgba($color-teal-light, 0.14);
+            border-color: $color-primary;
+        }
+
+        img {
+            width: 100%;
+            max-height: 220px;
+            padding: 0.5rem;
+            object-fit: contain;
+
+            // `display` de arriba anularía el atributo hidden; se refuerza aquí
+            &[hidden] {
+                display: none;
+            }
+        }
+
+        &__empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 1.5rem 1rem;
+            text-align: center;
+
+            // Mismo motivo: `display: flex` pisaría el atributo hidden
+            &[hidden] {
+                display: none;
+            }
+
+            i {
+                font-size: 2rem;
+                line-height: 1;
+                color: $color-primary;
+            }
+
+            strong {
+                font-size: 0.9rem;
+                color: $admin-ink-dark;
+            }
+
+            u {
+                color: $admin-primary-contrast;
+                text-underline-offset: 2px;
+            }
+
+            small {
+                font-size: 0.78rem;
+                color: $admin-gray-contrast;
+            }
+        }
+    }
+
+    // Selector de colores: casillas con forma de bolita (el color llega en --c)
+    .tca-colors {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+    }
+
+    .tca-color {
+        position: relative;
+        display: inline-flex;
+        margin: 0;
+        cursor: pointer;
+
+        // Checkbox real transparente sobre la bolita: conserva teclado y lector de pantalla
+        input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        span {
+            width: 30px;
+            height: 30px;
+            background-color: var(--c);
+            border: 2px solid rgba(0, 0, 0, 0.08); // mismo borde suave de las bolitas del catálogo
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px $color-surface-white, 0 0 0 4px transparent;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        &:hover span {
+            transform: scale(1.08);
+        }
+
+        // Seleccionada: anillo del color principal
+        input:checked+span {
+            box-shadow: 0 0 0 2px $color-surface-white, 0 0 0 4px $color-primary;
+        }
+
+        input:focus-visible+span {
+            box-shadow: 0 0 0 2px $color-surface-white, 0 0 0 4px rgba($color-primary, 0.5);
+        }
+    }
+
+    // Interruptor activo/inactivo
+    .tca-switch-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.85rem 1rem;
+        background-color: $tca-bg;
+        border: 1px solid $admin-border-subtle;
+        border-radius: $tca-radius-sm;
+
+        strong {
+            display: block;
+            font-size: 0.9rem;
+            color: $admin-ink-dark;
+        }
+
+        small {
+            font-size: 0.78rem;
+            color: $admin-gray-contrast;
+        }
+    }
+
+    // Switch hecho con un checkbox real transparente (opacity: 0) que cubre todo
+    // el control: conserva teclado, foco y accesibilidad. El <span> siguiente
+    // dibuja el riel y la perilla (::after) según el estado :checked.
+    .tca-switch {
+        position: relative;
+        flex-shrink: 0;
+        display: inline-block;
+        width: 46px;
+        height: 26px;
+        margin: 0;
+        vertical-align: middle;
+        cursor: pointer;
+
+        input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        span {
+            position: absolute;
+            inset: 0;
+            background-color: #CBD5E1;
+            border-radius: 50rem;
+            transition: background-color 0.2s ease;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                width: 20px;
+                height: 20px;
+                background-color: $color-surface-white;
+                border-radius: 50%;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+                transition: transform 0.2s ease;
+            }
+        }
+
+        // Encendido: riel teal y perilla desplazada a la derecha (46 - 20 - 3 - 3 = 20px)
+        input:checked+span {
+            background-color: $color-primary;
+
+            &::after {
+                transform: translateX(20px);
+            }
+        }
+
+        input:focus-visible+span {
+            box-shadow: 0 0 0 3px rgba($color-primary, 0.3);
+        }
+
+        // Versión compacta para la columna "Publicación" (40 - 16 - 3 - 3 = 18px de recorrido)
+        &--sm {
+            width: 40px;
+            height: 22px;
+
+            span::after {
+                width: 16px;
+                height: 16px;
+            }
+
+            input:checked+span::after {
+                transform: translateX(18px);
+            }
+        }
+    }
+
+    // ---------- Accesibilidad ----------
+    // Respeta la preferencia del sistema "reducir movimiento":
+    // desactiva animaciones y transiciones de los elementos animados.
+    @media (prefers-reduced-motion: reduce) {
+
+        .tca-kpi,
+        .tca-btn,
+        .tca-icon-btn,
+        .tca-page,
+        .tca-check,
+        .tca-menu,
+        .tca-drawer,
+        .tca-scrim,
+        .tca-dialog,
+        .tca-dialog__box,
+        .tca-color span,
+        .tca-switch span,
+        .tca-switch span::after {
+            transition: none !important;
+            animation: none !important;
+        }
+    }
+}
+/* #endregion Admin */
