@@ -66,6 +66,7 @@ function mapProduct(item) {
     storage: item.almacenamiento,
     rating: item.rating ?? 0,
     reviews: item.reviews ?? 0,
+    stock: item.stock ?? 0,
     // El JSON no trae ventas; se usa la cantidad de reseñas como referencia de popularidad.
     sold: item.reviews ?? 0,
     badge: item.etiqueta || '',
@@ -328,7 +329,6 @@ async function initializeCatalog() {
     if (event.target.matches('.tcno-search-input')) applyFilters();
   });
 
-
   applyFilters();
 }
 
@@ -340,6 +340,7 @@ function createProductCard(product, template) {
   const favoriteButton = card.querySelector('[data-favorite]');
 
   if (product.id !== undefined) card.dataset.id = String(product.id);
+  card.dataset.productData = JSON.stringify(product);
   card.dataset.brand = product.brand;
   card.dataset.price = String(product.price);
   card.dataset.storage = String(product.storage);
@@ -382,6 +383,7 @@ function createProductCard(product, template) {
     if (cartBtn) {
       event.preventDefault();
       event.stopPropagation();
+      window.TcnoCart?.add(product);
       const originalContent = cartBtn.innerHTML;
       cartBtn.classList.add('is-added');
       cartBtn.textContent = 'Agregado al carrito';

@@ -164,6 +164,14 @@ function showStatus(message, showBack = true) {
 function renderProduct(item) {
     const copy = buildCopy(item);
     const imageUrl = resolveImageUrl(item.imagen);
+    const cartProduct = {
+        id: item.id,
+        name: copy.name,
+        price: item.precio,
+        storage: item.almacenamiento,
+        stock: item.stock ?? 0,
+        image: imageUrl,
+    };
 
     document.title = `tcnocenter | ${copy.name}`;
 
@@ -179,6 +187,7 @@ function renderProduct(item) {
     document.querySelector('[data-stars]').innerHTML = renderStars(item.rating ?? 0);
     document.querySelector('[data-reviews]').textContent = `${item.reviews ?? 0} reseñas`;
     document.querySelector('[data-product-price]').textContent = `${formatCurrency(item.precio)} COP`;
+    document.querySelector('[data-add-cart]').dataset.productData = JSON.stringify(cartProduct);
 
     const oldPriceEl = document.querySelector('[data-product-old-price]');
     if (item.precioAnterior) {
@@ -257,7 +266,7 @@ function renderProduct(item) {
     document.querySelector('[data-product-shell]').hidden = false;
 }
 
-function bindInteractions() {
+function bindInteractions(cartProduct) {
     const qtyInput = document.querySelector('[data-qty]');
     const minus = document.querySelector('[data-qty-minus]');
     const plus = document.querySelector('[data-qty-plus]');
@@ -268,7 +277,8 @@ function bindInteractions() {
 
     const clampQty = () => {
         let n = Number(qtyInput.value) || 1;
-        n = Math.min(10, Math.max(1, n));
+        const maximum = Number(cartProduct.stock) > 0 ? Number(cartProduct.stock) : 10;
+        n = Math.min(maximum, Math.max(1, n));
         qtyInput.value = String(n);
         return n;
     };
@@ -277,12 +287,16 @@ function bindInteractions() {
         qtyInput.value = String(Math.max(1, (Number(qtyInput.value) || 1) - 1));
     });
     plus?.addEventListener('click', () => {
-        qtyInput.value = String(Math.min(10, (Number(qtyInput.value) || 1) + 1));
+        const maximum = Number(cartProduct.stock) > 0 ? Number(cartProduct.stock) : 10;
+        qtyInput.value = String(Math.min(maximum, (Number(qtyInput.value) || 1) + 1));
     });
     qtyInput?.addEventListener('change', clampQty);
 
-    cartBtn?.addEventListener('click', () => {
+    cartBtn?.addEventListener('click', (event) => {
         clampQty();
+        event?.preventDefault();
+        event?.stopPropagation();
+        window.TcnoCart?.add(cartProduct, Number(qtyInput.value));
         const original = cartBtn.textContent;
         cartBtn.classList.add('is-added');
         cartBtn.textContent = 'Agregado ✓';
@@ -355,7 +369,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         renderProduct(item);
-        bindInteractions();
+        bindInteractions({
+            id: item.id,
+            name: buildCopy(item).name,
+            price: item.precio,
+            storage: item.almacenamiento,
+            stock: item.stock ?? 0,
+            image: resolveImageUrl(item.imagen),
+        });
     } catch (error) {
         console.error(error);
         showStatus('No se pudo cargar el producto. Intenta actualizar la página.');

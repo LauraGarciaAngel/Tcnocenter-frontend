@@ -5,9 +5,16 @@
 const componentsBaseUrl = new URL('../components/', document.currentScript.src);
 
 async function loadComponents() {
-  const allowedComponents = new Set(['navbar', 'footer', 'admin-layout']);
+  const allowedComponents = new Set(['navbar', 'footer', 'admin-layout', 'cart-drawer']);
   const placeholders = Array.from(document.querySelectorAll('[data-component]'))
     .filter((placeholder) => placeholder.dataset.loading !== 'true');
+
+  if (!document.querySelector('[data-component="cart-drawer"]')) {
+    const cartPlaceholder = document.createElement('div');
+    cartPlaceholder.dataset.component = 'cart-drawer';
+    document.body.append(cartPlaceholder);
+    placeholders.push(cartPlaceholder);
+  }
 
   await Promise.all(placeholders.map(async (placeholder) => {
     const componentName = placeholder.getAttribute('data-component');
@@ -30,6 +37,7 @@ function initializeComponents() {
   if (typeof lucide !== 'undefined' && lucide.createIcons) {
     lucide.createIcons();
   }
+  document.dispatchEvent(new CustomEvent('tcno:components-ready'));
 
   if (typeof window.initAdminDashboard === 'function') {
     window.initAdminDashboard();
