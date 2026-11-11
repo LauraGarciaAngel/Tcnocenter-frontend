@@ -91,7 +91,7 @@
             </i>
           </a>
           <!-- Carrito de Compras -->
-          <a href="#" class="tcno-nav-action-btn" aria-label="Carrito de compras">
+          <button type="button" class="tcno-nav-action-btn tcno-cart-toggle" data-cart-toggle aria-label="Carrito de compras">
             <i data-lucide="shopping-cart">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -100,7 +100,8 @@
                 <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
               </svg>
             </i>
-          </a>
+            <span class="tcno-cart-count" data-cart-count hidden>0</span>
+          </button>
         </div>
       </div>
     </div>
