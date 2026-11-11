@@ -33,19 +33,19 @@
       </div>
     </header>
 
-    <div class="tcno-catalog-layout">
-      <aside class="tcno-catalog-sidebar" aria-label="Filtros del catálogo">
+    <div class="tcno-catalog-layout" data-catalog-layout>
+      <aside class="tcno-catalog-sidebar" aria-label="Filtros del catálogo" data-filters-panel>
         <div class="tcno-filter-heading">
-          <h2>
+          <button type="button" class="tcno-filters-toggle" data-toggle-filters aria-expanded="true" aria-controls="catalog-filter-form">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 6h16M7 12h10m-7 6h4" />
             </svg>
-            Filtros
-          </h2>
+            <span>Filtros</span>
+          </button>
           <button class="tcno-filter-clear" type="button" data-clear-filters>Limpiar</button>
         </div>
 
-        <form class="tcno-filter-form" data-filter-form>
+        <form class="tcno-filter-form" id="catalog-filter-form" data-filter-form>
           <fieldset class="tcno-filter-group">
             <legend>Rango de precio</legend>
             <div class="tcno-price-values">
@@ -126,7 +126,6 @@
         <p class="tcno-catalog-empty" data-empty-state hidden>No encontramos
           productos con esos filtros. Prueba con otra
           selección.</p>
-        <p class="tcno-cart-feedback" data-cart-feedback role="status" aria-live="polite"></p>
       </section>
     </div>
   </main>
