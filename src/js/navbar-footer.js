@@ -5,14 +5,17 @@
 const componentsBaseUrl = new URL('../components/', document.currentScript.src);
 
 async function loadComponents() {
-  const placeholders = Array.from(document.querySelectorAll('[data-component]'));
+  const allowedComponents = new Set(['navbar', 'footer', 'admin-layout']);
+  const placeholders = Array.from(document.querySelectorAll('[data-component]'))
+    .filter((placeholder) => placeholder.dataset.loading !== 'true');
 
   await Promise.all(placeholders.map(async (placeholder) => {
     const componentName = placeholder.getAttribute('data-component');
-    if (componentName !== 'navbar' && componentName !== 'footer') {
+    if (!allowedComponents.has(componentName)) {
       throw new Error(`Componente de interfaz desconocido: ${componentName}`);
     }
 
+    placeholder.dataset.loading = 'true';
     const componentUrl = new URL(`${componentName}.html`, componentsBaseUrl);
     const response = await fetch(componentUrl);
     if (!response.ok) {
@@ -26,6 +29,10 @@ async function loadComponents() {
 function initializeComponents() {
   if (typeof lucide !== 'undefined' && lucide.createIcons) {
     lucide.createIcons();
+  }
+
+  if (typeof window.initAdminDashboard === 'function') {
+    window.initAdminDashboard();
   }
 
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';

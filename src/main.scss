@@ -458,10 +458,184 @@
         }
     }
 
-// Home — Categorías Destacadas
+
+/* HOME — HERO */
+.tcno-hero {
+  background: linear-gradient(135deg, #F4FCFC 0%, #DFF7F6 50%, #E8F8F6 100%);
+  padding: 3.5rem 0 3rem;
+  border-bottom: 1px solid #e5e7eb;
+
+  .tcno-hero-content {
+    max-width: 640px;
+  }
+
+  .tcno-hero-eyebrow {
+    font-family: var(--tcno-font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--tcno-primary, #019D93);
+    margin: 0 0 0.75rem;
+  }
+
+  .tcno-hero-title {
+    font-family: var(--tcno-font-heading);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    color: var(--tcno-dark, #1F2937);
+    line-height: 1.15;
+    margin: 0 0 1rem;
+  }
+
+  .tcno-hero-desc {
+    font-family: var(--tcno-font-body);
+    font-size: 1.05rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 1.75rem;
+    max-width: 480px;
+  }
+
+  .tcno-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.75rem;
+    font-family: var(--tcno-font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--tcno-primary, #019D93);
+    border-radius: 50rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: #017a72;
+      color: #fff;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    padding: 2.5rem 0 2rem;
+
+    .tcno-hero-title {
+      font-size: 1.75rem;
+    }
+
+    .tcno-hero-desc {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+/* HOME — PRODUCTOS MÁS VENDIDOS */
+
+.productos-destacados {
+    padding: 2.5rem 0;
+
+    .productos-titulo {
+        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--tcno-dark, #1F2937);
+        margin-bottom: 1.75rem;
+    }
+
+    .productos-carousel {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .lista-productos {
+        display: flex;
+        flex: 1;
+        min-width: 0;
+        gap: 1.25rem;
+        padding: 0.5rem 0;
+        margin: 0;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        > * {
+            flex: 0 0 calc((100% - 5rem) / 5);
+            min-width: 0;
+            scroll-snap-align: start;
+        }
+    }
+
+    .carousel-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 40px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background-color: #6b7280;
+        color: #ffffff;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+            background-color: #4b5563;
+            transform: scale(1.05);
+        }
+
+        svg {
+            display: block;
+        }
+    }
+
+    @media (max-width: 991.98px) {
+        .lista-productos > * {
+            flex-basis: calc((100% - 2.5rem) / 3);
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        padding: 2rem 0;
+
+        .lista-productos > * {
+            flex-basis: calc((100% - 1.25rem) / 2);
+        }
+
+        .carousel-btn {
+            flex-basis: 36px;
+            width: 36px;
+            height: 36px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .productos-carousel {
+            gap: 0.5rem;
+        }
+
+        .lista-productos > * {
+            flex-basis: 85%;
+        }
+    }
+}
+
+
+/* HOME — CATEGORÍAS DESTACADAS */
 
 .categorias-destacadas {
-    padding: 2.5rem 0 2.5rem;
+    padding: 2.5rem 0;
 
     .categorias-titulo {
         font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
@@ -472,16 +646,16 @@
     }
 
     .categorias-carousel {
-        position: relative;
         display: flex;
         align-items: center;
         gap: 1rem;
-        overflow: hidden;
+        width: 100%;
     }
 
     .lista-categorias {
         display: flex;
-        flex-wrap: nowrap;
+        flex: 1;
+        min-width: 0;
         align-items: center;
         gap: 1.25rem;
         list-style: none;
@@ -489,6 +663,15 @@
         margin: 0;
         overflow-x: auto;
         scroll-behavior: smooth;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        li {
+            flex: 0 0 auto;
+        }
     }
 
     .categoria-item {
@@ -497,29 +680,31 @@
         justify-content: center;
         width: 140px;
         height: 110px;
+        padding: 1rem;
         background-color: #ffffff;
         border: 1px solid #e5e7eb;
         border-radius: 16px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         text-decoration: none;
-        flex-shrink: 0;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
 
         &:hover {
             transform: translateY(-4px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-            text-decoration: none;
         }
 
         img {
             display: block;
-            width: auto;
             max-width: 85%;
+            max-height: 52px;
+            width: auto;
+            height: auto;
             object-fit: contain;
         }
     }
 
-    // Logos
+    /* Tamaño de los logos */
+
     .logo-xiaomi {
         height: 48px;
     }
@@ -544,19 +729,37 @@
         height: 34px;
     }
 
-    // Botones de navegación
+    .logo-oppo {
+        height: 36px;
+    }
+
+    .logo-honor {
+        height: 34px;
+    }
+
+    .logo-infinix {
+        height: 32px;
+    }
+
+    .logo-nubia {
+        height: 35px;
+    }
+
+    /* Botones de navegación */
+
     .carousel-btn {
         display: flex;
         align-items: center;
         justify-content: center;
+        flex: 0 0 40px;
         width: 40px;
         height: 40px;
+        padding: 0;
+        border: none;
         border-radius: 50%;
         background-color: #6b7280;
         color: #ffffff;
-        border: none;
         cursor: pointer;
-        flex-shrink: 0;
         transition: background-color 0.2s ease, transform 0.2s ease;
 
         &:hover {
@@ -570,7 +773,7 @@
     }
 
     @media (max-width: 767.98px) {
-        padding: 2rem 0 1.75rem;
+        padding: 2rem 0;
 
         .categoria-item {
             width: 120px;
@@ -585,11 +788,744 @@
         .logo-tecno { height: 30px; }
 
         .carousel-btn {
+            flex-basis: 36px;
             width: 36px;
             height: 36px;
         }
     }
 }
+
+
+    // =========================================================================
+    // COMPONENTE REUTILIZABLE · Tarjeta de Producto (.tcno-product-card)
+    // =========================================================================
+    .tcno-product-card {
+        display: flex;
+        min-width: 0;
+        min-height: 20rem;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        border-radius: 0.7rem;
+        background: var(--tcno-white);
+        font-family: var(--tcno-font-body);
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0.5rem 1.2rem color-mix(in oklch, var(--tcno-dark) 10%, transparent);
+        }
+
+        .tcno-product-image-wrap {
+            position: relative;
+            display: grid;
+            min-height: 12rem;
+            place-items: center;
+            padding: 0.6rem 1rem 0;
+
+            > img {
+                display: block;
+                width: 100%;
+                height: 8rem;
+                object-fit: contain;
+                // multiply hace "transparente" el fondo blanco de las fotos sobre la tarjeta blanca; con screen la foto desaparecía.
+                mix-blend-mode: multiply;
+
+                &[hidden] {
+                    display: none;
+                }
+            }
+        }
+
+        .tcno-product-badge {
+            position: absolute;
+            z-index: 1;
+            top: 0.5rem;
+            left: 0.55rem;
+            padding: 0.2rem 0.45rem;
+            border-radius: 1rem;
+            background: var(--tcno-primary);
+            color: var(--tcno-white);
+            font-size: 0.59rem;
+
+            &.is-new {
+                background: var(--tcno-medium);
+            }
+        }
+
+        .tcno-product-favorite {
+            position: absolute;
+            z-index: 1;
+            top: 0.45rem;
+            right: 0.5rem;
+            display: grid;
+            width: 1.65rem;
+            height: 1.65rem;
+            place-items: center;
+            border: 0;
+            background: var(--tcno-white);
+            color: var(--tcno-secondary);
+            cursor: pointer;
+
+            svg {
+                width: 1rem;
+                height: 1rem;
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 1.7;
+            }
+
+            &[aria-pressed="true"] {
+                color: #e15f6d;
+
+                svg {
+                    fill: currentColor;
+                }
+            }
+        }
+
+        .tcno-product-info {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding: 0.45rem 0.6rem 0.55rem;
+
+            h2 {
+                overflow: hidden;
+                margin: 0 0 0.15rem;
+                color: var(--tcno-dark);
+                font-family: var(--tcno-font-body);
+                font-size: 0.72rem;
+                font-weight: 700;
+                line-height: 1.35;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        .tcno-product-rating,
+        .tcno-product-price,
+        .tcno-product-old-price,
+        .tcno-product-meta,
+        .tcno-warranty {
+            margin: 0;
+        }
+
+        .tcno-product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            line-height: 1.2;
+
+            > span {
+                color: #f3a927;
+                font-size: 0.8rem;
+                letter-spacing: -0.08em;
+
+                i {
+                    color: var(--gray-300);
+                    font-style: normal;
+                }
+            }
+
+            small {
+                color: var(--tcno-gray);
+                font-size: 0.54rem;
+            }
+        }
+
+        .tcno-product-price {
+            margin-top: 0.16rem;
+            color: var(--tcno-primary);
+            font-size: 0.78rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .tcno-product-old-price {
+            min-height: 0.85rem;
+            color: var(--fg-3);
+            font-size: 0.56rem;
+            text-decoration: line-through;
+
+            span {
+                display: inline-block;
+                margin-left: 0.2rem;
+                padding: 0.05rem 0.25rem;
+                border-radius: 1rem;
+                background: color-mix(in oklch, var(--tcno-primary) 12%, var(--tcno-white));
+                color: var(--tcno-primary);
+                font-size: 0.52rem;
+                text-decoration: none;
+            }
+        }
+
+        .tcno-product-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 1.2rem;
+        }
+
+        .tcno-color-dots {
+            display: flex;
+            gap: 0.23rem;
+
+            i {
+                width: 0.5rem;
+                height: 0.5rem;
+                border: 1px solid rgb(0 0 0 / 8%);
+                border-radius: 50%;
+                background: #79818a;
+
+                &:nth-child(2) { background: #d3d8dd; }
+                &:nth-child(3) { background: #4a5967; }
+            }
+
+            &.is-apple i {
+                &:first-child { background: #7e8993; }
+                &:nth-child(2) { background: #e5ddd0; }
+                &:nth-child(3) { background: #31363a; }
+            }
+
+            &.is-xiaomi i {
+                &:first-child { background: #8965e8; }
+                &:nth-child(2) { background: #b6c8d6; }
+                &:nth-child(3) { background: #e5e9ec; }
+            }
+
+            &.is-moto i {
+                &:first-child { background: #738175; }
+                &:nth-child(2) { background: #a9b5a4; }
+                &:nth-child(3) { background: #454d49; }
+            }
+
+            &.is-samsung i {
+                &:first-child { background: #6074b9; }
+                &:nth-child(2) { background: #d1dce3; }
+                &:nth-child(3) { background: #586574; }
+            }
+        }
+
+        .tcno-storage-tag {
+            padding: 0.1rem 0.45rem;
+            border: 1px solid var(--border-subtle);
+            border-radius: 1rem;
+            color: var(--tcno-gray);
+            font-size: 0.52rem;
+            line-height: 1.2;
+        }
+
+        .tcno-warranty {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            margin-top: 0.12rem;
+            color: var(--tcno-gray);
+            font-size: 0.54rem;
+            line-height: 1.2;
+
+            svg {
+                width: 0.75rem;
+                height: 0.75rem;
+                fill: none;
+                stroke: var(--tcno-secondary);
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 1.8;
+            }
+        }
+
+        .tcno-add-cart {
+            display: flex;
+            min-height: 1.85rem;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            margin-top: 0.4rem;
+            padding: 0.25rem 0.5rem;
+            border: 0;
+            border-radius: 2rem;
+            background: var(--tcno-primary);
+            color: var(--tcno-white);
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.59rem;
+            font-weight: 700;
+            transition: background-color 0.18s ease, transform 0.18s ease;
+
+            &:hover {
+                background: color-mix(in oklch, var(--tcno-primary) 85%, #000);
+            }
+
+            &:active {
+                transform: translateY(1px);
+            }
+
+            &.is-added {
+                background: color-mix(in oklch, var(--tcno-primary) 70%, #000);
+            }
+
+            svg {
+                width: 0.9rem;
+                height: 0.9rem;
+                fill: none;
+                stroke: currentColor;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 1.8;
+            }
+        }
+
+        @media (max-width: 640px) {
+            min-height: 18rem;
+
+            .tcno-product-image-wrap {
+                min-height: 9rem;
+                padding: 0.55rem 0.5rem 0;
+
+                > img {
+                    height: 6.5rem;
+                }
+            }
+
+            .tcno-product-info {
+                padding: 0.4rem 0.45rem 0.5rem;
+
+                h2 {
+                    font-size: 0.65rem;
+                }
+            }
+
+            .tcno-product-price {
+                font-size: 0.7rem;
+            }
+
+            .tcno-add-cart {
+                font-size: 0.55rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+
+            .tcno-add-cart {
+                transition: none;
+            }
+        }
+    }
+
+
+ // =========================================================================
+ // VISTA · Catálogo de Productos (.tcno-catalog-page, .tcno-catalog)
+ // =========================================================================
+
+/* #region Catalo */
+
+    .tcno-catalog-page {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+
+        > .tcno-catalog {
+            flex: 1 0 auto;
+        }
+
+        > .tcno-footer {
+            flex-shrink: 0;
+        }
+    }
+
+    .tcno-catalog-hero {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(105deg, var(--tcno-primary) 0%, var(--tcno-light) 57%, var(--tcno-secondary) 100%);
+        color: var(--tcno-white);
+
+        &::after {
+            position: absolute;
+            right: -3.5rem;
+            bottom: -7rem;
+            width: 15rem;
+            height: 15rem;
+            border: 2rem solid rgb(255 255 255 / 9%);
+            border-radius: 50%;
+            content: "";
+        }
+
+        .tcno-catalog-hero-inner {
+            position: relative;
+            z-index: 1;
+            width: min(100% - 3rem, 1440px);
+            margin: 0 auto;
+            padding: 1.2rem 0 1.35rem;
+        }
+
+        p {
+            margin: 0 0 0.2rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--tcno-white);
+            font-family: var(--tcno-font-heading);
+            font-size: clamp(2rem, 4vw, 2.7rem);
+            font-weight: 700;
+            line-height: 1.05;
+        }
+
+        span {
+            display: block;
+            margin-top: 0.3rem;
+            font-size: 0.87rem;
+        }
+
+        @media (max-width: 640px) {
+            .tcno-catalog-hero-inner {
+                width: min(100% - 1.5rem, 1440px);
+            }
+        }
+    }
+
+    .tcno-visually-hidden {
+        position: absolute;
+        overflow: hidden;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        border: 0;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        clip-path: inset(50%);
+    }
+
+    .tcno-catalog {
+        color: var(--tcno-dark);
+        font-family: var(--tcno-font-body);
+
+        .tcno-catalog-layout {
+            display: grid;
+            grid-template-columns: minmax(210px, 250px) minmax(0, 1fr);
+            gap: 2rem;
+            width: min(100% - 3rem, 1440px);
+            margin: 1.65rem auto 2.5rem;
+            align-items: start;
+        }
+
+        .tcno-catalog-sidebar {
+            position: sticky;
+            top: 1rem;
+            padding: 1rem 1rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.7rem;
+            background: var(--bg-1);
+        }
+
+        .tcno-filter-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.85rem;
+
+            h2 {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin: 0;
+                color: var(--tcno-dark);
+                font-family: var(--tcno-font-body);
+                font-size: 1rem;
+                font-weight: 700;
+            }
+        }
+
+        .tcno-filter-heading svg,
+        .tcno-sort-controls svg {
+            width: 1.1rem;
+            height: 1.1rem;
+            fill: none;
+            stroke: var(--tcno-secondary);
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.8;
+        }
+
+        .tcno-filter-clear {
+            border: 0;
+            background: transparent;
+            color: var(--tcno-primary);
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.72rem;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .tcno-filter-form {
+            fieldset {
+                min-width: 0;
+                margin: 0;
+                padding: 0;
+                border: 0;
+            }
+        }
+
+        .tcno-filter-group {
+            display: grid;
+            gap: 0.55rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+
+            legend {
+                float: none;
+                width: 100%;
+                margin-bottom: 0.3rem;
+                color: var(--tcno-dark);
+                font-size: 0.78rem;
+                font-weight: 700;
+            }
+        }
+
+        .tcno-price-values {
+            display: flex;
+            justify-content: space-between;
+            color: var(--fg-1);
+            font-size: 0.7rem;
+
+            &.tcno-price-limits {
+                font-size: 0.64rem;
+            }
+        }
+
+        .tcno-price-range {
+            width: 100%;
+            height: 1.1rem;
+            margin: 0.08rem 0;
+            accent-color: var(--tcno-primary);
+            cursor: pointer;
+        }
+
+        .tcno-check-option,
+        .tcno-rating-option {
+            display: flex;
+            min-height: 1.5rem;
+            align-items: center;
+            gap: 0.45rem;
+            color: var(--fg-1);
+            cursor: pointer;
+            font-size: 0.73rem;
+
+            input {
+                flex: 0 0 auto;
+                width: 0.9rem;
+                height: 0.9rem;
+                margin: 0;
+                accent-color: var(--tcno-primary);
+            }
+
+            small {
+                color: var(--tcno-gray);
+                font-size: 0.65rem;
+            }
+        }
+
+        .tcno-rating-option {
+            gap: 0.4rem;
+
+            > span:not(.tcno-stars) {
+                font-size: 0.68rem;
+            }
+        }
+
+        .tcno-stars {
+            color: var(--tcno-dark);
+            letter-spacing: -0.07em;
+            white-space: nowrap;
+
+            span {
+                color: var(--gray-300);
+            }
+        }
+
+        .tcno-apply-filters {
+            width: 100%;
+            margin-top: 0.9rem;
+            padding: 0.65rem 0.8rem;
+            border: 0;
+            border-radius: 2rem;
+            background: var(--tcno-primary);
+            color: var(--tcno-white);
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: background-color 0.18s ease, transform 0.18s ease;
+
+            &:hover {
+                background: color-mix(in oklch, var(--tcno-primary) 85%, #000);
+            }
+
+            &:active {
+                transform: translateY(1px);
+            }
+        }
+
+        .tcno-catalog-toolbar {
+            display: flex;
+            min-height: 2.7rem;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .tcno-brand-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .tcno-brand-chip {
+            min-height: 2rem;
+            padding: 0.4rem 0.95rem;
+            border: 0;
+            border-radius: 2rem;
+            background: var(--bg-2);
+            color: var(--tcno-dark);
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.68rem;
+            font-weight: 600;
+            transition: background-color 0.18s ease, color 0.18s ease;
+
+            &:hover,
+            &.is-active {
+                background: var(--tcno-primary);
+                color: var(--tcno-white);
+            }
+        }
+
+        .tcno-sort-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+
+            label {
+                display: flex;
+            }
+
+            select {
+                max-width: 14rem;
+                min-height: 2rem;
+                padding: 0.35rem 1.7rem 0.35rem 0.75rem;
+                border: 1px solid var(--border-color);
+                border-radius: 2rem;
+                background-color: var(--tcno-white);
+                color: var(--tcno-dark);
+                font: inherit;
+                font-size: 0.66rem;
+            }
+        }
+
+        .tcno-product-count {
+            color: var(--tcno-gray);
+            font-size: 0.65rem;
+            white-space: nowrap;
+        }
+
+        .tcno-product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+
+        .tcno-catalog-empty {
+            margin: 2rem 0;
+            padding: 2rem 1rem;
+            border: 1px dashed var(--border-body);
+            border-radius: 0.7rem;
+            color: var(--fg-1);
+            text-align: center;
+        }
+
+        .tcno-cart-feedback {
+            min-height: 1.3rem;
+            margin: 0.65rem 0 0;
+            color: var(--tcno-primary);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .tcno-catalog-layout {
+                grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+                gap: 1rem;
+            }
+
+            .tcno-product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .tcno-catalog-toolbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .tcno-catalog-layout {
+                width: min(100% - 1.5rem, 1440px);
+                grid-template-columns: minmax(0, 1fr);
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .tcno-catalog-sidebar {
+                position: static;
+            }
+
+            .tcno-filter-form {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                column-gap: 1rem;
+            }
+
+            .tcno-filter-group:first-child,
+            .tcno-rating-filter,
+            .tcno-apply-filters {
+                grid-column: 1 / -1;
+            }
+
+            .tcno-catalog-toolbar {
+                gap: 0.65rem;
+            }
+
+            .tcno-sort-controls {
+                width: 100%;
+
+                select {
+                    flex: 1;
+                    max-width: none;
+                }
+            }
+
+            .tcno-product-grid {
+                gap: 0.55rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tcno-apply-filters,
+            .tcno-brand-chip {
+                transition: none;
+            }
+        }
+    }
+
 
     // About Us Component (Alineación vertical perfecta en beneficios)
     .tcno-about-page {
@@ -796,6 +1732,7 @@
             justify-content: center;
             align-self: center;
             margin-bottom: 1.5rem;
+            
         }
 
         img,
@@ -892,10 +1829,14 @@
     }
 
 
-// ============================================================================
-// contacto.scss — solo estilos propios de la página de contacto.
-// ============================================================================
+  /* #endregion */
 
+
+
+// ============================================================================
+// contacto.scss — solo estilos propios de la página de contacto
+// ============================================================================
+/* #region Contac */
 .tcno-contact-page {
 
     // ---------- Banner ----------
@@ -1258,7 +2199,9 @@
         line-height: 1.7;
     }
 }
+    /* #endregion */
 
+    
 
 
     // Footer Component
@@ -1468,3 +2411,3199 @@
         }
     }
 }
+
+// ============================================================================
+// INICIO: COMPONENTE REUTILIZABLE ADMIN DASHBOARD (NAVBAR & SIDEBAR)
+// ============================================================================
+
+// 1. Tokens de Diseño e Identidad Visual (Guía de Estilo Oficial)
+$color-primary: #019D93;       // Verde azulado principal - marca, acciones primarias, foco
+$color-secondary: #24A9A1;     // Turquesa secundario - botones secundarios, estados activos/hover
+$color-teal-medium: #45B7B0;   // Turquesa medio - bordes destacados, elementos de apoyo
+$color-teal-light: #6BC4BE;    // Turquesa claro - fondos suaves, badges decorativos
+$color-neutral-gray: #7F7F7F;  // Gris neutro - divisores, bordes de 1px, texto secundario
+$color-surface-white: #FEFEFE; // Blanco casi puro - fondo principal, texto sobre fondos oscuros
+
+// Superficies neutras y derivados de alto contraste WCAG AA (≥ 4.5:1)
+$admin-surface-subtle: #F8F9FA;
+$admin-ink-dark: #1F2937;
+$admin-primary-contrast: #016A63;
+$admin-gray-contrast: #565656;
+$admin-canvas-bg: #F4F7F7;
+$admin-border-subtle: rgba($color-neutral-gray, 0.22);
+$admin-danger: #B42318;
+
+// Tipografías y Dimensiones
+$admin-font-logo: 'Audiowide', sans-serif;
+$admin-font-heading: 'Josefin Sans', sans-serif;
+$admin-font-body: 'Inter', sans-serif;
+$admin-navbar-height: 64px;
+$admin-sidebar-width: 250px;
+$admin-sidebar-collapsed-width: 72px;
+$admin-breakpoint-lg: 992px;
+$admin-sidebar-transition: width 0.3s ease, box-shadow 0.3s ease;
+
+// Capas Z-Index (por debajo de .tca-scrim 1040 y .tca-drawer 1050)
+$admin-z-backdrop: 1030;
+$admin-z-sidebar: 1034;
+$admin-z-navbar: 1038;
+
+// 2. Mixins Modulares
+@mixin admin-focus-ring($ring-color: $color-primary) {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($ring-color, 0.35);
+}
+
+@mixin admin-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@layer custom {
+    // Cuerpo y bloqueo de scroll para expansión móvil
+    .admin-body {
+        font-family: $admin-font-body;
+        font-size: 1rem;
+        color: $admin-ink-dark;
+        background-color: $admin-canvas-bg;
+        min-height: 100vh;
+        overflow-x: hidden;
+
+        &.is-scroll-locked {
+            overflow: hidden;
+        }
+    }
+
+    // Enlace de salto accesible por teclado
+    .admin-skip-link {
+        @include admin-visually-hidden;
+
+        &:focus {
+            position: fixed;
+            top: 0.75rem;
+            left: 0.75rem;
+            width: auto;
+            height: auto;
+            margin: 0;
+            padding: 0.5rem 1rem;
+            overflow: visible;
+            clip: auto;
+            z-index: $admin-z-navbar + 10;
+            font-family: $admin-font-body;
+            font-weight: 600;
+            color: $color-surface-white;
+            background-color: $color-primary;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            @include admin-focus-ring($color-secondary);
+        }
+    }
+
+    // ---------- A. Navbar Superior Fijo (100% Estático, sin hovers turquesa) ----------
+    .admin-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: $admin-navbar-height;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: $color-surface-white;
+        border-bottom: 1px solid $admin-border-subtle;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        font-family: $admin-font-body;
+        z-index: $admin-z-navbar;
+
+        @media (max-width: 575.98px) {
+            padding: 0 1rem;
+        }
+
+        &__left {
+            display: flex;
+            align-items: center;
+            margin: 0;
+        }
+
+        &__right {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        // Logo / Brand: 100% estático, sin fondo hover, sin cambio de opacidad ni color
+        &__brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0;
+            margin: 0;
+            background-color: transparent;
+            border: 0;
+            color: $admin-ink-dark;
+            text-decoration: none;
+            opacity: 1;
+            cursor: pointer;
+            transition: none;
+
+            &:hover,
+            &:focus,
+            &:active {
+                background-color: transparent;
+                color: $admin-ink-dark;
+                opacity: 1;
+                text-decoration: none;
+                box-shadow: none;
+                outline: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid rgba($color-neutral-gray, 0.45);
+                outline-offset: 4px;
+                border-radius: 0.25rem;
+            }
+        }
+
+        &__logo {
+            width: 34px;
+            height: 34px;
+            color: $color-primary;
+            flex-shrink: 0;
+        }
+
+        &__brand-text {
+            font-family: $admin-font-logo;
+            font-size: 1.45rem;
+            letter-spacing: 0.06em;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: $admin-ink-dark;
+            line-height: 1;
+
+            @media (max-width: 380px) {
+                font-size: 1.05rem;
+            }
+        }
+
+        &__brand-accent {
+            color: $color-primary;
+        }
+    }
+
+    // Módulo de Perfil de Usuario (Dropdown sobrio y neutro, libre de turquesa)
+    .admin-profile {
+        position: relative;
+
+        &__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.35rem 0.65rem;
+            font-family: $admin-font-body;
+            color: $admin-ink-dark;
+            background-color: $color-surface-white;
+            border: 1px solid transparent;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+
+            &::after {
+                display: none;
+            }
+
+            &:hover,
+            &:focus,
+            &:active {
+                background-color: $admin-surface-subtle;
+                border-color: $admin-border-subtle;
+                color: $admin-ink-dark;
+                box-shadow: none;
+                outline: none;
+            }
+
+            &:focus-visible {
+                background-color: $admin-surface-subtle;
+                border-color: rgba($color-neutral-gray, 0.45);
+                outline: 2px solid rgba($color-neutral-gray, 0.4);
+                outline-offset: 2px;
+                box-shadow: none;
+            }
+        }
+
+        &.is-open &__btn {
+            background-color: $admin-surface-subtle;
+            border-color: $admin-border-subtle;
+        }
+
+        &__avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: $color-primary;
+            border: 2px solid #E5E7EB;
+            color: $color-surface-white;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            flex-shrink: 0;
+        }
+
+        &__meta {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            line-height: 1.2;
+
+            @media (max-width: 575.98px) {
+                display: none;
+            }
+        }
+
+        &__name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $admin-ink-dark;
+        }
+
+        &__role {
+            font-size: 0.75rem;
+            color: $admin-gray-contrast;
+        }
+
+        &__chevron {
+            display: inline-flex;
+            align-items: center;
+            color: $color-neutral-gray;
+            transition: transform 0.2s ease;
+        }
+
+        &.is-open &__chevron {
+            transform: rotate(180deg);
+        }
+
+        &__menu {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            right: 0;
+            left: auto;
+            display: none;
+            min-width: 215px;
+            padding: 0.5rem;
+            margin: 0;
+            background-color: $color-surface-white;
+            border: 1px solid $admin-border-subtle;
+            border-radius: 0.625rem;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+            z-index: $admin-z-navbar + 2;
+
+            &.show {
+                display: block;
+            }
+        }
+
+        &__mobile-info {
+            display: none;
+            padding: 0.45rem 0.75rem 0.6rem;
+            margin-bottom: 0.35rem;
+            border-bottom: 1px solid $admin-border-subtle;
+            color: $admin-ink-dark;
+
+            strong {
+                display: block;
+                font-size: 0.875rem;
+            }
+
+            span {
+                font-size: 0.75rem;
+                color: $admin-gray-contrast;
+            }
+
+            @media (max-width: 575.98px) {
+                display: block;
+            }
+        }
+
+        &__divider {
+            height: 0;
+            margin: 0.35rem 0;
+            border-top: 1px solid $admin-border-subtle;
+        }
+
+        &__item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.55rem 0.75rem;
+            font-family: $admin-font-body;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: $admin-ink-dark;
+            background-color: transparent;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            transition: background-color 0.15s ease, color 0.15s ease;
+
+            &:hover,
+            &:focus {
+                background-color: $admin-surface-subtle;
+                color: $admin-ink-dark;
+                text-decoration: none;
+                outline: none;
+            }
+
+            &:focus-visible {
+                background-color: $admin-surface-subtle;
+                outline: 2px solid rgba($color-neutral-gray, 0.4);
+                outline-offset: -2px;
+            }
+
+            &--logout {
+                color: $admin-danger;
+
+                &:hover,
+                &:focus {
+                    background-color: #FEF2F2;
+                    color: $admin-danger;
+                }
+            }
+        }
+    }
+
+    // ---------- B. Sidebar Lateral con Control de Colapso Integrado (.admin-sidebar) ----------
+    .admin-sidebar {
+        position: fixed;
+        top: $admin-navbar-height;
+        left: 0;
+        width: $admin-sidebar-width;
+        height: calc(100vh - #{$admin-navbar-height});
+        height: calc(100dvh - #{$admin-navbar-height});
+        display: flex;
+        flex-direction: column;
+        background-color: $color-surface-white;
+        border-right: 1px solid $admin-border-subtle;
+        font-family: $admin-font-body;
+        z-index: $admin-z-sidebar;
+        transition: $admin-sidebar-transition;
+
+        // Cabecera superior de la Sidebar con botón exclusivo de colapso
+        &__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 52px;
+            padding: 0.6rem 0.85rem 0.6rem 1rem;
+            border-bottom: 1px solid rgba($color-neutral-gray, 0.16);
+            flex-shrink: 0;
+        }
+
+        &__section-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: $admin-gray-contrast;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        &__collapse-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            margin-left: auto;
+            color: $admin-gray-contrast;
+            background-color: transparent;
+            border: 1px solid rgba($color-neutral-gray, 0.24);
+            border-radius: 0.45rem;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+            &:hover {
+                background-color: $admin-surface-subtle;
+                border-color: rgba($color-neutral-gray, 0.45);
+                color: $admin-ink-dark;
+            }
+
+            &:focus-visible {
+                border-color: $color-primary;
+                @include admin-focus-ring($color-primary);
+            }
+        }
+
+        &__collapse-icon {
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        &__nav {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            min-height: 0;
+            padding: 0.85rem 0.75rem 1rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        &__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        &__link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            min-height: 46px;
+            padding: 0.65rem 0.9rem;
+            color: $admin-gray-contrast;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease, padding 0.3s ease;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 20%;
+                bottom: 20%;
+                width: 4px;
+                border-radius: 0 4px 4px 0;
+                background-color: transparent;
+                transition: background-color 0.2s ease;
+            }
+
+            &:hover {
+                background-color: rgba($color-secondary, 0.12);
+                color: $admin-primary-contrast;
+                text-decoration: none;
+
+                .admin-sidebar__icon {
+                    color: $color-secondary;
+                }
+            }
+
+            &:focus,
+            &:focus-visible {
+                text-decoration: none;
+                @include admin-focus-ring($color-primary);
+            }
+
+            &.is-active {
+                background-color: rgba($color-teal-light, 0.2);
+                color: $admin-primary-contrast;
+                font-weight: 600;
+
+                &::before {
+                    background-color: $color-primary;
+                }
+
+                .admin-sidebar__icon {
+                    color: $color-primary;
+                }
+            }
+
+            &--reserved {
+                opacity: 0.88;
+                cursor: not-allowed;
+            }
+        }
+
+        &__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            font-size: 1.1rem;
+            color: $color-neutral-gray;
+            flex-shrink: 0;
+            transition: color 0.2s ease;
+        }
+
+        &__text {
+            white-space: nowrap;
+        }
+
+        &__badge {
+            margin-left: auto;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            background-color: rgba($color-teal-light, 0.28);
+            border: 1px solid rgba($color-teal-medium, 0.5);
+            color: $admin-primary-contrast;
+            border-radius: 50rem;
+        }
+
+        &__footer {
+            margin-top: auto;
+            padding-top: 0.85rem;
+            border-top: 1px solid $admin-border-subtle;
+        }
+
+        // Desktop (≥ 992px): Gestión fluida de estados .expanded (250px) y .collapsed (72px)
+        @media (min-width: $admin-breakpoint-lg) {
+            &.expanded {
+                width: $admin-sidebar-width;
+            }
+
+            &.collapsed {
+                width: $admin-sidebar-collapsed-width;
+                overflow: visible;
+
+                .admin-sidebar__header {
+                    justify-content: center;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+                .admin-sidebar__section-label {
+                    display: none;
+                }
+
+                .admin-sidebar__collapse-btn {
+                    margin-left: 0;
+                }
+
+                // Invierte el chevron hacia la derecha para indicar expansión
+                .admin-sidebar__collapse-icon {
+                    transform: rotate(180deg);
+                }
+
+                .admin-sidebar__nav {
+                    padding-left: 0.65rem;
+                    padding-right: 0.65rem;
+                    overflow: visible;
+                }
+
+                .admin-sidebar__link {
+                    justify-content: center;
+                    padding-left: 0;
+                    padding-right: 0;
+                    gap: 0;
+
+                    // Tooltip limpio en :hover y :focus-visible
+                    &::after {
+                        content: attr(data-tooltip);
+                        position: absolute;
+                        left: calc(100% + 14px);
+                        top: 50%;
+                        transform: translateY(-50%) translateX(-6px);
+                        padding: 0.4rem 0.75rem;
+                        background-color: $admin-ink-dark;
+                        color: $color-surface-white;
+                        border-left: 3px solid $color-primary;
+                        border-radius: 0.375rem;
+                        font-size: 0.8rem;
+                        font-weight: 500;
+                        white-space: nowrap;
+                        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+                        opacity: 0;
+                        visibility: hidden;
+                        pointer-events: none;
+                        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+                        z-index: $admin-z-navbar + 5;
+                    }
+
+                    &:hover::after,
+                    &:focus-visible::after {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: translateY(-50%) translateX(0);
+                    }
+                }
+
+                // Oculta limpiamente los textos y badges manteniendo el icono centrado
+                .admin-sidebar__text,
+                .admin-sidebar__badge {
+                    display: none;
+                }
+            }
+        }
+
+        // Mobile / Tablet (< 992px): Rail compacto de 72px por defecto, expandible a 250px
+        @media (max-width: ($admin-breakpoint-lg - 0.02px)) {
+            width: $admin-sidebar-collapsed-width;
+            box-shadow: none;
+
+            .admin-sidebar__header {
+                justify-content: center;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .admin-sidebar__section-label,
+            .admin-sidebar__text,
+            .admin-sidebar__badge {
+                display: none;
+            }
+
+            .admin-sidebar__collapse-btn {
+                margin-left: 0;
+            }
+
+            .admin-sidebar__collapse-icon {
+                transform: rotate(180deg);
+            }
+
+            .admin-sidebar__nav {
+                padding-left: 0.65rem;
+                padding-right: 0.65rem;
+            }
+
+            .admin-sidebar__link {
+                justify-content: center;
+                padding-left: 0;
+                padding-right: 0;
+                gap: 0;
+            }
+
+            // Estado expandido sobrepuesto en móvil/tablet al pulsar el toggle interno
+            &.is-mobile-open {
+                width: $admin-sidebar-width;
+                box-shadow: 12px 0 32px rgba(15, 23, 42, 0.18);
+
+                .admin-sidebar__header {
+                    justify-content: space-between;
+                    padding-left: 1rem;
+                    padding-right: 0.85rem;
+                }
+
+                .admin-sidebar__section-label {
+                    display: inline;
+                }
+
+                .admin-sidebar__collapse-btn {
+                    margin-left: auto;
+                }
+
+                .admin-sidebar__collapse-icon {
+                    transform: rotate(0deg);
+                }
+
+                .admin-sidebar__nav {
+                    padding-left: 0.75rem;
+                    padding-right: 0.75rem;
+                }
+
+                .admin-sidebar__link {
+                    justify-content: flex-start;
+                    padding-left: 0.9rem;
+                    padding-right: 0.9rem;
+                    gap: 0.85rem;
+                }
+
+                .admin-sidebar__text,
+                .admin-sidebar__badge {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    // ---------- C. Overlay / Backdrop Móvil (.admin-backdrop) ----------
+    .admin-backdrop {
+        position: fixed;
+        top: $admin-navbar-height;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(15, 23, 42, 0.45);
+        z-index: $admin-z-backdrop;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+
+        @media (max-width: ($admin-breakpoint-lg - 0.02px)) {
+            &.is-visible {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    // ---------- D. Contenedor Principal (<main class="admin-main">) ----------
+    .admin-main {
+        padding-top: $admin-navbar-height;
+        min-height: 100vh;
+        transition: margin-left 0.3s ease;
+
+        @media (min-width: $admin-breakpoint-lg) {
+            margin-left: $admin-sidebar-width;
+        }
+
+        @media (max-width: ($admin-breakpoint-lg - 0.02px)) {
+            margin-left: $admin-sidebar-collapsed-width;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &__title {
+            font-family: $admin-font-heading;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: $admin-ink-dark;
+        }
+
+        > .tca-content {
+            padding-top: 1.5rem;
+        }
+    }
+
+    // Ajuste fluido del margen izquierdo cuando la Sidebar se colapsa en Desktop
+    @media (min-width: $admin-breakpoint-lg) {
+        .admin-sidebar.collapsed ~ .admin-main,
+        .is-sidebar-collapsed .admin-main {
+            margin-left: $admin-sidebar-collapsed-width;
+        }
+    }
+
+    // Accesibilidad: reducción de animaciones según preferencia del sistema
+    @media (prefers-reduced-motion: reduce) {
+        .admin-sidebar,
+        .admin-main,
+        .admin-backdrop,
+        .admin-sidebar__collapse-icon,
+        .admin-sidebar__link,
+        .admin-sidebar__link::after {
+            transition: none !important;
+        }
+    }
+}
+
+// ============================================================================
+// FIN: COMPONENTE REUTILIZABLE ADMIN DASHBOARD (NAVBAR & SIDEBAR)
+// ============================================================================
+
+// ============================================================================
+// INICIO: VISTA PRINCIPAL ADMIN DASHBOARD (_dashboard.scss)
+// ============================================================================
+
+// 1. Tokens adicionales de la vista Dashboard (complementan la paleta oficial)
+$color-bg-light: #F8F9FA; // Gris claro de fondo para el lienzo del dashboard
+
+// Estados semánticos de alto contraste WCAG AA (≥ 4.5:1)
+$dash-status-pending-fg: #92400E;
+$dash-status-pending-bg: #FEF3C7;
+$dash-status-shipped-fg: #016A63;
+$dash-status-shipped-bg: rgba($color-teal-light, 0.24);
+$dash-status-completed-fg: #065F46;
+$dash-status-completed-bg: #D1FAE5;
+$dash-status-canceled-fg: #991B1B;
+$dash-status-canceled-bg: #FEE2E2;
+
+// Geometría y sombras
+$dash-radius: 0.75rem;
+$dash-radius-sm: 0.5rem;
+$dash-shadow-sm: 0 2px 10px rgba(15, 23, 42, 0.04);
+$dash-shadow-hover: 0 10px 24px rgba(1, 157, 147, 0.12);
+
+@layer custom {
+    // ---------- Lienzo y Contenedor ----------
+    .dashboard-content {
+        background-color: $color-bg-light;
+        font-family: $admin-font-body;
+        color: $admin-ink-dark;
+    }
+
+    .tc-dash-container {
+        width: 100%;
+        padding: 1.75rem 2rem 2.5rem;
+
+        @media (max-width: 767.98px) {
+            padding: 1.25rem 1rem 2rem;
+        }
+    }
+
+    // ---------- A. Encabezado de Sección (.tc-dash-header) ----------
+    .tc-dash-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+
+        &__greeting {
+            margin: 0 0 0.2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $admin-primary-contrast;
+            letter-spacing: 0.01em;
+        }
+
+        &__title {
+            margin: 0 0 0.25rem;
+            font-family: $admin-font-heading;
+            font-size: clamp(1.6rem, 2.5vw, 2rem);
+            font-weight: 700;
+            color: $admin-ink-dark;
+            line-height: 1.2;
+        }
+
+        &__meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin: 0;
+            font-size: 0.875rem;
+            color: $admin-gray-contrast;
+
+            time {
+                font-weight: 600;
+                color: $admin-ink-dark;
+            }
+        }
+
+        &__actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+    }
+
+    // Botones de acción rápida
+    .tc-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 42px;
+        padding: 0 1.05rem;
+        font-family: $admin-font-body;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: $dash-radius-sm;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+
+        &:focus,
+        &:focus-visible {
+            @include admin-focus-ring($color-primary);
+        }
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        &--primary {
+            background-color: $color-primary;
+            border: 1px solid $color-primary;
+            color: $color-surface-white;
+
+            &:hover:not(:disabled) {
+                background-color: $admin-primary-contrast;
+                border-color: $admin-primary-contrast;
+                color: $color-surface-white;
+                transform: translateY(-1px);
+            }
+        }
+
+        &--secondary {
+            background-color: $color-surface-white;
+            border: 1px solid rgba($color-teal-medium, 0.65);
+            color: $admin-primary-contrast;
+
+            &:hover:not(:disabled) {
+                background-color: rgba($color-teal-light, 0.16);
+                border-color: $color-secondary;
+                color: $admin-primary-contrast;
+            }
+        }
+
+        &.is-refreshing &__icon {
+            display: inline-block;
+            animation: tc-dash-spin 0.65s linear infinite;
+        }
+    }
+
+    @keyframes tc-dash-spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    // ---------- B. Grid de Métricas KPI (.tc-kpi-grid & .tc-kpi-card) ----------
+    .tc-kpi-section {
+        margin-bottom: 1.75rem;
+    }
+
+    .tc-kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.15rem;
+
+        @media (max-width: 1199.98px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (max-width: 575.98px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .tc-kpi-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.65rem;
+        padding: 1.2rem 1.25rem;
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-left: 4px solid $color-primary;
+        border-radius: $dash-radius;
+        box-shadow: $dash-shadow-sm;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: $dash-shadow-hover;
+        }
+
+        &--primary {
+            border-left-color: $color-primary;
+        }
+
+        &--secondary {
+            border-left-color: $color-secondary;
+        }
+
+        &--medium {
+            border-left-color: $color-teal-medium;
+        }
+
+        &--stock {
+            border-left-color: $color-teal-light;
+        }
+
+        &__top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        &__label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $admin-gray-contrast;
+        }
+
+        &__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 0.625rem;
+            background-color: rgba($color-teal-light, 0.18);
+            color: $color-primary;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        &:hover &__icon {
+            background-color: $color-primary;
+            color: $color-surface-white;
+        }
+
+        &__value {
+            font-family: $admin-font-body;
+            font-size: 1.65rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+            color: $admin-ink-dark;
+            line-height: 1.15;
+        }
+
+        &__foot {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-top: 0.1rem;
+        }
+
+        &__hint {
+            font-size: 0.78rem;
+            color: $admin-gray-contrast;
+        }
+    }
+
+    .tc-kpi-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.2rem 0.55rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        border-radius: 50rem;
+
+        &--up {
+            background-color: $dash-status-completed-bg;
+            color: $dash-status-completed-fg;
+        }
+
+        &--priority {
+            background-color: $dash-status-shipped-bg;
+            color: $dash-status-shipped-fg;
+        }
+
+        &--alert {
+            background-color: $dash-status-pending-bg;
+            color: $dash-status-pending-fg;
+        }
+    }
+
+    // ---------- C. Sección de Pedidos Recientes (.tc-orders-card) ----------
+    .tc-orders-card {
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-radius: $dash-radius;
+        box-shadow: $dash-shadow-sm;
+        overflow: hidden;
+
+        &__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid $admin-border-subtle;
+
+            @media (max-width: 575.98px) {
+                padding: 1rem;
+            }
+        }
+
+        &__title-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        &__title {
+            margin: 0;
+            font-family: $admin-font-heading;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: $admin-ink-dark;
+        }
+
+        &__count {
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: $admin-primary-contrast;
+            background-color: rgba($color-teal-light, 0.22);
+            border: 1px solid rgba($color-teal-medium, 0.45);
+            border-radius: 50rem;
+        }
+
+        &__subtitle {
+            margin: 0.2rem 0 0;
+            font-size: 0.85rem;
+            color: $admin-gray-contrast;
+        }
+
+        &__controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        &__all-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $admin-primary-contrast;
+            text-decoration: none;
+            transition: color 0.2s ease;
+
+            i {
+                transition: transform 0.2s ease;
+            }
+
+            &:hover {
+                color: $color-primary;
+                text-decoration: underline;
+
+                i {
+                    transform: translateX(3px);
+                }
+            }
+
+            &:focus-visible {
+                border-radius: 0.25rem;
+                @include admin-focus-ring($color-primary);
+            }
+        }
+    }
+
+    // Selector de filtro rápido
+    .tc-filter-group {
+        display: inline-flex;
+        padding: 0.25rem;
+        background-color: $color-bg-light;
+        border: 1px solid $admin-border-subtle;
+        border-radius: $dash-radius-sm;
+
+        &__btn {
+            padding: 0.35rem 0.8rem;
+            font-family: $admin-font-body;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: $admin-gray-contrast;
+            background-color: transparent;
+            border: 0;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+
+            &:hover {
+                color: $admin-ink-dark;
+            }
+
+            &:focus-visible {
+                @include admin-focus-ring($color-primary);
+            }
+
+            &.is-active {
+                background-color: $color-surface-white;
+                color: $admin-primary-contrast;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            }
+        }
+    }
+
+    // Tabla de Pedidos Recientes
+    .tc-orders-table {
+        width: 100%;
+        min-width: 780px;
+        border-collapse: collapse;
+        font-family: $admin-font-body;
+
+        thead th {
+            padding: 0.85rem 1.5rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: $admin-gray-contrast;
+            background-color: $color-bg-light;
+            border-bottom: 1px solid $admin-border-subtle;
+            text-align: left;
+            white-space: nowrap;
+
+            &.text-end {
+                text-align: right;
+            }
+        }
+
+        tbody td {
+            padding: 0.95rem 1.5rem;
+            font-size: 0.9rem;
+            color: $admin-ink-dark;
+            border-bottom: 1px solid rgba($color-neutral-gray, 0.14);
+            vertical-align: middle;
+
+            &.text-end {
+                text-align: right;
+            }
+        }
+
+        tbody tr {
+            transition: background-color 0.15s ease;
+
+            &:hover {
+                background-color: rgba($color-teal-light, 0.08);
+            }
+
+            &:last-child td {
+                border-bottom: 0;
+            }
+        }
+
+        &__id {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: $admin-primary-contrast;
+            white-space: nowrap;
+        }
+
+        &__date {
+            color: $admin-gray-contrast;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        &__amount {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        &__empty {
+            padding: 2.75rem 1rem !important;
+            text-align: center !important;
+            color: $admin-gray-contrast;
+            font-weight: 500;
+        }
+    }
+
+    // Celda de Cliente
+    .tc-customer {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        &__avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba($color-teal-light, 0.24);
+            border: 1px solid rgba($color-teal-medium, 0.5);
+            color: $admin-primary-contrast;
+            font-size: 0.78rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.25;
+        }
+
+        &__name {
+            font-weight: 600;
+            color: $admin-ink-dark;
+        }
+
+        &__email {
+            font-size: 0.78rem;
+            color: $admin-gray-contrast;
+        }
+    }
+
+    // Badges semánticos de estado
+    .tc-status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.28rem 0.7rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        border-radius: 50rem;
+        white-space: nowrap;
+
+        &::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+
+        &--pendiente {
+            background-color: $dash-status-pending-bg;
+            color: $dash-status-pending-fg;
+        }
+
+        &--enviado {
+            background-color: $dash-status-shipped-bg;
+            color: $dash-status-shipped-fg;
+        }
+
+        &--completado {
+            background-color: $dash-status-completed-bg;
+            color: $dash-status-completed-fg;
+        }
+
+        &--cancelado {
+            background-color: $dash-status-canceled-bg;
+            color: $dash-status-canceled-fg;
+        }
+    }
+
+    // Botón "Ver detalle"
+    .tc-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.38rem 0.75rem;
+        font-family: $admin-font-body;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: $admin-primary-contrast;
+        background-color: transparent;
+        border: 1px solid rgba($color-teal-medium, 0.55);
+        border-radius: 0.45rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+
+        &:hover {
+            background-color: $color-primary;
+            border-color: $color-primary;
+            color: $color-surface-white;
+        }
+
+        &:focus-visible {
+            @include admin-focus-ring($color-primary);
+        }
+    }
+
+    // Diálogo nativo <dialog> para resumen de pedido
+    .tc-order-dialog {
+        width: min(440px, 92vw);
+        padding: 0;
+        border: 1px solid $admin-border-subtle;
+        border-top: 4px solid $color-primary;
+        border-radius: $dash-radius;
+        background-color: $color-surface-white;
+        color: $admin-ink-dark;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.22);
+
+        &::backdrop {
+            background-color: rgba(15, 23, 42, 0.48);
+        }
+
+        &__head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.2rem 1.4rem 1rem;
+            border-bottom: 1px solid $admin-border-subtle;
+        }
+
+        &__eyebrow {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: $admin-primary-contrast;
+        }
+
+        &__title {
+            margin: 0.15rem 0 0;
+            font-family: $admin-font-heading;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        &__close {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            color: $admin-gray-contrast;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 0.4rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $color-bg-light;
+                color: $admin-ink-dark;
+            }
+
+            &:focus-visible {
+                @include admin-focus-ring($color-primary);
+            }
+        }
+
+        &__list {
+            margin: 0;
+            padding: 1.1rem 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+
+            div {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+
+            dt {
+                font-size: 0.85rem;
+                font-weight: 500;
+                color: $admin-gray-contrast;
+            }
+
+            dd {
+                margin: 0;
+                font-size: 0.9rem;
+                font-weight: 600;
+                text-align: right;
+            }
+        }
+
+        &__amount {
+            font-size: 1.05rem !important;
+            font-weight: 700 !important;
+            color: $admin-primary-contrast;
+            font-variant-numeric: tabular-nums;
+        }
+
+        &__foot {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.9rem 1.4rem;
+            border-top: 1px solid $admin-border-subtle;
+            background-color: $color-bg-light;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .tc-kpi-card,
+        .tc-btn,
+        .tc-action-btn,
+        .tc-btn.is-refreshing .tc-btn__icon {
+            transition: none !important;
+            animation: none !important;
+        }
+    }
+}
+
+// ============================================================================
+// FIN: VISTA PRINCIPAL ADMIN DASHBOARD (_dashboard.scss)
+// ============================================================================
+
+
+
+// =====================================================================
+// VISTA: Admin · Gestión de productos
+// =====================================================================
+/* #region Admin  */
+// =============================================================================
+// TecnoCenter · Panel admin · Gestión de productos
+// Prefijo de clases: .tca-*   |   Prefijo de variables locales: $tca-*
+//
+// Contenido: encabezado, KPIs (4 tarjetas), tabla de inventario (toolbar,
+// filtros, casillas, orden, publicación, acciones, paginación), menú de la
+// fila, panel lateral (drawer), campos del formulario y modal de confirmación.
+//
+// Dependencias externas (definidas en otros parciales del proyecto):
+//   Colores:     $color-primary, $color-secondary, $color-teal-light,
+//                $color-teal-medium, $color-neutral-gray, $color-surface-white
+//   Admin:       $admin-font-body, $admin-font-heading, $admin-ink-dark,
+//                $admin-gray-contrast, $admin-primary-contrast,
+//                $admin-border-subtle
+//   Mixins:      admin-focus-ring($color)
+//
+//
+// Clases que agrega el JavaScript (no se aplican en el HTML estático):
+//   .is-open    → .tca-drawer, .tca-scrim y .tca-dialog (abrir/cerrar)
+//   .is-active  → .tca-sort y .tca-page (columna ordenada y página actual)
+//   .is-selected → fila de la tabla con su casilla marcada
+//   .is-up / .is-down / .is-danger → .tca-kpi__trend (tono de la tendencia)
+//   .is-success → .form-text dentro de .tca-field (descuento calculado)
+//   .is-money   → .form-text dentro de .tca-field (valor del precio en palabras)
+//   --p (variable CSS) → .tca-ring: porcentaje del anillo (0 a 100)
+// =============================================================================
+
+// ---------- Tokens locales (prefijo $tca- para no chocar con otras variables) ----------
+$tca-bg: #F8F9FA;
+$tca-radius: 0.75rem;
+$tca-radius-sm: 0.5rem;
+$tca-shadow-sm: 0 2px 10px rgba(15, 23, 42, 0.04);
+$tca-shadow-hover: 0 10px 24px rgba(1, 157, 147, 0.12);
+$tca-shadow-drawer: -18px 0 48px rgba(15, 23, 42, 0.22);
+$tca-shadow-menu: 0 12px 32px rgba(15, 23, 42, 0.18);
+$tca-shadow-dialog: 0 24px 60px rgba(15, 23, 42, 0.32);
+$tca-border-control: rgba($color-neutral-gray, 0.45);
+
+// Segunda línea de la celda de producto (modelo | almacenamiento): gris azulado
+$tca-meta-fg: #51608F;
+
+// Estados semánticos (contraste WCAG AA ≥ 4.5:1)
+$tca-ok-fg: #065F46;
+$tca-ok-bg: #D1FAE5;
+$tca-warn-fg: #92400E;
+$tca-warn-bg: #FEF3C7;
+$tca-warn-accent: #F59E0B;   // borde de la tarjeta "Stock bajo"
+$tca-danger-fg: #991B1B;
+$tca-danger-bg: #FEE2E2;
+$tca-danger-accent: #EF4444; // borde de la tarjeta "Agotados" y del modal de eliminar
+$tca-danger-solid: #DC2626;  // botón rojo sólido (confirmar eliminación)
+$tca-danger-solid-hover: #B91C1C;
+$tca-info-fg: #0E7490;       // ícono sobre el fondo pastel (contraste AA)
+$tca-info-bg: #DFF6F9;       // fondo suave del ícono
+$tca-info-accent: #B3EBF2;   // borde de la tarjeta "Productos activos" (azul claro pastel)
+$tca-info-ring: #6FD3E2;     // anillo del porcentaje (un tono más fuerte para que se lea)
+$tca-info-hover: #22A9C0;    // fondo del ícono al pasar el mouse
+$tca-muted-fg: #475569;
+$tca-muted-bg: #E2E8F0;
+
+// Flecha de los <select> (no depende de Bootstrap)
+$tca-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+// Marcas de las casillas (palomita y guion en blanco)
+$tca-check-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3.5 8.5 3 3 6-7'/%3E%3C/svg%3E");
+$tca-check-dash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M4 8h8'/%3E%3C/svg%3E");
+
+// Base compartida por inputs, selects y buscador
+@mixin tca-control {
+    height: 44px;
+    padding: 0 0.9rem;
+    font-family: $admin-font-body;
+    font-size: 0.9rem;
+    color: $admin-ink-dark;
+    background-color: $color-surface-white;
+    border: 1px solid $tca-border-control;
+    border-radius: $tca-radius-sm;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+    &::placeholder {
+        color: $admin-gray-contrast;
+        opacity: 0.75;
+    }
+
+    &:hover {
+        border-color: rgba($color-teal-medium, 0.8);
+    }
+
+    &:focus,
+    &:focus-visible {
+        outline: 0;
+        border-color: $color-primary;
+        box-shadow: 0 0 0 3px rgba($color-primary, 0.18);
+    }
+}
+
+// Entrada de los KPIs y del menú: aparecen subiendo 6px con fade
+@keyframes tca-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// Capa "custom": queda por encima de Bootstrap en el orden de @layer,
+// así estos estilos ganan sin necesidad de subir la especificidad.
+@layer custom {
+
+    // ---------- Lienzo y contenedor ----------
+    .tca-body .admin-main {
+        background-color: $tca-bg;
+        font-family: $admin-font-body;
+        color: $admin-ink-dark;
+    }
+
+    .tca-content {
+        width: 100%;
+        padding: 1.75rem 2rem 2.5rem;
+
+        @media (max-width: 767.98px) {
+            padding: 1.25rem 1rem 2rem;
+        }
+    }
+
+    // ---------- Encabezado ----------
+    .tca-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+
+        &__title {
+            margin: 0 0 0.25rem;
+            font-family: $admin-font-heading;
+            font-size: clamp(1.6rem, 2.5vw, 2rem);
+            font-weight: 700;
+            line-height: 1.2;
+            color: $admin-ink-dark;
+        }
+
+        &__desc {
+            margin: 0;
+            font-size: 0.9rem;
+            color: $admin-gray-contrast;
+        }
+    }
+
+    // ---------- Botones ----------
+    .tca-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 42px;
+        padding: 0 1.1rem;
+        font-family: $admin-font-body;
+        font-size: 0.875rem;
+        font-weight: 600;
+        white-space: nowrap;
+        border: 1px solid transparent;
+        border-radius: $tca-radius-sm;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+        &:focus,
+        &:focus-visible {
+            @include admin-focus-ring($color-primary);
+        }
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        // .btn-solid se mantiene por compatibilidad con el HTML original
+        &--primary,
+        &.btn-solid {
+            background-color: $color-primary;
+            border-color: $color-primary;
+            color: $color-surface-white;
+
+            &:hover:not(:disabled) {
+                background-color: $admin-primary-contrast;
+                border-color: $admin-primary-contrast;
+                color: $color-surface-white;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 16px rgba($color-primary, 0.28);
+            }
+        }
+
+        &--ghost {
+            background-color: $color-surface-white;
+            border-color: rgba($color-teal-medium, 0.65);
+            color: $admin-primary-contrast;
+
+            &:hover:not(:disabled) {
+                background-color: rgba($color-teal-light, 0.16);
+                border-color: $color-secondary;
+                color: $admin-primary-contrast;
+            }
+        }
+
+        // Acción destructiva (eliminar selección): contorno rojo, relleno al pasar el mouse
+        &--danger {
+            background-color: $color-surface-white;
+            border-color: rgba($tca-danger-fg, 0.35);
+            color: $tca-danger-fg;
+
+            &:hover:not(:disabled) {
+                background-color: $tca-danger-bg;
+                border-color: rgba($tca-danger-fg, 0.55);
+                color: $tca-danger-fg;
+            }
+        }
+
+        // Acción destructiva confirmada (botón del modal de eliminar): rojo sólido
+        &--danger-solid {
+            background-color: $tca-danger-solid;
+            border-color: $tca-danger-solid;
+            color: $color-surface-white;
+
+            &:hover:not(:disabled) {
+                background-color: $tca-danger-solid-hover;
+                border-color: $tca-danger-solid-hover;
+                color: $color-surface-white;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 16px rgba($tca-danger-solid, 0.3);
+            }
+
+            &:focus,
+            &:focus-visible {
+                @include admin-focus-ring($tca-danger-accent);
+            }
+        }
+
+        // Tamaño compacto (barra de selección)
+        &--sm {
+            height: 34px;
+            padding: 0 0.85rem;
+            font-size: 0.82rem;
+        }
+    }
+
+    // Botón cuadrado con solo ícono (editar, más acciones, cerrar el drawer, limpiar filtros)
+    .tca-icon-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+        color: $admin-gray-contrast;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.45rem;
+        cursor: pointer;
+        transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+
+        &:hover {
+            background-color: rgba($color-teal-light, 0.16);
+            border-color: rgba($color-teal-medium, 0.45);
+            color: $admin-primary-contrast;
+        }
+
+        // Deshabilitado (p. ej. "Limpiar filtros" sin filtros activos): se ve apagado.
+        // Va después de :hover para que el hover no lo "encienda".
+        &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            color: $admin-gray-contrast;
+            background-color: $color-surface-white;
+            border-color: $admin-border-subtle;
+        }
+
+        &:focus-visible {
+            @include admin-focus-ring($color-primary);
+        }
+
+        // Con borde visible (botones de acción de la tabla)
+        &--outline {
+            color: $admin-ink-dark;
+            background-color: $color-surface-white;
+            border-color: $admin-border-subtle;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+
+        // Misma altura que los selects de la barra (44px)
+        &--lg {
+            width: 44px;
+            height: 44px;
+            font-size: 1.1rem;
+        }
+
+        // Eliminar: siempre en rojo; al pasar el mouse se rellena el fondo
+        &--danger {
+            color: $tca-danger-fg;
+
+            &:hover {
+                background-color: $tca-danger-bg;
+                border-color: rgba($tca-danger-fg, 0.25);
+                color: $tca-danger-fg;
+            }
+        }
+    }
+
+    // ---------- Indicadores (KPI) ----------
+    // 4 tarjetas: en pantallas anchas van en una sola fila
+    .tca-kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
+        gap: 1.15rem;
+        margin-bottom: 1.75rem;
+    }
+
+    // Layout en grid: texto a la izquierda, ícono a la derecha y la fila
+    // inferior (tendencia o porcentaje) ocupa todo el ancho
+    .tca-kpi {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "body icon"
+            "foot foot";
+        align-items: start;
+        gap: 0.75rem 1rem;
+        padding: 1.2rem 1.25rem;
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-left: 4px solid $color-primary;
+        border-radius: $tca-radius;
+        box-shadow: $tca-shadow-sm;
+        animation: tca-fade-up 0.45s ease both;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+        // Las tarjetas entran en cascada (0s, 0.05s, 0.1s, 0.15s).
+        // El color del borde de cada una lo da su variante: la 1.ª usa el verde
+        // por defecto, la 2.ª --info (azul), la 3.ª --warn y la 4.ª --danger.
+        &:nth-child(2) {
+            animation-delay: 0.05s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+
+        &:nth-child(4) {
+            animation-delay: 0.15s;
+        }
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: $tca-shadow-hover;
+        }
+
+        &__body {
+            grid-area: body;
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            min-width: 0;
+        }
+
+        &__label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $admin-gray-contrast;
+        }
+
+        &__value {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums; // dígitos de igual ancho: no "bailan" al cambiar
+            color: $admin-ink-dark;
+        }
+
+        &__icon {
+            grid-area: icon;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            font-size: 1.4rem;
+            color: $color-primary;
+            background-color: rgba($color-teal-light, 0.18);
+            border-radius: 0.7rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        // Al pasar el mouse por la tarjeta, el ícono se rellena de color
+        &:hover &__icon {
+            background-color: $color-primary;
+            color: $color-surface-white;
+        }
+
+        // Fila inferior: píldora de tendencia, anillo de porcentaje y texto de apoyo
+        &__foot {
+            grid-area: foot;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.6rem;
+            min-height: 26px;
+        }
+
+        &__hint {
+            font-size: 0.8rem;
+            color: $admin-gray-contrast;
+        }
+
+        &__pct {
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: $admin-ink-dark;
+        }
+
+        // Píldora de tendencia. Neutra por defecto; el HTML agrega .is-up, .is-down o .is-danger
+        &__trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.65rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: $admin-primary-contrast;
+            background-color: rgba($color-teal-light, 0.2);
+            border-radius: 50rem;
+
+            i {
+                font-size: 0.85rem;
+            }
+
+            // El puntito del KPI "Agotados" es más pequeño que un ícono normal
+            i.bi-circle-fill {
+                font-size: 0.45rem;
+            }
+
+            &.is-up {
+                color: $tca-ok-fg;
+                background-color: $tca-ok-bg;
+            }
+
+            &.is-down {
+                color: $tca-warn-fg;
+                background-color: $tca-warn-bg;
+            }
+
+            &.is-danger {
+                color: $tca-danger-fg;
+                background-color: $tca-danger-bg;
+            }
+        }
+
+        // Variante azul (productos activos)
+        &--info {
+            border-left-color: $tca-info-accent;
+
+            .tca-kpi__icon {
+                color: $tca-info-fg;
+                background-color: $tca-info-bg;
+            }
+
+            &:hover {
+                box-shadow: 0 10px 24px rgba($tca-info-accent, 0.4);
+            }
+
+            &:hover .tca-kpi__icon {
+                background-color: $tca-info-hover;
+                color: $color-surface-white;
+            }
+
+            // El anillo del porcentaje también pasa a azul pastel
+            .tca-ring {
+                background: conic-gradient($tca-info-ring calc(var(--p) * 1%), rgba($tca-info-accent, 0.45) 0);
+            }
+        }
+
+        // Variante de alerta (stock bajo)
+        &--warn {
+            border-left-color: $tca-warn-accent;
+
+            .tca-kpi__icon {
+                color: $tca-warn-fg;
+                background-color: $tca-warn-bg;
+            }
+
+            &:hover .tca-kpi__icon {
+                background-color: #D97706;
+                color: $color-surface-white;
+            }
+        }
+
+        // Variante crítica (agotados)
+        &--danger {
+            border-left-color: $tca-danger-accent;
+
+            .tca-kpi__icon {
+                color: $tca-danger-fg;
+                background-color: $tca-danger-bg;
+            }
+
+            &:hover .tca-kpi__icon {
+                background-color: #DC2626;
+                color: $color-surface-white;
+            }
+        }
+    }
+
+    // Anillo de progreso (KPI "Productos activos"). El JS fija --p con el porcentaje.
+    // conic-gradient dibuja el arco y la máscara radial deja solo el borde del círculo.
+    .tca-ring {
+        --p: 0;
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: conic-gradient($color-primary calc(var(--p) * 1%), rgba($color-teal-light, 0.3) 0);
+        -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+        mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+    }
+
+    // ---------- Tarjeta de la tabla ----------
+    // overflow: hidden recorta las esquinas redondeadas del encabezado y el pie
+    .tca-card {
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-radius: $tca-radius;
+        box-shadow: $tca-shadow-sm;
+        overflow: hidden;
+    }
+
+    // Barra de herramientas: align-items: flex-end alinea el buscador y el botón de
+    // limpiar con la base de los selects (que llevan su etiqueta arriba)
+    .tca-toolbar {
+        display: flex;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding: 1.1rem 1.5rem;
+        border-bottom: 1px solid $admin-border-subtle;
+
+        @media (max-width: 575.98px) {
+            padding: 1rem;
+        }
+
+        // Línea vertical que separa el buscador de los filtros
+        &__divider {
+            align-self: stretch;
+            width: 1px;
+            margin: 0 0.25rem;
+            background-color: $admin-border-subtle;
+
+            @media (max-width: 991.98px) {
+                display: none;
+            }
+        }
+    }
+
+    // Buscador con ícono posicionado dentro del input (por eso el padding-left extra)
+    .tca-search {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex: 1 1 220px;
+        max-width: 340px;
+        margin: 0;
+
+        i {
+            position: absolute;
+            left: 0.9rem;
+            font-size: 0.95rem;
+            color: $admin-gray-contrast;
+            pointer-events: none; // el clic pasa al input
+        }
+
+        input {
+            @include tca-control;
+            width: 100%;
+            padding-left: 2.5rem;
+            background-color: $tca-bg;
+
+            &:focus {
+                background-color: $color-surface-white;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            flex-basis: 100%;
+            max-width: none;
+        }
+    }
+
+    // Filtro con etiqueta pequeña encima del select
+    .tca-filter {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        flex: 0 1 175px;
+        min-width: 150px;
+
+        &__label {
+            margin: 0;
+            padding-left: 0.1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: $admin-gray-contrast;
+        }
+
+        .tca-select {
+            width: 100%;
+            min-width: 0;
+        }
+
+        @media (max-width: 575.98px) {
+            flex: 1 1 100%;
+        }
+    }
+
+    // appearance: none quita la flecha nativa; se reemplaza por $tca-chevron
+    .tca-select,
+    select.tca-input {
+        @include tca-control;
+        appearance: none;
+        padding-right: 2.4rem;
+        background-image: $tca-chevron;
+        background-repeat: no-repeat;
+        background-position: right 0.8rem center;
+        cursor: pointer;
+    }
+
+    // ---------- Barra de acciones de la selección ----------
+    // Aparece solo cuando hay filas marcadas (el JS quita/pone [hidden])
+    .tca-bulk {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        padding: 0.65rem 1.5rem;
+        background-color: rgba($color-teal-light, 0.14);
+        border-bottom: 1px solid $admin-border-subtle;
+
+        // `display: flex` pisaría el atributo hidden; se refuerza aquí
+        &[hidden] {
+            display: none;
+        }
+
+        &__count {
+            margin-right: auto;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: $admin-primary-contrast;
+        }
+
+        @media (max-width: 575.98px) {
+            padding: 0.65rem 1rem;
+        }
+    }
+
+    // ---------- Tabla ----------
+    // El wrapper permite scroll horizontal en pantallas pequeñas
+    // sin romper el layout de la página (la tabla tiene min-width).
+    .tca-table-wrap {
+        overflow-x: auto;
+    }
+
+    .tca-table {
+        width: 100%;
+        min-width: 980px;
+        border-collapse: collapse;
+        font-family: $admin-font-body;
+
+        thead th {
+            padding: 0.85rem 1rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-align: left;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            color: $admin-gray-contrast;
+            background-color: $tca-bg;
+            border-bottom: 1px solid $admin-border-subtle;
+        }
+
+        tbody td {
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+            vertical-align: middle;
+            color: $admin-ink-dark;
+            border-bottom: 1px solid rgba($color-neutral-gray, 0.14);
+        }
+
+        // Alineaciones (más específicas que `thead th` / `tbody td`)
+        .text-center {
+            text-align: center;
+        }
+
+        // Columna de casillas: estrecha y con el margen izquierdo de la tarjeta
+        .tca-col-check {
+            width: 52px;
+            padding-left: 1.5rem;
+            padding-right: 0.25rem;
+        }
+
+        tbody tr {
+            transition: background-color 0.15s ease;
+
+            &:hover {
+                background-color: rgba($color-teal-light, 0.08);
+            }
+
+            // Fila con su casilla marcada
+            &.is-selected {
+                background-color: rgba($color-teal-light, 0.14);
+            }
+
+            // La última fila no lleva línea inferior (ya la da el borde de la tarjeta)
+            &:last-child td {
+                border-bottom: 0;
+            }
+        }
+
+        // Fila "sin resultados". Los !important son necesarios para ganarle al
+        // padding y la alineación que las reglas de `tbody td` aplican arriba.
+        &__empty {
+            padding: 2.75rem 1rem !important;
+            text-align: center !important;
+            font-weight: 500;
+            color: $admin-gray-contrast;
+        }
+    }
+
+    // Encabezado ordenable: botón sin aspecto de botón que hereda el estilo del <th>
+    .tca-sort {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0;
+        font: inherit;
+        letter-spacing: inherit;
+        text-transform: inherit;
+        color: inherit;
+        background: none;
+        border: 0;
+        cursor: pointer;
+        transition: color 0.15s ease;
+
+        i {
+            font-size: 0.8rem;
+            opacity: 0.55;
+            transition: opacity 0.15s ease, color 0.15s ease;
+        }
+
+        &:hover {
+            color: $admin-ink-dark;
+
+            i {
+                opacity: 1;
+            }
+        }
+
+        &:focus-visible {
+            border-radius: 0.25rem;
+            @include admin-focus-ring($color-primary);
+        }
+
+        // Columna por la que se está ordenando
+        &.is-active {
+            color: $admin-primary-contrast;
+
+            i {
+                color: $color-primary;
+                opacity: 1;
+            }
+        }
+    }
+
+    // Casilla personalizada (appearance: none) con palomita y estado intermedio
+    .tca-check {
+        appearance: none;
+        -webkit-appearance: none;
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        vertical-align: middle;
+        cursor: pointer;
+        background-color: $color-surface-white;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 12px;
+        border: 1.5px solid rgba($color-neutral-gray, 0.7);
+        border-radius: 5px;
+        transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+            border-color: $color-primary;
+        }
+
+        &:checked,
+        &:indeterminate {
+            background-color: $color-primary;
+            border-color: $color-primary;
+        }
+
+        &:checked {
+            background-image: $tca-check-mark;
+        }
+
+        // Selección parcial en la casilla de la cabecera
+        &:indeterminate {
+            background-image: $tca-check-dash;
+        }
+
+        &:focus-visible {
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba($color-primary, 0.3);
+        }
+    }
+
+    // Celda de producto (miniatura + nombre + "modelo | almacenamiento")
+    .tca-product {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0; // permite que el nombre largo se corte con "…" dentro del flex
+            line-height: 1.3;
+        }
+
+        &__name {
+            display: block;
+            max-width: 240px;
+            overflow: hidden;
+            font-weight: 600;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: $admin-ink-dark;
+        }
+
+        // Segunda línea: modelo | almacenamiento (el JS pone el separador entre ambos)
+        &__meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.2rem 0.6rem;
+        }
+
+        &__model,
+        &__storage {
+            font-size: 0.82rem;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+            color: $tca-meta-fg;
+        }
+
+        &__sep {
+            font-size: 0.82rem;
+            color: rgba($color-neutral-gray, 0.7);
+        }
+    }
+
+    .tca-thumb {
+        flex-shrink: 0;
+        width: 46px;
+        height: 46px;
+        padding: 3px;
+        object-fit: contain;
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-radius: 0.65rem;
+
+        // Marcador cuando el producto no tiene imagen (muestra un ícono)
+        &--empty {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            font-size: 1.15rem;
+            color: $color-primary;
+            background-color: rgba($color-teal-light, 0.18);
+            border-color: rgba($color-teal-medium, 0.35);
+        }
+    }
+
+    .tca-price {
+        display: block;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+
+        // Precio anterior tachado (cuando hay descuento)
+        &__old {
+            display: block;
+            font-size: 0.76rem;
+            color: $admin-gray-contrast;
+            text-decoration: line-through;
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    .tca-stock {
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+
+        &--low {
+            color: $tca-warn-fg;
+        }
+
+        &--out {
+            color: $tca-danger-fg;
+        }
+    }
+
+    // Badges de disponibilidad
+    // Todos llevan un puntito a la izquierda (::before) que hereda el color del texto.
+    .tca-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.28rem 0.75rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        white-space: nowrap;
+        border-radius: 50rem;
+
+        &::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+
+        &--success {
+            color: $tca-ok-fg;
+            background-color: $tca-ok-bg;
+        }
+
+        &--warning {
+            color: $tca-warn-fg;
+            background-color: $tca-warn-bg;
+        }
+
+        &--danger {
+            color: $tca-danger-fg;
+            background-color: $tca-danger-bg;
+        }
+
+        &--muted {
+            color: $tca-muted-fg;
+            background-color: $tca-muted-bg;
+        }
+    }
+
+    .tca-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    // ---------- Menú de la fila (⋯) ----------
+    // position: fixed: el JS lo coloca junto al botón. Así no lo recorta el
+    // overflow de la tabla ni queda tapado por la última fila.
+    .tca-menu {
+        position: fixed;
+        z-index: 1070;
+        min-width: 170px;
+        padding: 0.35rem;
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-radius: $tca-radius-sm;
+        box-shadow: $tca-shadow-menu;
+        animation: tca-fade-up 0.15s ease both;
+
+        // `display` de arriba no debe anular el atributo hidden
+        &[hidden] {
+            display: none;
+        }
+
+        &__item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            width: 100%;
+            padding: 0.55rem 0.75rem;
+            font-family: $admin-font-body;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-align: left;
+            color: $admin-ink-dark;
+            background: none;
+            border: 0;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+
+            i {
+                font-size: 1rem;
+                color: $admin-gray-contrast;
+            }
+
+            &:hover,
+            &:focus-visible {
+                outline: 0;
+                background-color: rgba($color-teal-light, 0.16);
+            }
+
+            // Eliminar en rojo
+            &--danger {
+                color: $tca-danger-fg;
+
+                i {
+                    color: $tca-danger-fg;
+                }
+
+                &:hover,
+                &:focus-visible {
+                    background-color: $tca-danger-bg;
+                }
+            }
+        }
+    }
+
+    // ---------- Paginación ----------
+    .tca-pager {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding: 0.9rem 1.5rem;
+        font-size: 0.85rem;
+        color: $admin-gray-contrast;
+        background-color: $tca-bg;
+        border-top: 1px solid $admin-border-subtle;
+
+        &__list {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        @media (max-width: 575.98px) {
+            padding: 0.9rem 1rem;
+        }
+    }
+
+    .tca-page {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 0.6rem;
+        font-family: $admin-font-body;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: $admin-gray-contrast;
+        background-color: $color-surface-white;
+        border: 1px solid $admin-border-subtle;
+        border-radius: 0.45rem;
+        cursor: pointer;
+        transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+
+        &:hover:not(:disabled) {
+            color: $admin-primary-contrast;
+            border-color: rgba($color-teal-medium, 0.65);
+            background-color: rgba($color-teal-light, 0.12);
+        }
+
+        &:focus-visible {
+            @include admin-focus-ring($color-primary);
+        }
+
+        // Flechas anterior/siguiente en los extremos
+        &:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        // Página actual (la marca el JS)
+        &.is-active {
+            color: $color-surface-white;
+            background-color: $color-primary;
+            border-color: $color-primary;
+        }
+
+        // Los puntos suspensivos entre rangos de páginas: sin caja ni clic
+        &--gap {
+            background: transparent;
+            border-color: transparent;
+            cursor: default;
+        }
+    }
+
+    // ---------- Panel lateral (drawer) ----------
+    // z-index: el scrim (1050) va debajo del drawer (1060); el menú ⋯ (1070) y el
+    // modal de confirmación (1080) van por encima. Se abren agregando .is-open desde JS.
+
+    // Fondo oscuro detrás del drawer. Con opacity + pointer-events: none
+    // está invisible y no bloquea clics mientras está cerrado.
+    .tca-scrim {
+        position: fixed;
+        inset: 0;
+        z-index: 1050;
+        background-color: rgba(15, 23, 42, 0.48);
+        backdrop-filter: blur(2px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+
+        &.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+    .tca-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1060;
+        display: flex;
+        flex-direction: column;
+        width: min(480px, 100vw);
+        background-color: $color-surface-white;
+        border-top: 4px solid $color-primary;
+        box-shadow: $tca-shadow-drawer;
+
+        // Cerrado: fuera de pantalla (a la derecha) y con visibility: hidden.
+        // Así sus campos no reciben foco con Tab ni los lee el lector de pantalla.
+        // El `visibility 0s linear 0.32s` retrasa el ocultamiento hasta que termina
+        // la animación de salida (0.32s); si no, el panel desaparecería de golpe.
+        transform: translateX(100%);
+        visibility: hidden;
+        transition: transform 0.32s cubic-bezier(0.22, 0.8, 0.3, 1), visibility 0s linear 0.32s;
+
+        // Abierto: visibility cambia al instante (0s, sin retraso) para que el
+        // panel sea visible durante toda la animación de entrada.
+        &.is-open {
+            transform: none;
+            visibility: visible;
+            transition: transform 0.32s cubic-bezier(0.22, 0.8, 0.3, 1), visibility 0s;
+        }
+
+        &__head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem 1rem;
+            border-bottom: 1px solid $admin-border-subtle;
+
+            h2 {
+                margin: 0;
+                font-family: $admin-font-heading;
+                font-size: 1.35rem;
+                font-weight: 700;
+                color: $admin-ink-dark;
+            }
+
+            p {
+                margin: 0.2rem 0 0;
+                font-size: 0.85rem;
+                color: $admin-gray-contrast;
+            }
+        }
+
+        // Solo el cuerpo hace scroll; cabecera y pie quedan fijos.
+        // overscroll-behavior evita que el scroll "se escape" a la página de atrás.
+        &__body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+            padding: 1.25rem 1.5rem;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        &__foot {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.65rem;
+            padding: 0.9rem 1.5rem;
+            background-color: $tca-bg;
+            border-top: 1px solid $admin-border-subtle;
+        }
+
+        @media (max-width: 575.98px) {
+
+            &__head,
+            &__body,
+            &__foot {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    }
+
+    // ---------- Modal de confirmación (eliminar) ----------
+    // Mensaje centrado sobre un fondo oscuro con desenfoque, en la misma línea del
+    // drawer: borde superior de color, esquinas redondeadas y botones .tca-btn.
+    // Cerrado: invisible y sin clics (visibility con retraso para dejar ver la salida).
+    .tca-dialog {
+        position: fixed;
+        inset: 0;
+        z-index: 1080;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background-color: rgba(15, 23, 42, 0.55);
+        backdrop-filter: blur(3px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.22s ease, visibility 0s linear 0.22s;
+
+        &.is-open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition: opacity 0.22s ease, visibility 0s;
+        }
+
+        &__box {
+            width: min(420px, 100%);
+            padding: 1.9rem 1.75rem 1.5rem;
+            text-align: center;
+            background-color: $color-surface-white;
+            border: 1px solid $admin-border-subtle;
+            border-top: 4px solid $tca-danger-accent;
+            border-radius: $tca-radius;
+            box-shadow: $tca-shadow-dialog;
+            transform: translateY(14px) scale(0.96);
+            transition: transform 0.28s cubic-bezier(0.22, 0.8, 0.3, 1);
+        }
+
+        // La caja entra subiendo y creciendo un poco cuando el modal se abre
+        &.is-open &__box {
+            transform: none;
+        }
+
+        // Ícono grande en círculo rojo suave con un halo alrededor
+        &__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.1rem;
+            font-size: 1.7rem;
+            color: $tca-danger-fg;
+            background-color: $tca-danger-bg;
+            border-radius: 50%;
+            box-shadow: 0 0 0 8px rgba($tca-danger-accent, 0.1);
+        }
+
+        &__title {
+            margin: 0 0 0.4rem;
+            font-family: $admin-font-heading;
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.25;
+            color: $admin-ink-dark;
+        }
+
+        &__msg {
+            margin: 0 0 1.15rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: $admin-gray-contrast;
+        }
+
+        // Tarjeta con el producto (miniatura + nombre + marca · modelo)
+        &__item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 1rem;
+            padding: 0.7rem 0.9rem;
+            text-align: left;
+            background-color: $tca-bg;
+            border: 1px solid $admin-border-subtle;
+            border-radius: $tca-radius-sm;
+
+            // `display: flex` pisaría el atributo hidden
+            &[hidden] {
+                display: none;
+            }
+        }
+
+        &__item-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            line-height: 1.3;
+
+            strong {
+                overflow: hidden;
+                font-size: 0.92rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                color: $admin-ink-dark;
+            }
+
+            small {
+                overflow: hidden;
+                font-size: 0.78rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                color: $tca-meta-fg;
+            }
+        }
+
+        &__warn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin: 0 0 1.35rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: $tca-danger-fg;
+        }
+
+        // Dos botones del mismo ancho; en pantallas muy pequeñas pasan a una columna
+        &__actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+
+            @media (max-width: 399.98px) {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+
+    // ---------- Campos del formulario ----------
+    .tca-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        min-width: 0;
+
+        // Dos campos por fila (p. ej. precio y stock); en pantallas muy pequeñas pasan a una columna
+        &__row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+
+            @media (max-width: 479.98px) {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-text {
+            margin: 0;
+            font-size: 0.78rem;
+            color: $admin-gray-contrast;
+
+            // Descuento calculado
+            &.is-success {
+                font-weight: 600;
+                color: $tca-ok-fg;
+            }
+
+            // Valor del precio en palabras ("Son 3 millones 500 mil pesos")
+            &.is-money {
+                font-weight: 600;
+                color: $admin-primary-contrast;
+            }
+        }
+    }
+
+    .tca-label {
+        margin: 0;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: $admin-ink-dark;
+    }
+
+    .tca-input {
+        @include tca-control;
+        width: 100%;
+    }
+
+    // Campo de dinero: números más grandes, de igual ancho y alineados a la derecha
+    .tca-input--money {
+        font-size: 1rem;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.01em;
+        text-align: right;
+
+        &::placeholder {
+            font-weight: 500;
+        }
+    }
+
+    // Input con prefijo (p. ej. "$" antes del precio)
+    .tca-input-group {
+        display: flex;
+        align-items: stretch;
+
+        >span {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 0.85rem;
+            font-weight: 600;
+            color: $admin-gray-contrast;
+            background-color: $tca-bg;
+            border: 1px solid $tca-border-control;
+            border-right: 0;
+            border-radius: $tca-radius-sm 0 0 $tca-radius-sm;
+            transition: border-color 0.2s ease;
+        }
+
+        // Se quitan las esquinas izquierdas del input para que se una al prefijo
+        .tca-input {
+            flex: 1;
+            min-width: 0;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        // Al enfocar el input, el prefijo también resalta su borde
+        &:focus-within>span {
+            border-color: $color-primary;
+        }
+    }
+
+    // Zona de carga de imagen
+    // Estados: vacía (muestra __empty) o con vista previa (muestra <img>).
+    // El JS alterna el atributo [hidden] entre ambos.
+    .tca-upload {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 168px;
+        overflow: hidden;
+        cursor: pointer;
+        background-color: rgba($color-teal-light, 0.06);
+        border: 2px dashed rgba($color-teal-medium, 0.65);
+        border-radius: $tca-radius;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+
+        &:hover,
+        &:focus-within {
+            background-color: rgba($color-teal-light, 0.14);
+            border-color: $color-primary;
+        }
+
+        img {
+            width: 100%;
+            max-height: 220px;
+            padding: 0.5rem;
+            object-fit: contain;
+
+            // `display` de arriba anularía el atributo hidden; se refuerza aquí
+            &[hidden] {
+                display: none;
+            }
+        }
+
+        &__empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 1.5rem 1rem;
+            text-align: center;
+
+            // Mismo motivo: `display: flex` pisaría el atributo hidden
+            &[hidden] {
+                display: none;
+            }
+
+            i {
+                font-size: 2rem;
+                line-height: 1;
+                color: $color-primary;
+            }
+
+            strong {
+                font-size: 0.9rem;
+                color: $admin-ink-dark;
+            }
+
+            u {
+                color: $admin-primary-contrast;
+                text-underline-offset: 2px;
+            }
+
+            small {
+                font-size: 0.78rem;
+                color: $admin-gray-contrast;
+            }
+        }
+    }
+
+    // Selector de colores: casillas con forma de bolita (el color llega en --c)
+    .tca-colors {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+    }
+
+    .tca-color {
+        position: relative;
+        display: inline-flex;
+        margin: 0;
+        cursor: pointer;
+
+        // Checkbox real transparente sobre la bolita: conserva teclado y lector de pantalla
+        input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        span {
+            width: 30px;
+            height: 30px;
+            background-color: var(--c);
+            border: 2px solid rgba(0, 0, 0, 0.08); // mismo borde suave de las bolitas del catálogo
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px $color-surface-white, 0 0 0 4px transparent;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        &:hover span {
+            transform: scale(1.08);
+        }
+
+        // Seleccionada: anillo del color principal
+        input:checked+span {
+            box-shadow: 0 0 0 2px $color-surface-white, 0 0 0 4px $color-primary;
+        }
+
+        input:focus-visible+span {
+            box-shadow: 0 0 0 2px $color-surface-white, 0 0 0 4px rgba($color-primary, 0.5);
+        }
+    }
+
+    // Interruptor activo/inactivo
+    .tca-switch-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.85rem 1rem;
+        background-color: $tca-bg;
+        border: 1px solid $admin-border-subtle;
+        border-radius: $tca-radius-sm;
+
+        strong {
+            display: block;
+            font-size: 0.9rem;
+            color: $admin-ink-dark;
+        }
+
+        small {
+            font-size: 0.78rem;
+            color: $admin-gray-contrast;
+        }
+    }
+
+    // Switch hecho con un checkbox real transparente (opacity: 0) que cubre todo
+    // el control: conserva teclado, foco y accesibilidad. El <span> siguiente
+    // dibuja el riel y la perilla (::after) según el estado :checked.
+    .tca-switch {
+        position: relative;
+        flex-shrink: 0;
+        display: inline-block;
+        width: 46px;
+        height: 26px;
+        margin: 0;
+        vertical-align: middle;
+        cursor: pointer;
+
+        input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        span {
+            position: absolute;
+            inset: 0;
+            background-color: #CBD5E1;
+            border-radius: 50rem;
+            transition: background-color 0.2s ease;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                width: 20px;
+                height: 20px;
+                background-color: $color-surface-white;
+                border-radius: 50%;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+                transition: transform 0.2s ease;
+            }
+        }
+
+        // Encendido: riel teal y perilla desplazada a la derecha (46 - 20 - 3 - 3 = 20px)
+        input:checked+span {
+            background-color: $color-primary;
+
+            &::after {
+                transform: translateX(20px);
+            }
+        }
+
+        input:focus-visible+span {
+            box-shadow: 0 0 0 3px rgba($color-primary, 0.3);
+        }
+
+        // Versión compacta para la columna "Publicación" (40 - 16 - 3 - 3 = 18px de recorrido)
+        &--sm {
+            width: 40px;
+            height: 22px;
+
+            span::after {
+                width: 16px;
+                height: 16px;
+            }
+
+            input:checked+span::after {
+                transform: translateX(18px);
+            }
+        }
+    }
+
+    // ---------- Accesibilidad ----------
+    // Respeta la preferencia del sistema "reducir movimiento":
+    // desactiva animaciones y transiciones de los elementos animados.
+    @media (prefers-reduced-motion: reduce) {
+
+        .tca-kpi,
+        .tca-btn,
+        .tca-icon-btn,
+        .tca-page,
+        .tca-check,
+        .tca-menu,
+        .tca-drawer,
+        .tca-scrim,
+        .tca-dialog,
+        .tca-dialog__box,
+        .tca-color span,
+        .tca-switch span,
+        .tca-switch span::after {
+            transition: none !important;
+            animation: none !important;
+        }
+    }
+}
+/* #endregion Admin */

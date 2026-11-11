@@ -1,0 +1,177 @@
+<!-- ==========================================================================
+     Componente Reutilizable — Admin Dashboard Layout (Navbar + Sidebar)
+     Uso dinámico: <div data-component="admin-layout"></div> antes de <main class="admin-main">
+     Estructura semántica: <header> estático + <aside> con toggle propio + <nav>
+     ========================================================================== -->
+
+<a class="admin-skip-link" href="#mainContent">Saltar al contenido principal</a>
+
+<!-- ============ A. NAVBAR SUPERIOR FIJO (100% ESTÁTICO, SIN HAMBURGUESA) ============ -->
+<header class="admin-navbar" role="banner">
+  <!-- Extremo Izquierdo: Logotipo TCNOCENTER único y estático -->
+  <div class="admin-navbar__left">
+    <a class="admin-navbar__brand" href="../index.html" aria-label="TCNOCENTER Panel Administrativo">
+      <svg class="admin-navbar__logo" viewBox="0 0 251 251" fill="none" xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true">
+        <path
+          d="M125.5 251C56.1883 251 0 194.812 0 125.5C0 56.1883 56.1883 0 125.5 0C194.812 0 251 56.1883 251 125.5C251 125.5 251 169 224 190C192.403 214.575 137 211.692 121.5 190C114.881 180.736 110.5 169.886 110.5 158.5V104.5H94C89.5 104.5 78.5 104.5 78.5 91C78.5 77 86.9246 77 94 77H155.5C162.219 77 172.742 77 172.5 91C172.258 105 162.061 104.5 155.5 104.5H140V154.5C140 176 164.612 186.315 186 178.5C194 175.577 221 167 221 120C221 73 176.452 25 121.5 25C66.5477 25 22 69.5477 22 124.5C22 179.452 66.5477 224 121.5 224C121.5 224 140 222.283 140 238C140 251 125.5 251 125.5 251Z"
+          fill="currentColor" />
+      </svg>
+      <span class="admin-navbar__brand-text">
+        TCNO<span class="admin-navbar__brand-accent">CENTER</span>
+      </span>
+    </a>
+  </div>
+
+  <!-- Extremo Derecho: Dropdown sobrio de Perfil del Administrador -->
+  <div class="admin-navbar__right">
+    <div class="admin-profile dropdown">
+      <button id="userProfileDropdown" class="admin-profile__btn" type="button" data-admin-dropdown-toggle
+        aria-haspopup="true" aria-expanded="false">
+        <span class="admin-profile__avatar" aria-hidden="true">AD</span>
+        <span class="admin-profile__meta">
+          <span class="admin-profile__name">Admin Tcnocenter</span>
+          <small class="admin-profile__role">Administradora</small>
+        </span>
+        <span class="admin-profile__chevron" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </span>
+      </button>
+
+      <div id="userProfileMenu" class="admin-profile__menu dropdown-menu" aria-labelledby="userProfileDropdown">
+        <div class="admin-profile__mobile-info">
+          <strong>Admin Tcnocenter</strong>
+          <span>Administradora</span>
+        </div>
+        <a class="admin-profile__item" href="#perfil">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Mi perfil</span>
+        </a>
+        <div class="admin-profile__divider" role="separator"></div>
+        <a class="admin-profile__item admin-profile__item--logout" href="../index.html">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Cerrar sesión</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ B. SIDEBAR LATERAL CON CONTROL DE COLAPSO PROPIO ============ -->
+<aside id="adminSidebar" class="admin-sidebar expanded" aria-label="Menú lateral de administración">
+  <!-- Cabecera de la Sidebar: Control exclusivo de colapso/expansión -->
+  <div class="d-flex align-items-center justify-content-between m-4">
+    <span class="admin-sidebar__section-label px-2">Menú principal</span>
+
+    <button id="sidebarToggle" class="admin-sidebar__collapse-btn" type="button" aria-controls="adminSidebar"
+      aria-expanded="true" aria-label="Colapsar menú lateral" title="Colapsar menú">
+
+      <svg class="admin-sidebar__collapse-icon" viewBox="0 0 24 24" width="18" height="18" fill="none"
+        stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="admin-sidebar__nav" aria-label="Navegación del panel de administración">
+    <ul class="admin-sidebar__list">
+      <!-- Inicio (Dashboard) -->
+      <li class="admin-sidebar__item">
+        <a href="./admin_dashboard.html" class="admin-sidebar__link is-active" aria-current="page" aria-label="Inicio"
+          data-tooltip="Inicio">
+          <span class="admin-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+              <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+              <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+            </svg>
+          </span>
+          <span class="admin-sidebar__text">Inicio</span>
+        </a>
+      </li>
+
+      <!-- Pedidos -->
+      <li class="admin-sidebar__item">
+        <a href="#pedidos" class="admin-sidebar__link" aria-label="Pedidos" data-tooltip="Pedidos">
+          <span class="admin-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+          </span>
+          <span class="admin-sidebar__text">Pedidos</span>
+        </a>
+      </li>
+
+      <!-- Productos -->
+      <li class="admin-sidebar__item">
+        <a href="./admin_productos.html" class="admin-sidebar__link" aria-label="Productos" data-tooltip="Productos">
+          <span class="admin-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m7.5 4.27 9 5.15"></path>
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z">
+              </path>
+              <path d="m3.3 7 8.7 5 8.7-5"></path>
+              <path d="M12 22V12"></path>
+            </svg>
+          </span>
+          <span class="admin-sidebar__text">Productos</span>
+        </a>
+      </li>
+
+      <!-- Clientes -->
+      <li class="admin-sidebar__item">
+        <a href="#clientes" class="admin-sidebar__link" aria-label="Clientes" data-tooltip="Clientes">
+          <span class="admin-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </span>
+          <span class="admin-sidebar__text">Clientes</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Separador / Sección inferior fija -->
+    <div class="admin-sidebar__footer">
+      <a href="#configuracion" class="admin-sidebar__link admin-sidebar__link--reserved"
+        aria-label="Configuración (Próximamente)" data-tooltip="Configuración (Próximamente)" aria-disabled="true">
+        <span class="admin-sidebar__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+            </path>
+          </svg>
+        </span>
+        <span class="admin-sidebar__text">Configuración</span>
+      </a>
+    </div>
+  </nav>
+</aside>
+
+<!-- Overlay / Backdrop semitransparente para expansión sobrepuesta en móvil (< 992px) -->
+<div id="sidebarBackdrop" class="admin-backdrop" tabindex="-1" aria-hidden="true"></div>
