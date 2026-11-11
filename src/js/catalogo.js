@@ -52,9 +52,15 @@ let catalogProducts = [];
 let colorHex = {}; // nombre de color -> código (viene de productos.js)
 let catalogOptions = { marcas: [], almacenamientos: [], etiquetas: [], colores: {} };
 
+function resolveImageUrl(rawPath) {
+  if (!rawPath) return '';
+  return rawPath.startsWith('data:') ? rawPath : new URL(rawPath, window.location.href).href;
+}
+
 // Convierte un objeto del JSON al formato que usa createProductCard.
 function mapProduct(item) {
   const startsWithBrand = item.modelo.toLowerCase().startsWith(item.marca.toLowerCase());
+  const imagenesPorColor = item.imagenesPorColor || {};
 
   return {
     id: item.id,
@@ -73,10 +79,12 @@ function mapProduct(item) {
     // Colores elegidos en el admin; si no hay, se usan los puntos de la marca
     colorList: (item.colores || [])
       .filter((nombre) => colorHex[nombre])
-      .map((nombre) => ({ nombre, hex: colorHex[nombre] })),
-    image: item.imagen
-      ? (item.imagen.startsWith('data:') ? item.imagen : new URL(item.imagen, window.location.href).href)
-      : ''
+      .map((nombre) => ({
+        nombre,
+        hex: colorHex[nombre],
+        image: resolveImageUrl(imagenesPorColor[nombre] || item.imagen)
+      })),
+    image: resolveImageUrl(item.imagen)
   };
 }
 
@@ -364,13 +372,33 @@ function createProductCard(product, template) {
   const colorsBox = card.querySelector('[data-product-colors]');
   if (product.colorList?.length) {
     // Colores propios del producto: reemplazan los puntos por defecto de la marca
-    colorsBox.replaceChildren(...product.colorList.map(({ nombre, hex }) => {
+    const dots = product.colorList.map(({ nombre, hex, image: colorImage }, index) => {
       const dot = document.createElement('span');
       dot.className = 'tcno-color-dot';
+      if (index === 0) dot.classList.add('is-active');
       dot.style.setProperty('--dot', hex);
+      dot.style.cursor = 'pointer';
       dot.title = nombre;
+      dot.setAttribute('role', 'button');
+      dot.setAttribute('tabindex', '0');
+      dot.setAttribute('aria-label', `${product.name} color ${nombre}`);
+      const selectColor = () => {
+        if (colorImage) {
+          image.src = colorImage;
+          image.alt = `Imagen de ${product.name} (${nombre})`;
+        }
+        dots.forEach((d) => d.classList.toggle('is-active', d === dot));
+      };
+      dot.addEventListener('click', selectColor);
+      dot.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectColor();
+        }
+      });
       return dot;
-    }));
+    });
+    colorsBox.replaceChildren(...dots);
     colorsBox.setAttribute('aria-label', `Colores: ${product.colorList.map((c) => c.nombre).join(', ')}`);
   } else {
     colorsBox.classList.add(...product.colors.split(' ').filter(Boolean));
@@ -381,22 +409,26 @@ function createProductCard(product, template) {
   image.src = product.image || FALLBACK_IMAGE;
   image.alt = `Imagen de ${product.name}`;
   image.addEventListener('error', () => {
-    // Si la foto no carga (archivo inexistente o ruta incorrecta) se muestra la imagen de respaldo.
-    console.warn(`No cargó la imagen de ${product.name}: ${product.image}`);
-    if (image.src !== FALLBACK_IMAGE) image.src = FALLBACK_IMAGE;
-  }, { once: true });
-  favoriteButton.setAttribute('aria-label', `Agregar ${product.name} a favoritos`);
-
-  if (product.oldPrice) {
-    oldPrice.textContent = `${formatCurrency(product.oldPrice)} `;
-    const discount = document.createElement('span');
-    discount.textContent = `-${product.discount}`;
-    oldPrice.append(discount);
-  } else {
-    oldPrice.hidden = true;
+  // Si una variante de color aún no existe en disco, vuelve a la foto HD principal del teléfono;
+  // solo si la principal tampoco existe usa la imagen genérica de respaldo.
+  if (product.image && image.src !== product.image) {
+    image.src = product.image;
+  } else if (image.src !== FALLBACK_IMAGE) {
+    image.src = FALLBACK_IMAGE;
   }
+});
+favoriteButton.setAttribute('aria-label', `Agregar ${product.name} a favoritos`);
 
-  return card;
+if (product.oldPrice) {
+  oldPrice.textContent = `${formatCurrency(product.oldPrice)} `;
+  const discount = document.createElement('span');
+  discount.textContent = `-${product.discount}`;
+  oldPrice.append(discount);
+} else {
+  oldPrice.hidden = true;
+}
+
+return card;
 }
 
 // Valores sin repetir y sin vacíos, como texto
