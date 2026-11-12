@@ -41,22 +41,43 @@ function normalizar(p) {
     categoria: p.categoria ?? 'Celulares',
     stock: p.stock ?? 10,
     activo: p.activo ?? true,
-    colores: p.colores ?? []
+    colores: p.colores ?? [],
+    imagenesPorColor: p.imagenesPorColor ?? {}
   };
 }
 
 export async function cargarProductos() {
+  const resp = await fetch(JSON_URL);
+  const baseJson = (await resp.json()).map(normalizar);
+  const basePorId = new Map(baseJson.map((item) => [item.id, item]));
+
   try {
     const guardado = localStorage.getItem(KEY);
-    if (guardado) return JSON.parse(guardado).map(normalizar);
+    if (guardado) {
+      const listaGuardada = JSON.parse(guardado).map((item) => {
+        const base = basePorId.get(item.id);
+        const esInfinixAntiguo = item.id === 15 && item.modelo === 'Note 60 Pro';
+        return normalizar({
+          ...item,
+          modelo: esInfinixAntiguo ? base.modelo : item.modelo,
+          sku: esInfinixAntiguo ? base.sku : item.sku,
+          imagen: esInfinixAntiguo ? base.imagen : item.imagen,
+          colores: (esInfinixAntiguo || !item.colores?.length) ? (base?.colores ?? []) : item.colores,
+          imagenesPorColor:
+              (!esInfinixAntiguo && item.imagenesPorColor && Object.keys(item.imagenesPorColor).length)
+              ? item.imagenesPorColor
+              : (base?.imagenesPorColor ?? {})
+        });
+      });
+      guardarProductos(listaGuardada);
+      return listaGuardada;
+    }
   } catch (e) {
     // Si el almacenamiento está corrupto, se vuelve a cargar desde el JSON
   }
 
-  const resp = await fetch(JSON_URL);
-  const lista = (await resp.json()).map(normalizar);
-  guardarProductos(lista);
-  return lista;
+  guardarProductos(baseJson);
+  return baseJson;
 }
 
 export function guardarProductos(lista) {

@@ -52,9 +52,15 @@ let catalogProducts = [];
 let colorHex = {}; // nombre de color -> código (viene de productos.js)
 let catalogOptions = { marcas: [], almacenamientos: [], etiquetas: [], colores: {} };
 
+function resolveImageUrl(rawPath) {
+  if (!rawPath) return '';
+  return rawPath.startsWith('data:') ? rawPath : new URL(rawPath, window.location.href).href;
+}
+
 // Convierte un objeto del JSON al formato que usa createProductCard.
 function mapProduct(item) {
   const startsWithBrand = item.modelo.toLowerCase().startsWith(item.marca.toLowerCase());
+  const imagenesPorColor = item.imagenesPorColor || {};
 
   return {
     id: item.id,
@@ -66,6 +72,7 @@ function mapProduct(item) {
     storage: item.almacenamiento,
     rating: item.rating ?? 0,
     reviews: item.reviews ?? 0,
+    stock: item.stock ?? 0,
     // El JSON no trae ventas; se usa la cantidad de reseñas como referencia de popularidad.
     sold: item.reviews ?? 0,
     badge: item.etiqueta || '',
@@ -73,10 +80,12 @@ function mapProduct(item) {
     // Colores elegidos en el admin; si no hay, se usan los puntos de la marca
     colorList: (item.colores || [])
       .filter((nombre) => colorHex[nombre])
-      .map((nombre) => ({ nombre, hex: colorHex[nombre] })),
-    image: item.imagen
-      ? (item.imagen.startsWith('data:') ? item.imagen : new URL(item.imagen, window.location.href).href)
-      : ''
+      .map((nombre) => ({
+        nombre,
+        hex: colorHex[nombre],
+        image: resolveImageUrl(imagenesPorColor[nombre] || item.imagen)
+      })),
+    image: resolveImageUrl(item.imagen)
   };
 }
 
@@ -123,7 +132,24 @@ async function initializeCatalog() {
   const sortSelect = document.querySelector('[data-sort]');
   let brandChips = []; // se llena al generar las opciones de marca
   const clearButton = document.querySelector('[data-clear-filters]');
-  const cartFeedback = document.querySelector('[data-cart-feedback]');
+  const layout = document.querySelector('[data-catalog-layout]');
+  const filterForm = document.querySelector('[data-filter-form]');
+  const filterToggle = document.querySelector('[data-toggle-filters]');
+
+  function setFiltersOpen(open) {
+    if (!layout || !filterForm || !filterToggle) return;
+    layout.classList.toggle('is-filters-collapsed', !open);
+    filterForm.hidden = !open;
+    filterToggle.setAttribute('aria-expanded', String(open));
+  }
+
+  // En móvil empiezan colapsados; en escritorio abiertos
+  setFiltersOpen(!window.matchMedia('(max-width: 640px)').matches);
+
+  filterToggle?.addEventListener('click', () => {
+    const open = filterForm.hidden === true;
+    setFiltersOpen(open);
+  });
 
   if (!form || !grid || !count || !emptyState || !priceRange || !priceValue || !sortSelect) {
     return;
@@ -311,36 +337,6 @@ async function initializeCatalog() {
     if (event.target.matches('.tcno-search-input')) applyFilters();
   });
 
-  document.addEventListener('click', (event) => {
-    const favoriteButton = event.target.closest('[data-favorite]');
-    if (favoriteButton && grid.contains(favoriteButton)) {
-      const isFavorite = favoriteButton.getAttribute('aria-pressed') === 'true';
-      favoriteButton.setAttribute('aria-pressed', String(!isFavorite));
-      favoriteButton.setAttribute(
-        'aria-label',
-        `${isFavorite ? 'Agregar' : 'Quitar'} ${favoriteButton.closest('[data-product]').querySelector('[data-product-name]').textContent} ${isFavorite ? 'a' : 'de'} favoritos`
-      );
-      return;
-    }
-
-    const cartButton = event.target.closest('[data-add-cart]');
-    if (!cartButton || !grid.contains(cartButton)) {
-      return;
-    }
-
-    const productName = cartButton.closest('[data-product]').querySelector('[data-product-name]').textContent;
-    const originalContent = cartButton.innerHTML;
-    cartButton.classList.add('is-added');
-    cartButton.textContent = 'Agregado al carrito';
-    if (cartFeedback) {
-      cartFeedback.textContent = `${productName} se agregó al carrito.`;
-    }
-    window.setTimeout(() => {
-      cartButton.classList.remove('is-added');
-      cartButton.innerHTML = originalContent;
-    }, 1600);
-  });
-
   applyFilters();
 }
 
@@ -352,11 +348,76 @@ function createProductCard(product, template) {
   const favoriteButton = card.querySelector('[data-favorite]');
 
   if (product.id !== undefined) card.dataset.id = String(product.id);
+  let selectedColor = product.colorList?.[0]?.nombre || '';
+  let activeProduct = {
+    ...product,
+    image: product.colorList?.[0]?.image || product.image,
+    selectedColor
+  };
+  card.dataset.productData = JSON.stringify(activeProduct);
   card.dataset.brand = product.brand;
   card.dataset.price = String(product.price);
   card.dataset.storage = String(product.storage);
   card.dataset.rating = String(product.rating);
   card.dataset.sold = String(product.sold);
+  // Tarjeta clicable: abre el detalle (catálogo, carrusel del home, etc.)
+  card.style.cursor = 'pointer';
+  card.setAttribute('role', 'link');
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-label', `Ver detalle de ${product.name}`);
+
+  const goToProduct = () => {
+    const url = new URL('producto.html', window.location.href);
+    url.searchParams.set('id', String(product.id));
+    if (selectedColor) {
+      url.searchParams.set('color', selectedColor);
+    }
+    window.location.href = url.href;
+  };
+
+  card.addEventListener('keydown', (event) => {
+    if (event.target !== card) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      goToProduct();
+    }
+  });
+
+  card.addEventListener('click', (event) => {
+    const favoriteBtn = event.target.closest('[data-favorite]');
+    if (favoriteBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+      const isFavorite = favoriteBtn.getAttribute('aria-pressed') === 'true';
+      favoriteBtn.setAttribute('aria-pressed', String(!isFavorite));
+      favoriteBtn.setAttribute(
+        'aria-label',
+        `${isFavorite ? 'Agregar' : 'Quitar'} ${product.name} ${isFavorite ? 'a' : 'de'} favoritos`
+      );
+      return;
+    }
+
+    const cartBtn = event.target.closest('[data-add-cart]');
+    if (cartBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+      window.TcnoCart?.add(activeProduct);
+      const originalContent = cartBtn.innerHTML;
+      cartBtn.classList.add('is-added');
+      cartBtn.textContent = 'Agregado al carrito';
+      window.setTimeout(() => {
+        cartBtn.classList.remove('is-added');
+        cartBtn.innerHTML = originalContent;
+      }, 1600);
+      return;
+    }
+
+    if (event.target.closest('[data-product-colors]')) {
+      return;
+    }
+
+    goToProduct();
+  });
   card.querySelector('[data-product-name]').textContent = product.name;
   card.querySelector('[data-product-rating]').textContent = `${product.rating.toFixed(1)} (${product.reviews})`;
   card.querySelector('[data-product-price]').textContent = `${formatCurrency(product.price)} COP`;
@@ -364,13 +425,45 @@ function createProductCard(product, template) {
   const colorsBox = card.querySelector('[data-product-colors]');
   if (product.colorList?.length) {
     // Colores propios del producto: reemplazan los puntos por defecto de la marca
-    colorsBox.replaceChildren(...product.colorList.map(({ nombre, hex }) => {
+    const dots = product.colorList.map(({ nombre, hex, image: colorImage }, index) => {
       const dot = document.createElement('span');
       dot.className = 'tcno-color-dot';
+      if (index === 0) dot.classList.add('is-active');
       dot.style.setProperty('--dot', hex);
       dot.title = nombre;
+      dot.setAttribute('role', 'button');
+      dot.setAttribute('tabindex', '0');
+      dot.setAttribute('aria-pressed', String(index === 0));
+      dot.setAttribute('aria-label', `${product.name} color ${nombre}`);
+      const selectColor = (event) => {
+        event?.preventDefault();
+        event?.stopPropagation();
+        selectedColor = nombre;
+        if (colorImage) {
+          image.src = colorImage;
+          image.alt = `Imagen de ${product.name} (${nombre})`;
+        }
+        activeProduct = {
+          ...product,
+          image: colorImage || product.image,
+          selectedColor: nombre
+        };
+        card.dataset.productData = JSON.stringify(activeProduct);
+        dots.forEach((d) => {
+          const isCurrent = d === dot;
+          d.classList.toggle('is-active', isCurrent);
+          d.setAttribute('aria-pressed', String(isCurrent));
+        });
+      };
+      dot.addEventListener('click', selectColor);
+      dot.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          selectColor(e);
+        }
+      });
       return dot;
-    }));
+    });
+    colorsBox.replaceChildren(...dots);
     colorsBox.setAttribute('aria-label', `Colores: ${product.colorList.map((c) => c.nombre).join(', ')}`);
   } else {
     colorsBox.classList.add(...product.colors.split(' ').filter(Boolean));
@@ -381,22 +474,26 @@ function createProductCard(product, template) {
   image.src = product.image || FALLBACK_IMAGE;
   image.alt = `Imagen de ${product.name}`;
   image.addEventListener('error', () => {
-    // Si la foto no carga (archivo inexistente o ruta incorrecta) se muestra la imagen de respaldo.
-    console.warn(`No cargó la imagen de ${product.name}: ${product.image}`);
-    if (image.src !== FALLBACK_IMAGE) image.src = FALLBACK_IMAGE;
-  }, { once: true });
-  favoriteButton.setAttribute('aria-label', `Agregar ${product.name} a favoritos`);
-
-  if (product.oldPrice) {
-    oldPrice.textContent = `${formatCurrency(product.oldPrice)} `;
-    const discount = document.createElement('span');
-    discount.textContent = `-${product.discount}`;
-    oldPrice.append(discount);
-  } else {
-    oldPrice.hidden = true;
+  // Si una variante de color aún no existe en disco, vuelve a la foto HD principal del teléfono;
+  // solo si la principal tampoco existe usa la imagen genérica de respaldo.
+  if (product.image && image.src !== product.image) {
+    image.src = product.image;
+  } else if (image.src !== FALLBACK_IMAGE) {
+    image.src = FALLBACK_IMAGE;
   }
+});
+favoriteButton.setAttribute('aria-label', `Agregar ${product.name} a favoritos`);
 
-  return card;
+if (product.oldPrice) {
+  oldPrice.textContent = `${formatCurrency(product.oldPrice)} `;
+  const discount = document.createElement('span');
+  discount.textContent = `-${product.discount}`;
+  oldPrice.append(discount);
+} else {
+  oldPrice.hidden = true;
+}
+
+return card;
 }
 
 // Valores sin repetir y sin vacíos, como texto

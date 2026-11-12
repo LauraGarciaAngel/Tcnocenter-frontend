@@ -12,10 +12,21 @@
     "descuento": 10,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Dorado",
+      "Gris",
+      "Negro",
+      "Morado"
+    ],
     "rating": 4.8,
     "reviews": 187,
-    "imagen": "../assets/images/celulares/01-samsung-galaxy-s24-ultra.jpg"
+    "imagen": "../assets/images/celulares/01-samsung-galaxy-s24-ultra.jpg",
+    "imagenesPorColor": {
+      "Dorado": "../assets/images/celulares/01-samsung-galaxy-s24-ultra.jpg",
+      "Gris": "../assets/images/celulares/01-samsung-galaxy-s24-ultra-gris.jpg",
+      "Negro": "../assets/images/celulares/01-samsung-galaxy-s24-ultra-negro.jpg",
+      "Morado": "../assets/images/celulares/01-samsung-galaxy-s24-ultra-morado.jpg"
+    }
   },
   {
     "id": 2,
@@ -30,10 +41,21 @@
     "descuento": 0,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Azul",
+      "Gris",
+      "Blanco",
+      "Negro"
+    ],
     "rating": 4.9,
     "reviews": 200,
-    "imagen": "../assets/images/celulares/02-apple-iphone-15-pro.jpg"
+    "imagen": "../assets/images/celulares/02-apple-iphone-15-pro.jpg",
+    "imagenesPorColor": {
+      "Azul": "../assets/images/celulares/02-apple-iphone-15-pro.jpg",
+      "Gris": "../assets/images/celulares/02-apple-iphone-15-pro-gris.jpg",
+      "Blanco": "../assets/images/celulares/02-apple-iphone-15-pro-blanco.jpg",
+      "Negro": "../assets/images/celulares/02-apple-iphone-15-pro-negro.jpg"
+    }
   },
   {
     "id": 3,
@@ -48,10 +70,21 @@
     "descuento": 15,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Negro",
+      "Gris",
+      "Morado",
+      "Dorado"
+    ],
     "rating": 4.7,
     "reviews": 142,
-    "imagen": "../assets/images/celulares/03-samsung-galaxy-s24.jpg"
+    "imagen": "../assets/images/celulares/03-samsung-galaxy-s24.jpg",
+    "imagenesPorColor": {
+      "Negro": "../assets/images/celulares/03-samsung-galaxy-s24.jpg",
+      "Gris": "../assets/images/celulares/03-samsung-galaxy-s24-gris.jpg",
+      "Morado": "../assets/images/celulares/03-samsung-galaxy-s24-morado.jpg",
+      "Dorado": "../assets/images/celulares/03-samsung-galaxy-s24-dorado.jpg"
+    }
   },
   {
     "id": 4,
@@ -66,10 +99,21 @@
     "descuento": 0,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Celeste",
+      "Morado",
+      "Grafito",
+      "Dorado"
+    ],
     "rating": 4.5,
     "reviews": 98,
-    "imagen": "../assets/images/celulares/04-samsung-galaxy-a55-5g.jpg"
+    "imagen": "../assets/images/celulares/04-samsung-galaxy-a55-5g.jpg",
+    "imagenesPorColor": {
+      "Celeste": "../assets/images/celulares/04-samsung-galaxy-a55-5g.jpg",
+      "Morado": "../assets/images/celulares/04-samsung-galaxy-a55-5g-morado.jpg",
+      "Grafito": "../assets/images/celulares/04-samsung-galaxy-a55-5g-grafito.jpg",
+      "Dorado": "../assets/images/celulares/04-samsung-galaxy-a55-5g-dorado.jpg"
+    }
   },
   {
     "id": 5,
@@ -84,10 +128,23 @@
     "descuento": 10,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Rosado",
+      "Celeste",
+      "Verde",
+      "Dorado",
+      "Negro"
+    ],
     "rating": 4.8,
     "reviews": 176,
-    "imagen": "../assets/images/celulares/05-apple-iphone-15.jpg"
+    "imagen": "../assets/images/celulares/05-apple-iphone-15.jpg",
+    "imagenesPorColor": {
+      "Rosado": "../assets/images/celulares/05-apple-iphone-15.jpg",
+      "Celeste": "../assets/images/celulares/05-apple-iphone-15-celeste.jpg",
+      "Verde": "../assets/images/celulares/05-apple-iphone-15-verde.jpg",
+      "Dorado": "../assets/images/celulares/05-apple-iphone-15-dorado.jpg",
+      "Negro": "../assets/images/celulares/05-apple-iphone-15-negro.jpg"
+    }
   },
   {
     "id": 6,
@@ -102,10 +159,19 @@
     "descuento": 10,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Morado",
+      "Negro",
+      "Celeste"
+    ],
     "rating": 4.6,
     "reviews": 163,
-    "imagen": "../assets/images/celulares/06-xiaomi-redmi-note-13-pro-5g.jpg"
+    "imagen": "../assets/images/celulares/06-xiaomi-redmi-note-13-pro-5g.jpg",
+    "imagenesPorColor": {
+      "Morado": "../assets/images/celulares/06-xiaomi-redmi-note-13-pro-5g.jpg",
+      "Negro": "../assets/images/celulares/06-xiaomi-redmi-note-13-pro-5g-negro.jpg",
+      "Celeste": "../assets/images/celulares/06-xiaomi-redmi-note-13-pro-5g-celeste.jpg"
+    }
   },
   {
     "id": 7,
@@ -120,10 +186,19 @@
     "descuento": 0,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Blanco",
+      "Negro",
+      "Verde"
+    ],
     "rating": 4.7,
     "reviews": 64,
-    "imagen": "../assets/images/celulares/07-xiaomi-xiaomi-14.jpg"
+    "imagen": "../assets/images/celulares/07-xiaomi-xiaomi-14.jpg",
+    "imagenesPorColor": {
+      "Blanco": "../assets/images/celulares/07-xiaomi-xiaomi-14.jpg",
+      "Negro": "../assets/images/celulares/07-xiaomi-xiaomi-14-negro.jpg",
+      "Verde": "../assets/images/celulares/07-xiaomi-xiaomi-14-verde.jpg"
+    }
   },
   {
     "id": 8,
@@ -138,10 +213,21 @@
     "descuento": 20,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Azul",
+      "Negro",
+      "Celeste",
+      "Rosado"
+    ],
     "rating": 4.4,
     "reviews": 87,
-    "imagen": "../assets/images/celulares/08-motorola-edge-40-neo.jpg"
+    "imagen": "../assets/images/celulares/08-motorola-edge-40-neo.jpg",
+    "imagenesPorColor": {
+      "Azul": "../assets/images/celulares/08-motorola-edge-40-neo.jpg",
+      "Negro": "../assets/images/celulares/08-motorola-edge-40-neo-negro.jpg",
+      "Celeste": "../assets/images/celulares/08-motorola-edge-40-neo-celeste.jpg",
+      "Rosado": "../assets/images/celulares/08-motorola-edge-40-neo-rosado.jpg"
+    }
   },
   {
     "id": 9,
@@ -156,10 +242,19 @@
     "descuento": 0,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Rojo",
+      "Celeste",
+      "Grafito"
+    ],
     "rating": 4.3,
     "reviews": 121,
-    "imagen": "../assets/images/celulares/09-motorola-moto-g84-5g.jpg"
+    "imagen": "../assets/images/celulares/09-motorola-moto-g84-5g.jpg",
+    "imagenesPorColor": {
+      "Rojo": "../assets/images/celulares/09-motorola-moto-g84-5g.jpg",
+      "Celeste": "../assets/images/celulares/09-motorola-moto-g84-5g-celeste.jpg",
+      "Grafito": "../assets/images/celulares/09-motorola-moto-g84-5g-grafito.jpg"
+    }
   },
   {
     "id": 10,
@@ -174,10 +269,19 @@
     "descuento": 0,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Morado",
+      "Blanco",
+      "Negro"
+    ],
     "rating": 4.8,
     "reviews": 38,
-    "imagen": "../assets/images/celulares/10-huawei-pura-70-pro.jpg"
+    "imagen": "../assets/images/celulares/10-huawei-pura-70-pro.jpg",
+    "imagenesPorColor": {
+      "Morado": "../assets/images/celulares/10-huawei-pura-70-pro.jpg",
+      "Blanco": "../assets/images/celulares/10-huawei-pura-70-pro-blanco.jpg",
+      "Negro": "../assets/images/celulares/10-huawei-pura-70-pro-negro.jpg"
+    }
   },
   {
     "id": 11,
@@ -192,10 +296,19 @@
     "descuento": 20,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Verde",
+      "Plata",
+      "Negro"
+    ],
     "rating": 4.5,
     "reviews": 53,
-    "imagen": "../assets/images/celulares/11-tecno-camon-30-pro-5g.jpg"
+    "imagen": "../assets/images/celulares/11-tecno-camon-30-pro-5g.jpg",
+    "imagenesPorColor": {
+      "Verde": "../assets/images/celulares/11-tecno-camon-30-pro-5g.jpg",
+      "Plata": "../assets/images/celulares/11-tecno-camon-30-pro-5g-plata.jpg",
+      "Negro": "../assets/images/celulares/11-tecno-camon-30-pro-5g-negro.jpg"
+    }
   },
   {
     "id": 12,
@@ -210,10 +323,21 @@
     "descuento": 0,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Negro",
+      "Blanco",
+      "Dorado",
+      "Verde"
+    ],
     "rating": 4.2,
     "reviews": 74,
-    "imagen": "../assets/images/celulares/12-tecno-spark-20-pro.jpg"
+    "imagen": "../assets/images/celulares/12-tecno-spark-20-pro.jpg",
+    "imagenesPorColor": {
+      "Negro": "../assets/images/celulares/12-tecno-spark-20-pro.jpg",
+      "Blanco": "../assets/images/celulares/12-tecno-spark-20-pro-blanco.jpg",
+      "Dorado": "../assets/images/celulares/12-tecno-spark-20-pro-dorado.jpg",
+      "Verde": "../assets/images/celulares/12-tecno-spark-20-pro-verde.jpg"
+    }
   },
   {
     "id": 13,
@@ -228,10 +352,17 @@
     "descuento": 5,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Verde",
+      "Gris"
+    ],
     "rating": 4.6,
     "reviews": 69,
-    "imagen": "../assets/images/celulares/13-oppo-reno11-5g.jpg"
+    "imagen": "../assets/images/celulares/13-oppo-reno11-5g.jpg",
+    "imagenesPorColor": {
+      "Verde": "../assets/images/celulares/13-oppo-reno11-5g.jpg",
+      "Gris": "../assets/images/celulares/13-oppo-reno11-5g-gris.jpg"
+    }
   },
   {
     "id": 14,
@@ -246,16 +377,25 @@
     "descuento": 0,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Verde",
+      "Negro",
+      "Morado"
+    ],
     "rating": 4.1,
     "reviews": 45,
-    "imagen": "../assets/images/celulares/14-oppo-a78.jpg"
+    "imagen": "../assets/images/celulares/14-oppo-a78.jpg",
+    "imagenesPorColor": {
+      "Verde": "../assets/images/celulares/14-oppo-a78.jpg",
+      "Negro": "../assets/images/celulares/14-oppo-a78-negro.jpg",
+      "Morado": "../assets/images/celulares/14-oppo-a78-morado.jpg"
+    }
   },
   {
     "id": 15,
     "marca": "Infinix",
-    "modelo": "Note 60 Pro",
-    "sku": "X6878",
+    "modelo": "GT 20 Pro",
+    "sku": "X6871",
     "categoria": "Celulares",
     "almacenamiento": 256,
     "etiqueta": "En oferta",
@@ -264,10 +404,17 @@
     "descuento": 20,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Plata",
+      "Grafito"
+    ],
     "rating": 4.4,
     "reviews": 60,
-    "imagen": "../assets/images/celulares/15-infinix-note-60-pro.jpg"
+    "imagen": "../assets/images/celulares/15-infinix-gt-20-pro.jpg",
+    "imagenesPorColor": {
+      "Plata": "../assets/images/celulares/15-infinix-gt-20-pro-plata.jpg",
+      "Grafito": "../assets/images/celulares/15-infinix-gt-20-pro-grafito.jpg"
+    }
   },
   {
     "id": 16,
@@ -282,10 +429,18 @@
     "descuento": 0,
     "stock": 15,
     "activo": true,
-    "colores": [],
+    "colores": [
+      "Grafito",
+      "Negro",
+      "Plata"
+    ],
     "rating": 4.7,
     "reviews": 29,
-    "imagen": "../assets/images/celulares/16-nubia-red-magic-9-pro.jpg"
+    "imagen": "../assets/images/celulares/16-nubia-red-magic-9-pro.jpg",
+    "imagenesPorColor": {
+      "Grafito": "../assets/images/celulares/16-nubia-red-magic-9-pro.jpg",
+      "Negro": "../assets/images/celulares/16-nubia-red-magic-9-pro-negro.jpg",
+      "Plata": "../assets/images/celulares/16-nubia-red-magic-9-pro-plata.jpg"
+    }
   }
 ]
-
