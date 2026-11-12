@@ -348,7 +348,13 @@ function createProductCard(product, template) {
   const favoriteButton = card.querySelector('[data-favorite]');
 
   if (product.id !== undefined) card.dataset.id = String(product.id);
-  card.dataset.productData = JSON.stringify(product);
+  let selectedColor = product.colorList?.[0]?.nombre || '';
+  let activeProduct = {
+    ...product,
+    image: product.colorList?.[0]?.image || product.image,
+    selectedColor
+  };
+  card.dataset.productData = JSON.stringify(activeProduct);
   card.dataset.brand = product.brand;
   card.dataset.price = String(product.price);
   card.dataset.storage = String(product.storage);
@@ -363,10 +369,14 @@ function createProductCard(product, template) {
   const goToProduct = () => {
     const url = new URL('producto.html', window.location.href);
     url.searchParams.set('id', String(product.id));
+    if (selectedColor) {
+      url.searchParams.set('color', selectedColor);
+    }
     window.location.href = url.href;
   };
 
   card.addEventListener('keydown', (event) => {
+    if (event.target !== card) return;
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       goToProduct();
@@ -391,7 +401,7 @@ function createProductCard(product, template) {
     if (cartBtn) {
       event.preventDefault();
       event.stopPropagation();
-      window.TcnoCart?.add(product);
+      window.TcnoCart?.add(activeProduct);
       const originalContent = cartBtn.innerHTML;
       cartBtn.classList.add('is-added');
       cartBtn.textContent = 'Agregado al carrito';
@@ -399,6 +409,10 @@ function createProductCard(product, template) {
         cartBtn.classList.remove('is-added');
         cartBtn.innerHTML = originalContent;
       }, 1600);
+      return;
+    }
+
+    if (event.target.closest('[data-product-colors]')) {
       return;
     }
 
@@ -416,23 +430,35 @@ function createProductCard(product, template) {
       dot.className = 'tcno-color-dot';
       if (index === 0) dot.classList.add('is-active');
       dot.style.setProperty('--dot', hex);
-      dot.style.cursor = 'pointer';
       dot.title = nombre;
       dot.setAttribute('role', 'button');
       dot.setAttribute('tabindex', '0');
+      dot.setAttribute('aria-pressed', String(index === 0));
       dot.setAttribute('aria-label', `${product.name} color ${nombre}`);
-      const selectColor = () => {
+      const selectColor = (event) => {
+        event?.preventDefault();
+        event?.stopPropagation();
+        selectedColor = nombre;
         if (colorImage) {
           image.src = colorImage;
           image.alt = `Imagen de ${product.name} (${nombre})`;
         }
-        dots.forEach((d) => d.classList.toggle('is-active', d === dot));
+        activeProduct = {
+          ...product,
+          image: colorImage || product.image,
+          selectedColor: nombre
+        };
+        card.dataset.productData = JSON.stringify(activeProduct);
+        dots.forEach((d) => {
+          const isCurrent = d === dot;
+          d.classList.toggle('is-active', isCurrent);
+          d.setAttribute('aria-pressed', String(isCurrent));
+        });
       };
       dot.addEventListener('click', selectColor);
       dot.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          selectColor();
+          selectColor(e);
         }
       });
       return dot;

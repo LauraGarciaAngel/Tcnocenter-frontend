@@ -108,42 +108,19 @@ function resolveImageUrl(src) {
     }
 }
 
-function renderColors(item) {
-    const section = document.querySelector('[data-product-colors]');
-    const dotsBox = document.querySelector('[data-color-dots]');
-    if (!section || !dotsBox) return;
+function getInitialColorParam() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('color') || '';
+}
 
+function buildColorEntries(item) {
     const nombres = (item.colores || []).filter(Boolean);
-    if (!nombres.length) {
-        section.hidden = true;
-        dotsBox.replaceChildren();
-        return;
-    }
-
-    const entries = nombres.map((nombre) => ({
+    const imagenesPorColor = item.imagenesPorColor || {};
+    return nombres.map((nombre) => ({
         nombre,
-        hex: colorHex[nombre] || null,
+        hex: colorHex[nombre] || '#cbd5e1',
+        src: resolveImageUrl(imagenesPorColor[nombre] || item.imagen),
     }));
-
-    dotsBox.replaceChildren(
-        ...entries.map(({ nombre, hex }) => {
-            const dot = document.createElement('span');
-            dot.className = 'tcno-color-dot';
-            dot.setAttribute('role', 'listitem');
-            dot.title = nombre;
-            dot.setAttribute('aria-label', nombre);
-            if (hex) {
-                dot.style.setProperty('--dot', hex);
-                dot.style.backgroundColor = hex;
-            } else {
-                dot.style.backgroundColor = '#cbd5e1';
-            }
-            return dot;
-        })
-    );
-
-    section.hidden = false;
-    section.setAttribute('aria-label', `Colores disponibles: ${nombres.join(', ')}`);
 }
 
 function showStatus(message, showBack = true) {
@@ -163,14 +140,24 @@ function showStatus(message, showBack = true) {
 
 function renderProduct(item) {
     const copy = buildCopy(item);
-    const imageUrl = resolveImageUrl(item.imagen);
+    const defaultImageUrl = resolveImageUrl(item.imagen);
+    const colorEntries = buildColorEntries(item);
+    const requestedColor = getInitialColorParam();
+    const initialColorEntry =
+        colorEntries.find((c) => c.nombre.toLowerCase() === requestedColor.toLowerCase()) ||
+        colorEntries[0] ||
+        null;
+
+    const initialImageUrl = initialColorEntry?.src || defaultImageUrl;
+
     const cartProduct = {
         id: item.id,
         name: copy.name,
         price: item.precio,
         storage: item.almacenamiento,
         stock: item.stock ?? 0,
-        image: imageUrl,
+        image: initialImageUrl,
+        selectedColor: initialColorEntry?.nombre || '',
     };
 
     document.title = `tcnocenter | ${copy.name}`;
@@ -187,7 +174,8 @@ function renderProduct(item) {
     document.querySelector('[data-stars]').innerHTML = renderStars(item.rating ?? 0);
     document.querySelector('[data-reviews]').textContent = `${item.reviews ?? 0} reseñas`;
     document.querySelector('[data-product-price]').textContent = `${formatCurrency(item.precio)} COP`;
-    document.querySelector('[data-add-cart]').dataset.productData = JSON.stringify(cartProduct);
+    const addCartBtn = document.querySelector('[data-add-cart]');
+    if (addCartBtn) addCartBtn.dataset.productData = JSON.stringify(cartProduct);
 
     const oldPriceEl = document.querySelector('[data-product-old-price]');
     if (item.precioAnterior) {
@@ -201,8 +189,6 @@ function renderProduct(item) {
     document.querySelector('[data-tab-details]').textContent = copy.details;
     document.querySelector('[data-tab-packaging]').textContent = copy.packaging;
     document.querySelector('[data-tab-shipping]').textContent = copy.shipping;
-
-    renderColors(item);
 
     const specsList = document.querySelector('[data-specs-list]');
     specsList.replaceChildren(
@@ -219,51 +205,145 @@ function renderProduct(item) {
     );
 
     const mainImg = document.querySelector('[data-main-image]');
-    mainImg.src = imageUrl;
-    mainImg.alt = `Imagen de ${copy.name}`;
-    mainImg.addEventListener(
-        'error',
-        () => {
-            if (mainImg.src !== FALLBACK_IMAGE) mainImg.src = FALLBACK_IMAGE;
-        },
-        { once: true }
-    );
+    mainImg.src = initialImageUrl;
+    mainImg.alt = initialColorEntry
+        ? `Imagen de ${copy.name} (${initialColorEntry.nombre})`
+        : `Imagen de ${copy.name}`;
+    mainImg.addEventListener('error', () => {
+        if (defaultImageUrl && mainImg.src !== defaultImageUrl) {
+            mainImg.src = defaultImageUrl;
+        } else if (mainImg.src !== FALLBACK_IMAGE) {
+            mainImg.src = FALLBACK_IMAGE;
+        }
+    });
 
+    // Construir galería de miniaturas usando las variantes de color reales
     const track = document.querySelector('[data-thumbs-track]');
-    const gallery = item.imagenes?.length
-        ? item.imagenes.map((src) => resolveImageUrl(src))
-        : [imageUrl, imageUrl, imageUrl, imageUrl];
+    const galleryItems = colorEntries.length
+        ? colorEntries.map((entry) => ({
+              src: entry.src,
+              label: `${copy.name} color ${entry.nombre}`,
+              colorName: entry.nombre,
+          }))
+        : (item.imagenes?.length
+              ? item.imagenes.map((src, i) => ({
+                    src: resolveImageUrl(src),
+                    label: `Vista ${i + 1}`,
+                    colorName: '',
+                }))
+              : [{ src: defaultImageUrl, label: `Vista 1`, colorName: '' }]);
 
-    track.replaceChildren(
-        ...gallery.map((src, index) => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = `tcno-thumb${index === 0 ? ' is-active' : ''}`;
-            btn.setAttribute('aria-label', `Vista ${index + 1}`);
-            btn.dataset.index = String(index);
-            const img = document.createElement('img');
-            img.src = src;
-            img.alt = '';
-            img.loading = 'lazy';
-            img.addEventListener(
-                'error',
-                () => {
-                    if (img.src !== FALLBACK_IMAGE) img.src = FALLBACK_IMAGE;
-                },
-                { once: true }
-            );
-            btn.append(img);
-            btn.addEventListener('click', () => {
-                mainImg.src = src;
-                track.querySelectorAll('.tcno-thumb').forEach((el) => el.classList.remove('is-active'));
-                btn.classList.add('is-active');
+    const sectionColors = document.querySelector('[data-product-colors]');
+    const dotsBox = document.querySelector('[data-color-dots]');
+    const selectedColorLabel = document.querySelector('[data-selected-color]');
+
+    let dotElements = [];
+    let thumbButtons = [];
+
+    const setActiveVariant = (src, colorName = '') => {
+        mainImg.src = src;
+        mainImg.alt = colorName ? `Imagen de ${copy.name} (${colorName})` : `Imagen de ${copy.name}`;
+        cartProduct.image = src;
+        if (colorName) {
+            cartProduct.selectedColor = colorName;
+            if (selectedColorLabel) selectedColorLabel.textContent = colorName;
+        }
+        if (addCartBtn) addCartBtn.dataset.productData = JSON.stringify(cartProduct);
+
+        dotElements.forEach((dot) => {
+            const isMatch = dot.dataset.color === colorName;
+            dot.classList.toggle('is-active', isMatch);
+            dot.setAttribute('aria-pressed', String(isMatch));
+        });
+
+        thumbButtons.forEach((btn) => {
+            const isMatch = colorName
+                ? btn.dataset.color === colorName
+                : btn.dataset.src === src;
+            btn.classList.toggle('is-active', isMatch);
+        });
+    };
+
+    if (sectionColors && dotsBox) {
+        if (!colorEntries.length) {
+            sectionColors.hidden = true;
+            dotsBox.replaceChildren();
+        } else {
+            if (selectedColorLabel && initialColorEntry) {
+                selectedColorLabel.textContent = initialColorEntry.nombre;
+            }
+            dotElements = colorEntries.map(({ nombre, hex, src }) => {
+                const isInitial = nombre === initialColorEntry?.nombre;
+                const dot = document.createElement('span');
+                dot.className = `tcno-color-dot${isInitial ? ' is-active' : ''}`;
+                dot.dataset.color = nombre;
+                dot.setAttribute('role', 'button');
+                dot.setAttribute('tabindex', '0');
+                dot.setAttribute('aria-pressed', String(isInitial));
+                dot.title = nombre;
+                dot.setAttribute('aria-label', `${copy.name} color ${nombre}`);
+                dot.style.setProperty('--dot', hex);
+                dot.style.backgroundColor = hex;
+
+                const onSelect = () => setActiveVariant(src, nombre);
+                dot.addEventListener('click', onSelect);
+                dot.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        onSelect();
+                    }
+                });
+                return dot;
             });
-            return btn;
-        })
-    );
+            dotsBox.replaceChildren(...dotElements);
+            sectionColors.hidden = false;
+            sectionColors.setAttribute(
+                'aria-label',
+                `Colores disponibles: ${colorEntries.map((c) => c.nombre).join(', ')}`
+            );
+        }
+    }
+
+    thumbButtons = galleryItems.map(({ src, label, colorName }, index) => {
+        const isInitial = colorName
+            ? colorName === initialColorEntry?.nombre
+            : index === 0;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `tcno-thumb${isInitial ? ' is-active' : ''}`;
+        btn.setAttribute('aria-label', label);
+        btn.dataset.index = String(index);
+        btn.dataset.src = src;
+        if (colorName) btn.dataset.color = colorName;
+
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = '';
+        img.loading = 'lazy';
+        img.addEventListener(
+            'error',
+            () => {
+                if (defaultImageUrl && img.src !== defaultImageUrl) {
+                    img.src = defaultImageUrl;
+                } else if (img.src !== FALLBACK_IMAGE) {
+                    img.src = FALLBACK_IMAGE;
+                }
+            },
+            { once: true }
+        );
+        btn.append(img);
+        btn.addEventListener('click', () => {
+            setActiveVariant(src, colorName);
+        });
+        return btn;
+    });
+
+    track.replaceChildren(...thumbButtons);
 
     document.querySelector('[data-product-status]').hidden = true;
     document.querySelector('[data-product-shell]').hidden = false;
+
+    return cartProduct;
 }
 
 function bindInteractions(cartProduct) {
@@ -368,15 +448,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        renderProduct(item);
-        bindInteractions({
-            id: item.id,
-            name: buildCopy(item).name,
-            price: item.precio,
-            storage: item.almacenamiento,
-            stock: item.stock ?? 0,
-            image: resolveImageUrl(item.imagen),
-        });
+        const cartProduct = renderProduct(item);
+        bindInteractions(cartProduct);
     } catch (error) {
         console.error(error);
         showStatus('No se pudo cargar el producto. Intenta actualizar la página.');
