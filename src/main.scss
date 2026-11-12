@@ -6524,6 +6524,32 @@ $tca-check-dash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
     border-bottom: 1px solid var(--border-color, #E5E7EB);
 }
 
+.tcno-cart-item-image-link {
+    flex-shrink: 0;
+    display: block;
+    width: 4.5rem;
+    height: 5rem;
+    text-decoration: none;
+    color: inherit;
+
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.tcno-cart-item-name-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover h3 {
+        color: var(--tcno-primary, #019D93);
+    }
+}
+
 .tcno-cart-item > img {
     width: 4.5rem;
     height: 5rem;

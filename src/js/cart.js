@@ -119,18 +119,37 @@ function renderCart() {
     item.className = 'tcno-cart-item';
     item.dataset.cartId = String(product.id);
 
+    const productUrl = new URL('producto.html', window.location.href);
+    productUrl.searchParams.set('id', String(product.id));
+    if (product.selectedColor) {
+      productUrl.searchParams.set('color', product.selectedColor);
+    }
+
+    const imageLink = document.createElement('a');
+    imageLink.href = productUrl.href;
+    imageLink.className = 'tcno-cart-item-image-link';
+    imageLink.setAttribute('aria-label', `Ver detalle de ${product.name}`);
+
     const image = document.createElement('img');
     image.src = product.image || '';
     image.alt = `Imagen de ${product.name}`;
     image.loading = 'lazy';
+    imageLink.append(image);
 
     const details = document.createElement('div');
     details.className = 'tcno-cart-item-details';
 
+    const nameLink = document.createElement('a');
+    nameLink.href = productUrl.href;
+    nameLink.className = 'tcno-cart-item-name-link';
+
     const name = document.createElement('h3');
     name.textContent = product.name;
+    nameLink.append(name);
+
     const metadata = document.createElement('p');
-    metadata.textContent = `${product.storage} GB · ${formatCartCurrency(product.price)}`;
+    const colorPart = product.selectedColor ? ` · ${product.selectedColor}` : '';
+    metadata.textContent = `${product.storage} GB${colorPart} · ${formatCartCurrency(product.price)}`;
 
     const controls = document.createElement('div');
     controls.className = 'tcno-cart-item-controls';
@@ -141,8 +160,8 @@ function renderCart() {
       <button type="button" class="tcno-cart-remove" data-cart-remove>Eliminar</button>
     `;
 
-    details.append(name, metadata, controls);
-    item.append(image, details);
+    details.append(nameLink, metadata, controls);
+    item.append(imageLink, details);
     itemsContainer.append(item);
   });
 }

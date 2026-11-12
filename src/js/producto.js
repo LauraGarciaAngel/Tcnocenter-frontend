@@ -347,36 +347,16 @@ function renderProduct(item) {
 }
 
 function bindInteractions(cartProduct) {
-    const qtyInput = document.querySelector('[data-qty]');
-    const minus = document.querySelector('[data-qty-minus]');
-    const plus = document.querySelector('[data-qty-plus]');
     const cartBtn = document.querySelector('[data-add-cart]');
     const wishlist = document.querySelector('[data-wishlist]');
     const specsToggle = document.querySelector('[data-specs-toggle]');
     const specsBody = document.querySelector('[data-specs-body]');
 
-    const clampQty = () => {
-        let n = Number(qtyInput.value) || 1;
-        const maximum = Number(cartProduct.stock) > 0 ? Number(cartProduct.stock) : 10;
-        n = Math.min(maximum, Math.max(1, n));
-        qtyInput.value = String(n);
-        return n;
-    };
-
-    minus?.addEventListener('click', () => {
-        qtyInput.value = String(Math.max(1, (Number(qtyInput.value) || 1) - 1));
-    });
-    plus?.addEventListener('click', () => {
-        const maximum = Number(cartProduct.stock) > 0 ? Number(cartProduct.stock) : 10;
-        qtyInput.value = String(Math.min(maximum, (Number(qtyInput.value) || 1) + 1));
-    });
-    qtyInput?.addEventListener('change', clampQty);
-
     cartBtn?.addEventListener('click', (event) => {
-        clampQty();
         event?.preventDefault();
         event?.stopPropagation();
-        window.TcnoCart?.add(cartProduct, Number(qtyInput.value));
+        // Siempre agrega 1 unidad (sin selector de cantidad)
+        window.TcnoCart?.add(cartProduct, 1);
         const original = cartBtn.textContent;
         cartBtn.classList.add('is-added');
         cartBtn.textContent = 'Agregado ✓';
