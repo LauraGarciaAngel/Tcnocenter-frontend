@@ -23762,6 +23762,237 @@
   }
 }
 /* #endregion Product detail */
+.tcno-modal-open {
+  overflow: hidden;
+}
+
+.tcno-account-menu {
+  position: relative;
+}
+
+.tcno-account-toggle {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.tcno-account-menu-panel {
+  position: absolute;
+  z-index: 1060;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  display: grid;
+  min-width: 12rem;
+  padding: 0.4rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 0.65rem;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+}
+
+.tcno-account-menu-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 0.75rem;
+  border: 0;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: #374151;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.tcno-account-menu-option:hover {
+  background: #F0FAF9;
+  color: var(--tcno-primary, #019D93);
+}
+
+.tcno-modal-backdrop {
+  position: fixed;
+  z-index: 1070;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.48);
+}
+
+.tcno-register-modal {
+  position: relative;
+  width: min(100%, 30rem);
+  max-height: 95vh;
+  overflow-y: auto;
+  padding: 2.5rem 2rem 1.5rem;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
+}
+
+.tcno-register-modal h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.tcno-register-intro {
+  margin: 0.5rem 0 1.5rem;
+  color: #64748B;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.tcno-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #64748B;
+  cursor: pointer;
+}
+
+.tcno-modal-close:hover {
+  background: #F1F5F9;
+  color: #172033;
+}
+
+.tcno-register-field {
+  margin-bottom: 0.85rem;
+}
+
+.tcno-register-field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #172033;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tcno-register-input-wrapper {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 0.7rem;
+  border: 1px solid #D9E1EA;
+  border-radius: 0.4rem;
+  color: #94A3B8;
+}
+
+.tcno-register-input-wrapper:focus-within {
+  border-color: var(--tcno-primary, #019D93);
+  box-shadow: 0 0 0 3px rgba(1, 157, 147, 0.12);
+}
+
+.tcno-register-input-wrapper input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.65rem;
+  border: 0;
+  outline: 0;
+  color: #172033;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.tcno-register-input-wrapper input::-moz-placeholder {
+  color: #A0AEC0;
+}
+
+.tcno-register-input-wrapper input::placeholder {
+  color: #A0AEC0;
+}
+
+.tcno-password-toggle {
+  display: grid;
+  place-items: center;
+  padding: 0.2rem;
+  border: 0;
+  background: transparent;
+  color: #94A3B8;
+  cursor: pointer;
+}
+
+.tcno-register-error {
+  display: block;
+  min-height: 0.9rem;
+  margin-top: 0.2rem;
+  color: #D14343;
+  font-size: 0.68rem;
+}
+
+.tcno-register-terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  color: #64748B;
+  font-size: 0.7rem;
+}
+
+.tcno-register-terms input {
+  margin-top: 0.1rem;
+  accent-color: var(--tcno-primary, #019D93);
+}
+
+.tcno-register-terms strong {
+  color: #172033;
+}
+
+.tcno-register-status {
+  min-height: 1.1rem;
+  margin: 0.5rem 0;
+  color: var(--tcno-primary, #019D93);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.tcno-register-submit {
+  width: 100%;
+  padding: 0.75rem;
+  border: 0;
+  border-radius: 0.4rem;
+  background: var(--tcno-primary, #019D93);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.tcno-register-submit:hover {
+  background: #087F78;
+}
+
+.tcno-register-login-link {
+  margin: 1rem 0 0;
+  color: #64748B;
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+.tcno-register-login-link button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--tcno-primary, #019D93);
+  cursor: pointer;
+  font: inherit;
+}
+
+@media (max-width: 575.98px) {
+  .tcno-register-modal {
+    padding-inline: 1.25rem;
+  }
+}
 .tcno-cart-count {
   position: absolute;
   top: -0.15rem;
