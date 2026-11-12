@@ -78,7 +78,9 @@
         <!-- Acciones: Perfil y Carrito con Lucide Icons -->
         <div class="tcno-nav-actions">
           <!-- Mi Cuenta -->
-          <a href="../html/Administrador/admin_dashboard.html" class="tcno-nav-action-btn" aria-label="Mi Cuenta">
+          <div class="tcno-account-menu">
+            <button type="button" class="tcno-nav-action-btn tcno-account-toggle" data-account-toggle
+              aria-label="Mi Cuenta" aria-expanded="false" aria-controls="tcnoAccountMenu">
             <i data-lucide="user">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -86,7 +88,18 @@
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
             </i>
-          </a>
+            </button>
+            <div class="tcno-account-menu-panel" id="tcnoAccountMenu" data-account-menu hidden>
+              <button type="button" class="tcno-account-menu-option" data-account-login>
+                <i data-lucide="log-in" aria-hidden="true"></i>
+                <span>Iniciar sesión</span>
+              </button>
+              <button type="button" class="tcno-account-menu-option" data-register-open>
+                <i data-lucide="user-plus" aria-hidden="true"></i>
+                <span>Registrarse</span>
+              </button>
+            </div>
+          </div>
           <!-- Carrito de Compras -->
           <button type="button" class="tcno-nav-action-btn tcno-cart-toggle" data-cart-toggle aria-label="Carrito de compras">
             <i data-lucide="shopping-cart">
@@ -104,3 +117,76 @@
     </div>
   </div>
 </nav>
+
+<div class="tcno-modal-backdrop" data-register-modal hidden>
+  <section class="tcno-register-modal" role="dialog" aria-modal="true" aria-labelledby="register-title">
+    <button type="button" class="tcno-modal-close" data-register-close aria-label="Cerrar registro">
+      <i data-lucide="x" aria-hidden="true"></i>
+    </button>
+    <h2 id="register-title">Crear Cuenta</h2>
+    <p class="tcno-register-intro">Regístrate para disfrutar de una experiencia personalizada.</p>
+
+    <form class="tcno-register-form" data-register-form novalidate>
+      <div class="tcno-register-field">
+        <label for="register-name">Nombre completo</label>
+        <div class="tcno-register-input-wrapper">
+          <i data-lucide="user" aria-hidden="true"></i>
+          <input id="register-name" name="name" type="text" autocomplete="name"
+            placeholder="Nombre y apellido" required minlength="3">
+        </div>
+        <small class="tcno-register-error" data-error-for="name"></small>
+      </div>
+
+      <div class="tcno-register-field">
+        <label for="register-email">Correo electrónico</label>
+        <div class="tcno-register-input-wrapper">
+          <i data-lucide="mail" aria-hidden="true"></i>
+          <input id="register-email" name="email" type="email" autocomplete="email"
+            placeholder="ejemplo@email.com" required>
+        </div>
+        <small class="tcno-register-error" data-error-for="email"></small>
+      </div>
+
+      <div class="tcno-register-field">
+        <label for="register-password">Contraseña</label>
+        <div class="tcno-register-input-wrapper">
+          <i data-lucide="lock" aria-hidden="true"></i>
+          <input id="register-password" name="password" type="password" autocomplete="new-password"
+            placeholder="Mínimo 8 caracteres" required minlength="8">
+          <button type="button" class="tcno-password-toggle" data-password-toggle="register-password"
+            aria-label="Mostrar contraseña">
+            <i data-lucide="eye" aria-hidden="true"></i>
+          </button>
+        </div>
+        <small class="tcno-register-error" data-error-for="password"></small>
+      </div>
+
+      <div class="tcno-register-field">
+        <label for="register-password-confirmation">Confirmar contraseña</label>
+        <div class="tcno-register-input-wrapper">
+          <i data-lucide="lock" aria-hidden="true"></i>
+          <input id="register-password-confirmation" name="passwordConfirmation" type="password"
+            autocomplete="new-password" placeholder="Repite tu contraseña" required>
+          <button type="button" class="tcno-password-toggle" data-password-toggle="register-password-confirmation"
+            aria-label="Mostrar contraseña">
+            <i data-lucide="eye" aria-hidden="true"></i>
+          </button>
+        </div>
+        <small class="tcno-register-error" data-error-for="passwordConfirmation"></small>
+      </div>
+
+      <label class="tcno-register-terms">
+        <input name="terms" type="checkbox" required>
+        <span>Acepto los <strong>Términos y Condiciones.</strong></span>
+      </label>
+      <small class="tcno-register-error" data-error-for="terms"></small>
+      <p class="tcno-register-status" data-register-status role="status" aria-live="polite"></p>
+
+      <button type="submit" class="tcno-register-submit">Crear cuenta</button>
+    </form>
+
+    <p class="tcno-register-login-link">¿Ya tienes una cuenta?
+      <button type="button" data-account-login>Inicia sesión aquí</button>
+    </p>
+  </section>
+</div>
