@@ -18589,6 +18589,9 @@
     padding: 0.85rem 1.75rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     transition: box-shadow 0.2s ease;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
   }
   .tcno-navbar .tcno-navbar-brand {
     display: inline-flex;
@@ -19495,11 +19498,12 @@
   }
   .tcno-catalog .tcno-catalog-sidebar {
     position: sticky;
-    top: 1rem;
+    top: 5.5rem;
     padding: 1rem 1rem 0.8rem;
     border: 1px solid var(--border-color);
     border-radius: 0.7rem;
     background: var(--bg-1);
+    z-index: 2;
   }
   .tcno-catalog .tcno-filter-heading {
     display: flex;
