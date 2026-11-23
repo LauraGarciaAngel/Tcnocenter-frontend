@@ -1,222 +1,257 @@
 // ============================================================================
-// main.scss — tcnocenter Brand Overrides for Bootstrap 6
-// ============================================================================
-//
-// Bootstrap 6 uses the Sass module system (@use/@forward). Variable overrides
-// MUST be passed via `@use "bootstrap" with (...)` — not before the import.
-//
-// The color system works as follows:
-//   1. `$colors` map → generates oklch tint/shade CSS custom properties
-//      (e.g. --teal-100 through --teal-975)
-//   2. `$theme-colors` map → references those CSS properties for semantic
-//      themes (primary, secondary, info, etc.)
-//   3. `$theme-bgs` / `$theme-fgs` → body and surface colors
-//
-// We override `$colors` to inject our exact brand teal (oklch equivalent of
-// #019D93), then remap `$theme-colors` so "primary", "secondary", and "info"
-// all point to the teal palette at different intensities.
+// TCNOCENTER | main.scss
+// Sistema visual global | Bootstrap 6 (Sass modules)
+// Referencia: identidad oficial de TCNOCENTER, no una vista en particular.
 // ============================================================================
 
-// Import Bootstrap with tcnocenter brand overrides
+
+/* ===== LA BASE GLOBAL ESTANDAR ===== */
+
+/* #region Inicio */
+// 1. Bootstrap 6: configuracion inicial y tokens semanticos.
+// IMPORTANTE: @use ... with (...) debe ejecutarse una sola vez en el proyecto.
 @use "../node_modules/bootstrap/scss/bootstrap.scss" with (
-    // 1. CONFIGURATION TOGGLES
-    $enable-rounded: true,
-    $enable-shadows: true,
-    $enable-gradients: false,
-    $enable-transitions: true,
-    $enable-smooth-scroll: true,
+  // Configuracion general
+  $enable-rounded: true,
+  $enable-shadows: true,
+  $enable-gradients: false,
+  $enable-transitions: true,
+  $enable-smooth-scroll: true,
 
-    // 2. BRAND COLOR PALETTE
-    $teal: oklch(61.5% 0.11 182), // #019D93 — brand primary
-    $cyan: oklch(64% 0.10 190), // #24A9A1 — brand secondary
+  // Colores de partida para las escalas de Bootstrap.
+  // OKLCH aproximado a los HEX corporativos, que se fijan exactamente en :root.
+  $teal: oklch(62.67% 0.10935 186.87deg), // #019D93
+  $cyan: oklch(66.60% 0.10823 188.61deg), // #24A9A1
+  $white: #FEFEFE,
 
-    // 3. THEME COLOR OVERRIDES (Semantic Mapping)
-    $theme-colors: (
-        "primary": (
-            "base": var(--teal-500),
-            "fg": light-dark(var(--teal-600), var(--teal-400)),
-            "fg-emphasis": light-dark(var(--teal-800), var(--teal-200)),
-            "bg": var(--teal-500),
-            "bg-subtle": light-dark(var(--teal-100), var(--teal-900)),
-            "bg-muted": light-dark(var(--teal-200), var(--teal-800)),
-            "border": light-dark(var(--teal-300), var(--teal-600)),
-            "focus-ring": light-dark(color-mix(in oklch, var(--teal-500) 50%, var(--bg-body)), color-mix(in oklch, var(--teal-500) 75%, var(--bg-body))),
-            "contrast": var(--white)
-        ),
-        "secondary": (
-            "base": var(--cyan-500),
-            "fg": light-dark(var(--cyan-600), var(--cyan-400)),
-            "fg-emphasis": light-dark(var(--cyan-800), var(--cyan-200)),
-            "bg": light-dark(var(--cyan-100), var(--cyan-600)),
-            "bg-subtle": light-dark(var(--cyan-050), var(--cyan-800)),
-            "bg-muted": light-dark(var(--cyan-100), var(--cyan-700)),
-            "border": light-dark(var(--cyan-300), var(--cyan-600)),
-            "focus-ring": color-mix(in oklch, light-dark(var(--cyan-500), var(--cyan-300)) 50%, var(--bg-body)),
-            "contrast": var(--white)
-        ),
-        "info": (
-            "base": var(--teal-400),
-            "fg": light-dark(var(--teal-500), var(--teal-300)),
-            "fg-emphasis": light-dark(var(--teal-700), var(--teal-200)),
-            "bg": var(--teal-400),
-            "bg-subtle": light-dark(var(--teal-050), var(--teal-900)),
-            "bg-muted": light-dark(var(--teal-100), var(--teal-800)),
-            "border": light-dark(var(--teal-200), var(--teal-600)),
-            "focus-ring": light-dark(color-mix(in oklch, var(--teal-400) 50%, var(--bg-body)), color-mix(in oklch, var(--teal-400) 75%, var(--bg-body))),
-            "contrast": var(--white)
-        )
+  // Colores semanticos para utilidades y componentes de Bootstrap 6.
+  $theme-colors: (
+    "primary": (
+      "base": var(--teal-500),
+      "fg": light-dark(var(--teal-700), var(--teal-300)),
+      "fg-emphasis": light-dark(var(--teal-800), var(--teal-200)),
+      "bg": var(--teal-500),
+      "bg-subtle": light-dark(var(--teal-100), var(--teal-900)),
+      "bg-muted": light-dark(var(--teal-200), var(--teal-800)),
+      "border": light-dark(var(--teal-300), var(--teal-600)),
+      "focus-ring": light-dark(
+        color-mix(in oklch, var(--teal-500) 50%, var(--bg-body)),
+        color-mix(in oklch, var(--teal-400) 75%, var(--bg-body))
+      ),
+      // Sobre #019D93 el texto oscuro contrasta mejor que el blanco.
+      "contrast": #121515
     ),
-
-    // 4. SURFACE & BODY COLORS
-    $white: #FEFEFE,
-    $theme-bgs: ("body": light-dark(#FEFEFE, var(--gray-975))),
-    $theme-fgs: (
-        "body": light-dark(#3D3D3D, var(--gray-050)),
-        "1": light-dark(#5A5A5A, var(--gray-200)),
-        "2": light-dark(#7F7F7F, var(--gray-300)),
-        "3": light-dark(#999999, var(--gray-500))
+    "secondary": (
+      "base": var(--cyan-500),
+      "fg": light-dark(var(--cyan-700), var(--cyan-300)),
+      "fg-emphasis": light-dark(var(--cyan-800), var(--cyan-200)),
+      "bg": light-dark(var(--cyan-100), var(--cyan-700)),
+      "bg-subtle": light-dark(var(--cyan-050), var(--cyan-900)),
+      "bg-muted": light-dark(var(--cyan-200), var(--cyan-800)),
+      "border": light-dark(var(--cyan-300), var(--cyan-600)),
+      "focus-ring": color-mix(
+        in oklch,
+        light-dark(var(--cyan-500), var(--cyan-300)) 50%,
+        var(--bg-body)
+      ),
+      "contrast": #121515
     ),
-
-    // 5. TYPOGRAPHY
-    $root-tokens: (
-        --body-font-family: "'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
-        --body-font-size: 1rem,
-        --body-line-height: 1.6,
-        --heading-color: light-dark(#1F2937, var(--gray-050))
+    "accent": (
+      "base": var(--cyan-500),
+      "fg": light-dark(var(--cyan-700), var(--cyan-300)),
+      "fg-emphasis": light-dark(var(--cyan-800), var(--cyan-200)),
+      "bg": var(--cyan-500),
+      "bg-subtle": light-dark(var(--cyan-100), var(--cyan-900)),
+      "bg-muted": light-dark(var(--cyan-200), var(--cyan-800)),
+      "border": light-dark(var(--cyan-300), var(--cyan-600)),
+      "focus-ring": color-mix(in oklch, var(--cyan-500) 50%, var(--bg-body)),
+      "contrast": #121515
     ),
+    "info": (
+      "base": var(--teal-400),
+      "fg": light-dark(var(--teal-700), var(--teal-300)),
+      "fg-emphasis": light-dark(var(--teal-800), var(--teal-200)),
+      "bg": var(--teal-400),
+      "bg-subtle": light-dark(var(--teal-100), var(--teal-900)),
+      "bg-muted": light-dark(var(--teal-200), var(--teal-800)),
+      "border": light-dark(var(--teal-300), var(--teal-600)),
+      "focus-ring": color-mix(in oklch, var(--teal-400) 50%, var(--bg-body)),
+      "contrast": #121515
+    )
+  ),
 
-    // 6. BORDER RADIUS
-    $radius: .625rem
+  // Superficies: mayormente blancas, con alternancia gris y grafito.
+  $theme-bgs: (
+    "body": light-dark(#FEFEFE, #171A1A),
+    "1": light-dark(#F6F7F7, #222626),
+    "2": light-dark(#F1F2F2, #292E2E),
+    "3": light-dark(#DFE3E3, #343A3A)
+  ),
+  $theme-fgs: (
+    "body": light-dark(#121515, #FEFEFE),
+    "1": light-dark(#343A3A, #E9EEEE),
+    "2": light-dark(#4B5353, #C9D0D0),
+    "3": light-dark(#7F7F7F, #A3ADAD)
+  ),
+  $theme-borders: (
+    "body": light-dark(#DFE3E3, #424949),
+    "muted": light-dark(#E8EBEB, #343A3A),
+    "subtle": light-dark(#ECEFEF, #292E2E)
+  ),
+
+  // Tipografia global: Inter lectura funcional; Josefin titulos; Poppins editorial; Audiowide logo.
+  $root-tokens: (
+    --body-font-family: "'Inter', 'Segoe UI', Roboto, Arial, sans-serif",
+    --body-font-size: 1rem,
+    --body-line-height: 1.6,
+    --heading-color: inherit,
+    --link-color: #00857C,
+    --link-hover-color: #006F68,
+    --focus-ring-width: 2px,
+    --focus-ring-offset: 3px,
+    --focus-ring-color: #00857C
+  ),
+
+  // Radio generico; tarjetas premium usaran radios especificos.
+  $radius: .625rem
 );
 
-// ============================================================================
-// CUSTOM STYLES LAYER — tcnocenter specific overrides
-// ============================================================================
-
+// 2. Estilos corporativos reutilizables para TODAS las vistas.
 @layer custom {
+  :root {
+    // Paleta exacta de marca
+    --tcno-primary: #019D93;
+    --tcno-primary-dark: #00857C;
+    --tcno-primary-light: #14C4B6;
+    --tcno-secondary: #24A9A1;
+    --tcno-medium: #45B7B0;
+    --tcno-light: #6BC4BE;
 
-    // Embedded @font-face for reliable loading across all browsers
-    @font-face {
-        font-family: 'Audiowide';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url("https://fonts.gstatic.com/s/audiowide/v22/l7gdbjpo0cum0ckerWCtkQ.ttf") format("truetype");
-    }
+    // Neutros oficiales
+    --tcno-black: #0C0E0E;
+    --tcno-ink: #121515;
+    --tcno-dark: #171A1A;
+    --tcno-muted: #4B5353;
+    --tcno-gray: #7F7F7F;
+    --tcno-white: #FEFEFE;
+    --tcno-surface: #F6F7F7;
+    --tcno-surface-soft: #F1F2F2;
+    --tcno-line: #DFE3E3;
 
-    @font-face {
-        font-family: 'Josefin Sans';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url("https://fonts.gstatic.com/s/josefinsans/v34/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQXME.ttf") format("truetype");
-    }
+    // Identidad: Josefin Sans (titulos), Poppins (copy editorial y tarjetas),
+    // Inter (lectura funcional y navegacion), Audiowide (logo de texto).
+    // Las fuentes se cargan desde el <head> compartido de cada vista.
+    --tcno-font-heading: 'Josefin Sans', 'Segoe UI', Arial, sans-serif;
+    --tcno-font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
+    --tcno-font-editorial: 'Poppins', 'Inter', 'Segoe UI', Arial, sans-serif;
+    --tcno-font-logo: 'Audiowide', 'Segoe UI', Arial, sans-serif;
 
-    @font-face {
-        font-family: 'Josefin Sans';
-        font-style: normal;
-        font-weight: 600;
-        font-display: swap;
-        src: url("https://fonts.gstatic.com/s/josefinsans/v34/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_ObXXME.ttf") format("truetype");
-    }
+    // Geometria y transiciones
+    --tcno-radius: 1.25rem;
+    --tcno-radius-lg: 1.5rem;
+    --tcno-section-space: clamp(2.5rem, 5vw, 4rem);
+    --tcno-transition: 200ms ease;
 
-    @font-face {
-        font-family: 'Josefin Sans';
-        font-style: normal;
-        font-weight: 700;
-        font-display: swap;
-        src: url("https://fonts.gstatic.com/s/josefinsans/v34/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_N_XXME.ttf") format("truetype");
-    }
+    // Efectos reservados para secciones destacadas
+    --tcno-gradient: linear-gradient(
+      135deg,
+      var(--tcno-primary) 0%,
+      var(--tcno-secondary) 55%,
+      var(--tcno-medium) 100%
+    );
+    --tcno-dark-gradient: linear-gradient(135deg, #0C0E0E, #171A1A);
+    --tcno-shadow-soft: 0 .5rem 1.5rem rgba(18, 21, 21, .06);
+    --tcno-shadow-card: 0 .75rem 2rem rgba(18, 21, 21, .10);
+  }
 
-    // Root-level brand tokens
-    :root {
-        color-scheme: light;
-        --tcno-primary: #019D93;
-        --tcno-secondary: #24A9A1;
-        --tcno-medium: #45B7B0;
-        --tcno-light: #6BC4BE;
-        --tcno-gray: #7F7F7F;
-        --tcno-white: #FEFEFE;
-        --tcno-dark: #1F2937;
+  // La identidad oficial, por ahora, esta definida en modo claro.
+  // Un futuro modo oscuro debe tener sus propias reglas completas.
+  :root:not([data-bs-theme="dark"]) {
+    color-scheme: light;
+  }
 
-        --tcno-font-heading: 'Josefin Sans', 'Segoe UI', Arial, sans-serif;
-        --tcno-font-body: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
-        --tcno-font-logo: 'Audiowide', 'Segoe UI', cursive, sans-serif;
+  body {
+    font-family: var(--tcno-font-body);
+    background-color: var(--tcno-white);
+    color: var(--tcno-ink);
+    -webkit-font-smoothing: antialiased;
+  }
 
-        --tcno-gradient: linear-gradient(135deg, var(--tcno-primary) 0%, var(--tcno-secondary) 50%, var(--tcno-medium) 100%);
-    }
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--tcno-font-heading);
+    font-weight: 700;
+    line-height: 1.13;
+    letter-spacing: -.02em;
+    color: inherit; // Tambien funciona sobre fondos oscuros.
+  }
 
-    // Selection color
-    ::selection {
-        background-color: color-mix(in oklch, var(--tcno-primary) 30%, transparent);
-        color: var(--tcno-dark);
-    }
+  // El logotipo grafico conserva su imagen. Estas clases aplican al logo de texto.
+  .tcno-logo,
+  .brand-logo,
+  .tcno-logo-text,
+  .brand-logo-text {
+    font-family: var(--tcno-font-logo);
+    font-weight: 400;
+    letter-spacing: .05em;
+    text-transform: lowercase;
+  }
 
-    // Scrollbar styling (Webkit)
-    ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-    }
+  // Utilidades propias de marca; no alteran la estructura de Bootstrap.
+  .tcno-font-editorial { font-family: var(--tcno-font-editorial); }
+  .tcno-accent { color: var(--tcno-primary-dark); }
+  .tcno-accent-light { color: var(--tcno-primary-light); }
+  .tcno-text-muted { color: var(--tcno-muted); }
+  .tcno-bg-light { background-color: var(--tcno-surface); }
+  .tcno-bg-dark {
+    background: var(--tcno-dark-gradient);
+    color: var(--tcno-white);
+  }
+  .tcno-section { padding-block: var(--tcno-section-space); }
+  .tcno-card-surface {
+    background: var(--tcno-white);
+    border: 1px solid var(--tcno-line);
+    border-radius: var(--tcno-radius);
+    box-shadow: var(--tcno-shadow-soft);
+  }
 
-    ::-webkit-scrollbar-track {
-        background: color-mix(in oklch, var(--tcno-light) 15%, transparent);
-    }
+  ::selection {
+    background-color: color-mix(in oklch, var(--tcno-primary) 25%, transparent);
+    color: var(--tcno-ink);
+  }
 
-    ::-webkit-scrollbar-thumb {
-        background: var(--tcno-medium);
-        border-radius: var(--radius-pill);
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--tcno-surface); }
+  ::-webkit-scrollbar-thumb {
+    background: #A3ADAD;
+    border-radius: 50rem;
+    &:hover { background: var(--tcno-secondary); }
+  }
 
-        &:hover {
-            background: var(--tcno-secondary);
-        }
-    }
+  a {
+    transition: color var(--tcno-transition), text-decoration-color var(--tcno-transition);
+  }
 
-    // Link defaults
-    a {
-        color: var(--primary-fg);
-        text-decoration-color: color-mix(in oklch, var(--primary-fg) 40%, transparent);
-        transition: color .2s ease, text-decoration-color .2s ease;
+  :focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
 
-        &:hover {
-            color: var(--primary-fg-emphasis);
-            text-decoration-color: var(--primary-fg-emphasis);
-        }
-    }
+  @media (prefers-reduced-motion: reduce) {
+    a { transition: none; }
+  }
+}
 
-    // Headings — Josefin Sans
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .h1,
-    .h2,
-    .h3,
-    .h4,
-    .h5,
-    .h6 {
-        font-family: var(--tcno-font-heading);
-        font-weight: 600;
-        color: var(--heading-color);
-    }
 
-    // Logo — Audiowide
-    .tcno-logo,
-    .brand-logo {
-        font-family: var(--tcno-font-logo);
-        font-weight: 400;
-        letter-spacing: .05em;
-        text-transform: lowercase;
-    }
+/* #endregion */
 
-    // Focus ring override
-    :focus-visible {
-        outline: var(--focus-ring);
-        outline-offset: var(--focus-ring-offset);
-    }
 
-    // Navbar Component — tcnocenter
+
+
+
+
+
+// Navbar Component — tcnocenter
 
         .tcno-navbar {
         background-color: var(--tcno-white, #FEFEFE);
@@ -534,6 +569,19 @@
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* HOME — PRODUCTOS MÁS VENDIDOS */
 
@@ -1652,890 +1700,1662 @@
     }
 
 
-    // About Us Component (Alineación vertical perfecta en beneficios)
-    .tcno-about-page {
-        .tcno-about-layout {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-        }
 
-        .tcno-about-content {
-            flex: 1 1 50%;
-            min-width: 300px;
-        }
 
-        .tcno-about-title {
-            font-size: 1.8rem;
-            color: #1e293b;
 
-            span {
-                color: var(--tcno-primary, #019D93);
-            }
-        }
+// ============================================================================
+// TCNOCENTER · ACERCA DE NOSOTROS
+// ============================================================================
+/* #region Acerca de nosotros */
+/* ===== ACERCA DE NOSOTROS ===== */
+// ============================================================================
+// TCNOCENTER · ACERCA DE NOSOTROS
+// Estilos EXCLUSIVOS de esta página. La identidad visual y Bootstrap 6 están
+// definidos en main.scss; NO los importes otra vez aquí.
+//
+// Compilar: sass scss/acerca-de.scss css/acerca-de.css --watch
+// Las imágenes PNG están referenciadas en acerca-de.html (no en este archivo).
+// ============================================================================
 
-        .tcno-about-description {
-            font-size: 0.92rem;
-            line-height: 1.6;
-        }
+$tc-ink: #121515;
+$tc-dark: #171A1A;
+$tc-white: #FEFEFE;
+$tc-turquoise: #019D93;
+$tc-turquoise-bright: #14C4B6;
 
-        .tcno-about-benefits {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 1.5rem;
-        }
+@mixin tablet {
+  @media (max-width: 850px) { @content; }
+}
 
-        .tcno-about-benefit {
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-        }
+@mixin mobile {
+  @media (max-width: 640px) { @content; }
+}
 
-        .tcno-about-icon {
-            flex-shrink: 0;
-            color: var(--tcno-primary, #019D93);
-        }
+.tc-about {
+  font-family: var(--tcno-font-body, 'Inter', sans-serif);
+  background: $tc-white;
+  color: var(--tcno-ink, $tc-ink);
+  overflow: clip;
+  font-weight: 500;
+  // Los textos editoriales usan Poppins; la navegación y los botones también.
+  --tc-about-copy: var(--tcno-font-editorial, 'Poppins', 'Inter', sans-serif);
 
-        .tcno-about-icon-shield {
-            width: 34px;
-            height: 34px;
-        }
+  // 01 · Base y elementos reutilizables
+  &__container {
+    // El margen de 46px a 1024px coincide con la referencia.
+    width: min(100% - clamp(2.5rem, 9vw, 6rem), 1240px);
+    margin-inline: auto;
+  }
 
-        .tcno-about-icon-team {
-            width: 38px;
-            height: 34px;
-        }
+  .tc-section {
+    padding-block: clamp(2.4rem, 4.3vw, 4.25rem);
+  }
 
-        .tcno-about-benefit-title {
-            font-size: 0.95rem;
-            line-height: 1.2;
-            margin-bottom: 0.15rem !important;
-        }
+  .tc-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+    margin: 0 0 1.2rem;
+    font: 700 clamp(.66rem, .85vw, .75rem)/1.3 var(--tc-about-copy);
+    letter-spacing: .14em;
+    -webkit-text-stroke: .12px currentColor;
+    text-transform: uppercase;
+    color: var(--tcno-ink, $tc-ink);
 
-        .tcno-about-benefit-description {
-            font-size: 0.78rem;
-            line-height: 1.3;
-        }
-
-        .tcno-about-divider {
-            width: 1px;
-            height: 38px;
-            flex-shrink: 0;
-            background-color: #e2e8f0;
-        }
-
-        .tcno-about-image-container {
-            flex: 1 1 40%;
-            min-width: 280px;
-        }
-
-        .tcno-about-image {
-            height: auto;
-            object-fit: contain;
-        }
+    &::before {
+      content: '';
+      flex: 0 0 1.65rem;
+      width: 1.65rem;
+      height: 2px;
+      background: var(--tcno-primary, $tc-turquoise);
     }
 
-    // Section specific styles
-    .tcno-text-primary {
-        color: var(--tcno-primary, #019D93) !important;
+    &--after {
+      &::before { display: none; }
+      &::after {
+        content: '';
+        width: 1.65rem;
+        height: 2px;
+        background: var(--tcno-primary-light, $tc-turquoise-bright);
+      }
     }
 
-    .tcno-grid-3 {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        gap: 1.25rem;
+    &--light { color: $tc-white; }
+  }
 
-        @media (min-width: 992px) {
-            grid-template-columns: repeat(3, 1fr);
-        }
+  // Jerarquia Josefin: el trazo de esta familia se percibe mas fino que Poppins.
+  // El peso real maximo cargado es 700. Se refuerza visualmente sin reemplazarla.
+  .tc-title {
+    margin: 0;
+    font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+    font-size: clamp(2.2rem, 3.65vw, 3.3rem);
+    line-height: 1.065;
+    font-weight: 700;
+    letter-spacing: -.037em;
+    -webkit-text-stroke: .78px currentColor;
+    text-wrap: pretty;
+    color: var(--tcno-ink, $tc-ink);
+
+    &--light { color: $tc-white; }
+  }
+
+  .tc-accent {
+    color: var(--tcno-primary-dark, #00857C);
+    &--light { color: var(--tcno-primary-light, $tc-turquoise-bright); }
+  }
+
+  .tc-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .7rem;
+    min-height: 2.65rem;
+    padding: .65rem 1.45rem;
+    border: 1.5px solid transparent;
+    border-radius: 100px;
+    font: 600 .88rem/1.2 var(--tc-about-copy);
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 180ms, border-color 180ms, color 180ms, transform 180ms;
+
+    svg { width: 1rem; height: 1rem; }
+    &:hover { transform: translateY(-2px); }
+    &--decorative { cursor: default; user-select: none; }
+
+    &--outline {
+      border-color: var(--tcno-primary-light, $tc-turquoise-bright);
+      background: rgba(12, 14, 14, .2);
+      color: $tc-white;
+      &:hover, &:focus-visible {
+        background: var(--tcno-primary-light, $tc-turquoise-bright);
+        color: $tc-ink;
+      }
     }
 
-    .tcno-grid-5 {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.25rem;
+    &--dark {
+      background: $tc-ink;
+      color: $tc-white;
+      &:hover, &:focus-visible { background: #006F68; color: $tc-white; }
+    }
+  }
 
-        @media (min-width: 992px) {
-            grid-template-columns: repeat(5, 1fr);
-        }
+  // 02 · Banner hero
+  .tc-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: clamp(280px, 28vw, 370px);
+    padding-block: 3.1rem;
+    overflow: hidden;
+    background: #0C0E0E;
+    color: $tc-white;
+    isolation: isolate;
+
+    &__image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: right center;
+      z-index: 0;
     }
 
-    // Tarjetas "Lo que nos mueve"
-    .tcno-moves-card {
-        background-color: var(--tcno-white, #FEFEFE);
-        border: 1px solid #E2E8F0;
-        border-radius: 1.25rem;
-        padding: 2.15rem 1.75rem;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-        height: 100%;
-        display: flex;
-        align-items: center;
-        gap: 1.25rem;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-        &:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
-        }
-
-        .tcno-moves-icon-wrapper {
-            flex-shrink: 0;
-        }
-
-        .tcno-icon-box {
-            width: 64px;
-            height: 64px;
-            min-width: 64px;
-            border-radius: 50%;
-            background-color: rgba(1, 157, 147, 0.08);
-            color: var(--tcno-primary, #019D93);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            svg {
-                width: 32px;
-                height: 32px;
-            }
-        }
-
-        .tcno-moves-content {
-            flex-grow: 1;
-        }
-
-        h3 {
-            font-family: var(--tcno-font-heading);
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #1F2937;
-            margin-bottom: 0.35rem;
-            line-height: 1.2;
-        }
-
-        p {
-            font-family: var(--tcno-font-body);
-            color: #64748B;
-            font-size: 0.88rem;
-            line-height: 1.5;
-            margin-bottom: 0;
-        }
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(90deg,
+        rgba(8, 10, 10, .98) 0%,
+        rgba(8, 10, 10, .90) 26%,
+        rgba(8, 10, 10, .62) 43%,
+        rgba(8, 10, 10, .08) 75%);
+      pointer-events: none;
     }
 
-    // Tarjetas de Miembros de Equipo
-    .tcno-member-card {
-        background-color: var(--tcno-white, #FEFEFE);
-        border: 1px solid #E2E8F0;
-        border-radius: 1.25rem;
-        padding: 2rem 1.5rem;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &__inner {
+      position: relative;
+      z-index: 2;
+      // El contenido del hero comienza más a la derecha que el resto.
+      padding-inline-start: clamp(1.5rem, 3.9vw, 3.5rem);
+    }
+    &__content { max-width: min(460px, 52%); }
+    &__title {
+      margin: 0 0 .8rem;
+      font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+      font-size: clamp(2.5rem, 4.6vw, 4.6rem);
+      line-height: 1.04;
+      font-weight: 700;
+      letter-spacing: -.045em;
+      -webkit-text-stroke: .64px currentColor;
+      text-wrap: pretty;
+      color: $tc-white;
+    }
+    &__description {
+      max-width: 355px;
+      margin: 1.05rem 0 0;
+      font-family: var(--tc-about-copy);
+      font-size: clamp(.92rem, 1.42vw, 1.03rem);
+      font-weight: 400;
+      line-height: 1.48;
+      color: #F1F4F4;
+    }
+  }
 
-        .tcno-member-link {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            color: inherit;
-            text-decoration: none;
-        }
+  // 03 · Nuestra historia
+  .tc-story {
+    // Ajuste vertical: el local inicia a ~30px del cierre del banner.
+    padding-block: clamp(1.65rem, 3vw, 2rem) clamp(1.5rem, 2.5vw, 2rem);
+    background: $tc-white;
 
-        &:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
-        }
+    &__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+      align-items: center;
+      gap: clamp(2rem, 3.3vw, 3.6rem);
+    }
+    &__visual {
+      width: 100%;
+      aspect-ratio: 1.8;
+      overflow: hidden;
+      border-radius: var(--tcno-radius, 1.25rem);
+      background: #1B2020;
+      box-shadow: var(--tcno-shadow-soft, 0 .5rem 1.5rem rgba(18,21,21,.06));
 
-        .tcno-member-avatar-wrapper {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-self: center;
-            margin-bottom: 1.5rem;
-            
-        }
+      img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    }
+    &__body { position: relative; min-width: 0; padding-block: 1rem; }
+    &__dots {
+      position: absolute;
+      top: -.65rem;
+      right: 0;
+      width: 5.8rem;
+      height: 4.7rem;
+      opacity: .65;
+      background: radial-gradient(#C8CECE 1.3px, transparent 1.5px) 0 0 / 13px 13px;
+      pointer-events: none;
+    }
+    &__body > :not(.tc-story__dots) { position: relative; z-index: 1; }
+    // La historia tiene el titulo editorial mas amplio de la vista.
+    .tc-title {
+      font-size: clamp(2.2rem, 3.68vw, 3.3rem);
+      line-height: 1.07;
+    }
+    &__description {
+      // Limitar el ancho para aproximar los cinco renglones de la referencia.
+      max-width: 424px;
+      margin: clamp(1.05rem, 1.8vw, 1.45rem) 0 0;
+      font-family: var(--tc-about-copy);
+      font-size: clamp(.91rem, 1.43vw, 1rem);
+      line-height: 1.48;
+      font-weight: 400;
+      letter-spacing: -.018em;
+      strong { font-weight: 700; }
+    }
+  }
 
-        img,
-        .rounded-circle {
-            display: block;
-            width: 130px !important;
-            height: 130px !important;
-            object-fit: cover;
-            border: 3px solid var(--tcno-primary, #019D93);
-            margin: 0 auto !important;
-        }
+  // 04 · Misión, visión y propósito
+  .tc-pillars {
+    padding-block: .25rem clamp(2.75rem, 4vw, 3.5rem);
+    background: $tc-white;
 
-        .tcno-member-info {
-            width: 100%;
-            text-align: left;
-        }
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(.75rem, 1.65vw, 1.5rem);
+    }
+  }
 
-        h5 {
-            font-family: var(--tcno-font-heading);
-            font-size: 1.35rem;
-            font-weight: 700;
-            margin-bottom: 0.35rem;
-            color: #1F2937;
-            letter-spacing: -0.01em;
-        }
+  .tc-pillar {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(.55rem, .85vw, .95rem);
+    min-height: 145px;
+    padding: clamp(.9rem, 1.45vw, 1.35rem);
+    overflow: hidden;
+    border: 1px solid rgba(223, 227, 227, .35);
+    border-radius: var(--tcno-radius, 1.25rem);
+    background: var(--tcno-white, #FEFEFE);
+    color: var(--tcno-ink, $tc-ink);
+    box-shadow: 0 .55rem 1.5rem rgba(18, 21, 21, .065);
+    cursor: pointer;
+    isolation: isolate;
+    // transform no modifica el flujo: evita saltos de la cuadrícula.
+    transition: transform .24s ease, border-color .24s ease,
+      box-shadow .24s ease, background .24s ease, color .24s ease;
+    will-change: transform;
 
-        p {
-            font-family: var(--tcno-font-body);
-            color: #718496;
-            font-size: 0.95rem;
-            margin-bottom: 0;
-            line-height: 1.4;
-        }
+    // El borde se ilumina primero al rozar, después al pulsar queda seleccionado.
+    &:hover, &:focus-visible {
+      transform: translateY(-5px);
+      border-color: rgba(20, 196, 182, .95);
+      box-shadow: 0 0 0 1px rgba(20,196,182,.44),
+        0 0 17px rgba(20,196,182,.26), 0 14px 24px rgba(18,21,21,.13);
+    }
+    &:focus-visible { outline: 2px solid #14C4B6; outline-offset: 4px; }
+
+    &__icon {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 3.55rem;
+      height: 3.55rem;
+      border-radius: .9rem;
+      // Plata/gris satinado, NO blanco: como el recuadro de la referencia.
+      background: linear-gradient(145deg, #EFF0F1 0%, #E2E4E5 100%);
+      box-shadow: 0 5px 13px rgba(20, 24, 24, .14), inset 0 1px 1px rgba(255,255,255,.65);
+      color: #101515;
+      svg { width: 2.18rem; height: 2.18rem; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
+      .tc-pillar__target { width: 2.35rem; height: 2.35rem; stroke-width: 2.6; }
+    }
+    &__content { position: relative; z-index: 1; min-width: 0; flex: 1 1 auto; }
+    &__title {
+      margin: .2rem 0 .38rem;
+      font-family: var(--tc-about-copy);
+      font-size: clamp(1.08rem, 1.45vw, 1.28rem);
+      font-weight: 700;
+      letter-spacing: -.025em;
+      color: inherit;
+    }
+    &__description {
+      margin: 0;
+      font-family: var(--tc-about-copy);
+      font-size: clamp(.79rem, 1.08vw, .87rem);
+      font-weight: 500;
+      line-height: 1.48;
+      letter-spacing: -.021em;
     }
 
-    // Franja inferior de beneficios (barra única horizontal con divisores blancos verticales)
-    .tcno-banner-benefits {
-        background-color: var(--tcno-primary, #019D93);
-        border-radius: 1.5rem;
-        padding: 1.75rem 2rem;
-        color: #FEFEFE;
+    // La tarjeta activa recibe el acabado negro + neón, no solo la Visión.
+    &.is-selected {
+      transform: translateY(-3px);
+      border-color: #14C4B6;
+      background: radial-gradient(ellipse at 85% 16%, #242D2D, #0B1010 80%);
+      color: $tc-white;
+      box-shadow: 0 0 0 1px rgba(20,196,182,.48),
+        0 0 20px rgba(20,196,182,.26), 0 16px 30px rgba(18,21,21,.21);
 
-        .tcno-banner-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: nowrap;
-            width: 100%;
-        }
+      // Degradado inferior y luz ambiental dentro de la tarjeta.
+      &::before {
+        content: '';
+        position: absolute;
+        inset: auto 0 0;
+        height: 55%;
+        z-index: 0;
+        background: linear-gradient(0deg, rgba(0,140,133,.23), transparent 76%);
+        pointer-events: none;
+      }
 
-        .tcno-banner-item {
-            flex: 1;
-            padding: 0 1rem;
-        }
+      &::after {
+        content: '';
+        position: absolute;
+        left: -52%;
+        bottom: -82%;
+        width: 110%;
+        height: 95%;
+        border-top: 2px solid #25E4D6;
+        border-radius: 50%;
+        box-shadow: 0 -15px 30px rgba(20, 196, 182, .33), 0 -2px 6px rgba(44,242,224,.4);
+        transform: rotate(12deg);
+        pointer-events: none;
+      }
+      &:hover, &:focus-visible {
+        transform: translateY(-7px);
+        border-color: #29F2E0;
+        box-shadow: 0 0 0 1px rgba(41,242,224,.65), 0 0 28px rgba(41,242,224,.38),
+          0 20px 32px rgba(18,21,21,.27);
+      }
+      .tc-pillar__icon {
+        background: linear-gradient(145deg, #4E5454, #373D3D);
+        box-shadow: inset 0 1px 1px rgba(255,255,255,.15), 0 6px 14px rgba(0,0,0,.18);
+        color: $tc-white;
+      }
+    }
+  }
 
-        .tcno-banner-divider {
-            width: 1px;
-            height: 40px;
-            background-color: rgba(254, 254, 254, 0.45);
-            flex-shrink: 0;
-        }
+  // 05 · Nuestros valores
+  .tc-values {
+    padding-block: .4rem clamp(2.8rem, 4.4vw, 3.5rem);
+    background: $tc-white;
 
-        h6 {
-            font-family: var(--tcno-font-heading);
-            color: #FEFEFE;
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 0.15rem;
-        }
+    &__grid {
+      display: grid;
+      grid-template-columns: minmax(190px, 1.7fr) repeat(4, minmax(0, 1fr));
+      align-items: center;
+    }
+    &__intro { padding-inline: .6rem 1.25rem; }
+    // Los valores necesitan mas presencia, pero sin invadir las cuatro columnas.
+    .tc-title {
+      font-size: clamp(2.15rem, 3.45vw, 3.05rem);
+      line-height: 1.06;
+    }
+  }
 
-        p {
-            font-family: var(--tcno-font-body);
-            color: rgba(254, 254, 254, 0.85);
-            font-size: 0.82rem;
-            margin-bottom: 0;
-        }
+  .tc-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 140px;
+    padding: .25rem clamp(.2rem, .5vw, .6rem);
+    text-align: center;
+    border-left: 1px solid var(--tcno-line, #DFE3E3);
 
-        @media (max-width: 992px) {
-            .tcno-banner-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1.5rem;
-            }
+    &__icon { width: 2.35rem; height: 2.35rem; margin-bottom: .5rem; stroke-width: 2; }
+    &__title { margin: 0 0 .25rem; font-family: var(--tc-about-copy); font-size: clamp(1rem, 1.3vw, 1.15rem); font-weight: 700; letter-spacing: -.03em; }
+    &__description {
+      margin: 0;
+      font-family: var(--tc-about-copy);
+      font-size: clamp(.78rem, 1.08vw, .87rem);
+      font-weight: 500;
+      line-height: 1.42;
+      letter-spacing: -.02em;
+    }
+  }
 
-            .tcno-banner-divider {
-                display: none;
-            }
+  // 06 · Equipo de desarrollo
+  .tc-team {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: clamp(1.6rem, 2.8vw, 2.3rem);
+    color: $tc-white;
+    background:
+      radial-gradient(ellipse 65% 55% at 30% 112%, rgba(1,157,147,.24), transparent 78%),
+      radial-gradient(ellipse at 95% 90%, rgba(125,132,132,.15), transparent 42%),
+      $tc-dark;
 
-            .tcno-banner-item {
-                padding: 0;
-                width: 100%;
-            }
-        }
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      left: 22%;
+      bottom: -145px;
+      width: 440px;
+      height: 200px;
+      border-top: 2px solid rgba(52,243,226,.8);
+      border-radius: 50%;
+      transform: rotate(-26deg);
+      box-shadow: 0 -15px 30px rgba(20,196,182,.22);
+      pointer-events: none;
+    }
+    &__layout {
+      display: grid;
+      grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr);
+      align-items: center;
+      gap: clamp(1.25rem, 2.5vw, 2.8rem);
+      padding-inline: clamp(.65rem, 1.95vw, 1.25rem);
+    }
+    // Titulo sobre fondo oscuro: peso perceptivo similar al hero.
+    .tc-title {
+      font-size: clamp(2.3rem, 3.7vw, 3.5rem);
+      line-height: 1.055;
+      -webkit-text-stroke: .92px currentColor;
+      letter-spacing: -.045em;
+    }
+    &__description {
+      max-width: 333px;
+      margin: 1.1rem 0 1.5rem;
+      color: #F0F3F3;
+      line-height: 1.48;
+      font-family: var(--tc-about-copy);
+      font-size: clamp(.9rem, 1.35vw, .99rem);
+      font-weight: 400;
+    }
+    &__gallery { position: relative; min-width: 0; }
+    &__track {
+      display: flex;
+      gap: clamp(.65rem, 1.65vw, 1.15rem);
+      margin: 0;
+      padding: .9rem .8rem 1rem;
+      margin-block: -.9rem -1rem;
+      margin-inline: -.8rem;
+      list-style: none;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      &::-webkit-scrollbar { display: none; }
+    }
+    &__next {
+      position: absolute;
+      top: 50%;
+      right: -1rem;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      transform: translateY(-50%);
+      width: 2.6rem;
+      height: 2.6rem;
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 50%;
+      background: rgba(23,26,26,.96);
+      color: $tc-white;
+      cursor: pointer;
+      &:hover { background: #00857C; }
+      &:disabled { opacity: .35; cursor: default; }
+      svg { width: 1.35rem; height: 1.35rem; stroke-width: 2.3; }
+    }
+    &__pagination { display: flex; justify-content: center; gap: .55rem; padding-top: 1rem; }
+    &__dot {
+      min-width: .5rem;
+      width: .5rem;
+      height: .5rem;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #868A8A;
+      cursor: pointer;
+      &.is-active { width: 1.25rem; border-radius: 20px; background: var(--tcno-primary-light, $tc-turquoise-bright); }
+    }
+  }
+
+  .tc-member {
+    position: relative;
+    flex: 0 0 calc((100% - 2 * clamp(.65rem, 1.65vw, 1.15rem)) / 3);
+    min-width: 0;
+    aspect-ratio: .78;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 1.2rem;
+    background: linear-gradient(155deg, #454B4B, #202525);
+    scroll-snap-align: start;
+    cursor: pointer;
+    isolation: isolate;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+
+    &:hover, &:focus-visible {
+      transform: translateY(-6px);
+      border-color: #14C4B6;
+      box-shadow: 0 0 0 1px rgba(20,196,182,.5), 0 0 17px rgba(20,196,182,.24),
+        0 16px 30px rgba(0,0,0,.28);
+    }
+    &:focus-visible { outline: 2px solid #14C4B6; outline-offset: 3px; }
+    &.is-selected {
+      transform: translateY(-3px);
+      border-color: #14C4B6;
+      box-shadow: 0 0 0 1px rgba(20,196,182,.62),
+        0 0 21px rgba(20,196,182,.24);
+    }
+    &.is-selected:hover, &.is-selected:focus-visible { transform: translateY(-7px); }
+
+    &__portrait {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 27%;
+      filter: grayscale(1);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 36% 0 0;
+      background: linear-gradient(180deg, transparent, rgba(6,9,9,.22) 26%, rgba(6,9,9,.9)),
+        radial-gradient(ellipse at 75% 100%, rgba(20,196,182,.16), transparent 72%);
+      pointer-events: none;
+    }
+    &__detail { position: absolute; z-index: 1; left: 1rem; right: .5rem; bottom: .75rem; }
+    &__name { margin: 0 0 .2rem; color: $tc-white; font: 700 clamp(.86rem, 1.08vw, 1rem)/1.25 var(--tcno-font-team, 'Manrope', sans-serif); }
+    &__role { margin: 0; color: #EBEEEE; font-family: var(--tc-about-copy); font-size: clamp(.75rem, .98vw, .87rem); font-weight: 400; line-height: 1.36; }
+    &__role::after {
+      content: "";
+      display: block;
+      width: 2.2rem;
+      height: 1px;
+      margin-top: .35rem;
+      background: #00E6EF;
+      border-radius: 999px;
     }
 
+    &__badge {
+      position: absolute;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      right: .75rem;
+      bottom: 2.9rem;
+      width: 2.6rem;
+      height: 2.6rem;
+      border: 1px solid #00DCEB;
+      box-shadow: 0 0 .45rem #00DCEB66, inset 0 0 .35rem #00DCEB26;
+      border-radius: 50%;
+      background: rgba(14,18,18,.87);
+      color: $tc-white;
+      svg { width: 1.35rem; height: 1.35rem; stroke-width: 2.15; }
+    }
+  }
 
-  /* #endregion */
+  // 07 · Banner de cierre
+  .tc-cta-wrap {
+    padding: clamp(1rem, 2vw, 1.75rem);
+    background: $tc-white;
+  }
+  .tc-cta {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: clamp(230px, 25vw, 315px);
+    max-width: 1440px;
+    margin-inline: auto;
+    overflow: hidden;
+    border-radius: var(--tcno-radius-lg, 1.5rem);
+    background: #E1E5E6;
+    isolation: isolate;
+    box-shadow: 0 .55rem 1.7rem rgba(18,21,21,.09);
+    transition: transform .32s ease, box-shadow .32s ease;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 1.25rem 2.7rem rgba(18,21,21,.15);
+    }
+
+    &__image {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: right center;
+      transition: transform .5s ease, filter .5s ease;
+    }
+    &:hover &__image { transform: scale(1.035); filter: contrast(1.035); }
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      background: linear-gradient(90deg,
+        #EEF0F1 0%, rgba(238,240,241,.96) 32%,
+        rgba(238,240,241,.28) 65%, rgba(238,240,241,.02) 100%);
+      pointer-events: none;
+    }
+    &__content { position: relative; z-index: 2; width: min(58%, 550px); padding: clamp(1.5rem, 5vw, 4rem); }
+    &__title {
+      margin: 0 0 .4rem;
+      font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+      font-size: clamp(2rem, 3.36vw, 3rem);
+      line-height: 1.055;
+      font-weight: 700;
+      letter-spacing: -.038em;
+      -webkit-text-stroke: .76px currentColor;
+      color: $tc-ink;
+      // Los dos renglones editoriales del arte oficial son intencionales.
+      & .tc-cta__line { display: block; white-space: nowrap; color: $tc-ink; }
+      & .tc-cta__brand {
+        display: block;
+        width: max-content;
+        max-width: 100%;
+        color: #00857C;
+        font-family: var(--tc-about-copy);
+        font-size: 1.20em;
+        font-weight: 800;
+        line-height: 1.04;
+        letter-spacing: -.04em;
+        -webkit-text-stroke: 0;
+      }
+    }
+    &__description {
+      max-width: 340px;
+      margin: .5rem 0 1.1rem;
+      font-family: var(--tc-about-copy);
+      font-size: clamp(.9rem, 1.32vw, .99rem);
+      font-weight: 400;
+      line-height: 1.47;
+    }
+  }
+
+  // 08 · Utilidades de interacción
+  [hidden] { display: none !important; }
+
+  // El flujo de los parrafos es natural; los cortes dependen de los anchos.
+
+  // 09 · Responsive / tablet
+  @media (max-width: 1100px) {
+    .tc-pillars__grid { gap: .85rem; }
+    // Reservar espacio al texto. Evita líneas adicionales por exceso de padding.
+    .tc-pillar { gap: .55rem; padding: .95rem; }
+    .tc-pillar__icon { width: 3.5rem; height: 3.5rem; }
+    .tc-team__layout { grid-template-columns: minmax(260px, 335px) minmax(0, 1fr); gap: clamp(1.15rem, 2.2vw, 1.75rem); }
+  }
+
+  @include tablet {
+    .tc-story__grid { gap: 1.5rem; }
+    .tc-story__visual { aspect-ratio: 1.4; }
+    .tc-pillar { flex-direction: column; min-height: 205px; }
+    .tc-values__grid { grid-template-columns: repeat(4, minmax(0,1fr)); row-gap: 1.6rem; }
+    .tc-values__intro { grid-column: 1 / -1; }
+    .tc-value:first-of-type { border-left: none; }
+    .tc-team__layout { grid-template-columns: 1fr; }
+    .tc-team__intro { max-width: 530px; }
+    .tc-team__layout { padding-inline: 0; }
+    .tc-member { aspect-ratio: .88; }
+  }
+
+  // 10 · Responsive / móvil
+  @include mobile {
+    &__container { width: min(100% - 2.2rem, 1240px); }
+    .tc-section { padding-block: 2.75rem; }
+    .tc-story.tc-section { padding-block: 2rem 1.7rem; }
+    .tc-values.tc-section { padding-block: 1.65rem 2.5rem; }
+    .tc-team.tc-section { padding-block: 2.5rem; }
+    .tc-hero {
+      min-height: 430px;
+      align-items: flex-end;
+      padding-block: 2.7rem;
+      &__image { object-position: 65% center; }
+      &__inner { padding-inline-start: 0; }
+      &__content { max-width: 100%; }
+      &__title { font-size: clamp(2.5rem, 9.2vw, 3.6rem); -webkit-text-stroke: .38px currentColor; }
+      &__description { max-width: 285px; }
+      &::after {
+        background: linear-gradient(0deg,
+          rgba(7,10,10,.98) 0%, rgba(7,10,10,.89) 31%, rgba(7,10,10,.23) 85%);
+      }
+    }
+    .tc-story__grid { grid-template-columns: 1fr; }
+    .tc-story__visual { aspect-ratio: 1.65; }
+    .tc-story__body { padding-block: 0; }
+    .tc-story .tc-title { font-size: clamp(2.15rem, 7.35vw, 2.75rem); }
+    .tc-story__dots { opacity: .28; }
+    .tc-pillars__grid { grid-template-columns: 1fr; }
+    .tc-pillar { flex-direction: row; min-height: 130px; padding: 1.25rem; }
+    .tc-values__grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .tc-values__intro { padding-bottom: .5rem; }
+    .tc-values .tc-title { font-size: clamp(2.1rem, 7.3vw, 2.75rem); }
+    .tc-value { min-height: 145px; border-left: 0; }
+    .tc-value:nth-of-type(even) { border-left: 1px solid var(--tcno-line, #DFE3E3); }
+    .tc-team__layout { gap: 2rem; }
+    .tc-team .tc-title { font-size: clamp(2.25rem, 8vw, 3.1rem); }
+    .tc-member { flex-basis: min(73%, 265px); aspect-ratio: .78; }
+    .tc-team__next { right: -.45rem; }
+    .tc-cta {
+      min-height: 385px;
+      align-items: flex-start;
+      &__image { object-position: 69% bottom; }
+      &::after {
+        background: linear-gradient(180deg,
+          rgba(238,240,241,.99) 0%, rgba(238,240,241,.95) 37%, rgba(238,240,241,.1) 81%);
+      }
+      &__content { width: min(100%, 420px); padding: 1.8rem; }
+      &__title { font-size: clamp(1.55rem, 6.4vw, 2.2rem); }
+    }
+    @media (max-width: 390px) {
+      .tc-cta__title { font-size: clamp(1.4rem, 6.4vw, 1.7rem); }
+      .tc-story .tc-title { font-size: clamp(1.93rem, 7.45vw, 2.15rem); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tc-button, .tc-pillar, .tc-member, .tc-cta, .tc-cta__image { transition: none; }
+    .tc-pillar:hover, .tc-pillar.is-selected,
+    .tc-member:hover, .tc-member.is-selected, .tc-cta:hover, .tc-cta:hover .tc-cta__image { transform: none; }
+    .tc-team__track { scroll-behavior: auto; }
+  }
+}
+
+
+/* #endregion */
+
+
+
+
+
 
 
 
 // ============================================================================
 // contacto.scss — solo estilos propios de la página de contacto
 // ============================================================================
-/* #region Contac */
-.tcno-contact-page {
-
-    // ---------- Banner ----------
-    .hero {
-        position: relative;
-        overflow: hidden; // Recorta lo que se salga del banner
-        width: 100%;
-        background: linear-gradient(90deg, #F4FCFC, #DFF7F6);
-    }
-
-    // Decoración: oculta en móvil, visible desde tablet grande
-    .hero-deco {
-        display: none;
-    }
-
-    .hero-text {
-        position: relative;
-        z-index: 3; // Siempre por encima de la decoración y la imagen
-        padding: 2.5rem 2rem 1rem;
-
-        @media (min-width: 992px) {
-            max-width: 55%;
-            padding: 3.5rem 3rem 3.5rem 4rem;
-        }
-    }
-
-    .hero-phone {
-        position: relative;
-        z-index: 2;
-        display: block;
-        width: min(85%, 460px);
-        margin: 0 auto;
-        mix-blend-mode: multiply; // Hace que el fondo blanco de la imagen se funda con el banner
-
-        @media (min-width: 992px) {
-            position: absolute;
-            top: 50%;
-            right: -2%;
-            width: auto;
-            height: 135%; // Más alto que el banner, se recorta con overflow
-            margin: 0;
-            transform: translateY(-50%);
-            }
-        }
-
-        @media (min-width: 992px) {
-            .hero-deco {
-            display: block;
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-
-        // Franja ancha y suave
-        &::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: 8%;
-            width: 34%;
-            height: 200%;
-            background: linear-gradient(180deg, rgba(1, 157, 147, .04), rgba(1, 157, 147, .16));
-            transform: rotate(32deg);
-        }
-
-        // Franja delgada de color fuerte
-        &::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -9%;
-            width: 9%;
-            height: 200%;
-            background: linear-gradient(180deg, #6BC4BE, var(--tcno-primary, #019D93));
-            transform: rotate(32deg);
-            }
-        }
-    }
-
-    .hero-eyebrow {
-        font-family: var(--tcno-font-body, 'Inter', sans-serif);
-        font-size: .8rem;
-        font-weight: 700;
-        letter-spacing: .5px;
-        color: var(--tcno-primary, #019D93);
-    }
-
-    .hero-title {
-        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
-        font-size: clamp(2.6rem, 5vw, 4rem);
-        font-weight: 700;
-        line-height: 1.05;
-        color: var(--tcno-primary, #019D93);
-    }
-
-    .hero-sub {
-        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
-        font-size: clamp(1.1rem, 2vw, 1.6rem);
-        color: #34444f;
-        margin-bottom: 1.1rem;
-    }
-
-    .hero-desc {
-        font-family: var(--tcno-font-body, 'Inter', sans-serif);
-        font-size: 1rem;
-        color: #3f505b;
-        max-width: 520px;
-    }
-
-    // ---------- Títulos de sección (color principal + espaciado) ----------
-    .section-title {
-        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: var(--tcno-primary, #019D93);
-        text-align: center;
-        margin: 0 0 1.75rem;
-    }
-
-    // ---------- Formulario ----------
-    .form-card {
-        background-color: var(--tcno-white, #FEFEFE);
-        border: 1px solid #E2E8F0;
-        border-radius: 1.25rem;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, .03);
-        padding: 1.75rem;
-    }
-
-    .form-label {
-        font-family: var(--tcno-font-body, 'Inter', sans-serif);
-        font-size: .85rem;
-        font-weight: 600;
-        margin-bottom: .3rem;
-    }
-
-    .form-control {
-        font-family: var(--tcno-font-body, 'Inter', sans-serif);
-        font-size: .9rem;
-        background: #fbfcfc;
-        border-radius: .5rem;
-    }
-
-    .form-card .btn-solid {
-        --btn-bg: var(--tcno-primary, #019D93);
-        --btn-border-color: var(--tcno-primary, #019D93);
-        border-radius: .5rem;
-    }
-
-    .form-text {
-        font-size: .75rem;
-    }
-
-    #mensaje {
-        min-height: 120px;
-        resize: none;
-    }
-
-    // ---------- Redes ----------
-    .social-ico {
-        font-size: 1.5rem;
-        line-height: 1;
-        color: var(--tcno-primary, #019D93);
-    }
-
-    .social-facebook { color: #1877f2; }
-    .social-whatsapp { color: #25d366; }
-    .social-link { color: var(--tcno-primary, #019D93); }
-
-    // ---------- Caja de ubicación ----------
-    .location-card {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1; // Ocupa el espacio sobrante hasta igualar al formulario
-        background: linear-gradient(180deg, #e8f8f6, #f4fcfc);
-        border: 1px solid #d2efec;
-        border-radius: 1.25rem;
-        padding: 1.25rem;
-    }
-
-    .location-title {
-        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: var(--tcno-primary, #019D93);
-        margin: 0 0 .75rem;
-    }
-
-    .location-card .btn-solid {
-        color: var(--tcno-white, #FEFEFE);
-        text-decoration: none;
-
-        &:hover,
-        &:focus,
-        &:active {
-        color: var(--tcno-white, #FEFEFE);
-        text-decoration: none;
-        }
-    }
-
-    .map-ratio {
-        flex-grow: 1; // El mapa absorbe la altura extra
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        min-height: 220px;
-        border-radius: .75rem;
-        overflow: hidden;
-    }
-
-    .map-ratio iframe {
-        display: block;
-        width: 100%;
-        height: 100%;
-        border: 0;
-    }
-
-// ---------- Mensaje de estado del formulario ----------
-#form-status {
-    display: flex;
-    align-items: center;
-    gap: .6rem;
-    margin-top: 1rem;
-    padding: .75rem 1rem;
-    border: 1px solid transparent;
-    border-radius: .75rem;
-    font-family: var(--tcno-font-body, 'Inter', sans-serif);
-    font-size: .875rem;
-    font-weight: 500;
-    line-height: 1.4;
-    text-align: left;
-
-    // Si no hay mensaje, no ocupa espacio
-    &:empty {
-        display: none;
-    }
-
-    // Ícono circular a la izquierda
-    &::before {
-        flex-shrink: 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 1.35rem;
-        height: 1.35rem;
-        border-radius: 50%;
-        color: #fff;
-        font-size: .8rem;
-        font-weight: 700;
-    }
-
-    &.is-success {
-        background-color: #ECFDF3;
-        border-color: #A6E3BF;
-        color: #146C43;
-
-        &::before {
-            content: "✓";
-            background-color: #1E9E62;
-        }
-    }
-
-    &.is-error {
-        background-color: #FEF2F2;
-        border-color: #FECACA;
-        color: #B42318;
-
-        &::before {
-            content: "!";
-            background-color: #D92D20;
-        }
-    }
+/* #region Contacto — base y navegación */
+.contact-page {
+  --contact-accent: var(--tcno-primary-dark, #00857c);
+  --contact-accent-bright: var(--tcno-primary-light, #14c4b6);
+  /* Imágenes propias en src/assets/images/tcnocenter/contacto. Las rutas son relativas al CSS. */
+  --contact-hero-image: url("../assets/images/tcnocenter/contacto/banner.png");
+  --contact-store-image: url("../assets/images/tcnocenter/contacto/tienda.png");
+  --contact-advice-image: url("../assets/images/tcnocenter/contacto/asesoria.png");
+  --contact-info-surface: linear-gradient(150deg, var(--tcno-white, #FEFEFE) 35%, var(--tcno-surface, #F6F7F7));
+  --contact-tile: linear-gradient(150deg, #fafbfb, #f6f7f7);
+  --contact-tile-edge: 1px solid rgb(255 255 255 / 90%);
+  --contact-tile-shadow: 0 4px 9px rgb(18 21 21 / 8%);
+  --contact-shadow: 0 4px 9px rgb(18 21 21 / 9%);
+  --contact-panel: linear-gradient(155deg, #fafafb, #eef0f1);
+  background: var(--tcno-white, #FEFEFE);
 }
 
-
-
-    // ---------- Preguntas frecuentes ---------- 
-    .tcno-faq {
-        max-width: 760px;
-        min-height: 510px;
-
-        @media (max-width: 768px) {
-        min-height: 620px;
-        }
-    }
-
-    .tcno-faq-list {
-        display: grid;
-        gap: .85rem;
-        text-align: left;
-    }
-
-    .tcno-faq .accordion-item {
-        overflow: hidden;
-        border: 1px solid #d2efec;
-        border-radius: .9rem;
-        background: var(--tcno-white, #FEFEFE);
-        box-shadow: 0 4px 14px rgba(1, 157, 147, .06);
-        transition: border-color .2s ease, box-shadow .2s ease;
-    }
-
-    .tcno-faq .accordion-item:has(.accordion-collapse.show) {
-        border-color: var(--tcno-primary, #019D93);
-        box-shadow: 0 8px 22px rgba(1, 157, 147, .12);
-    }
-
-    .tcno-faq .accordion-header {
-        margin: 0;
-    }
-
-    .tcno-faq .accordion-button {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        gap: 1rem;
-        padding: 1.15rem 1.35rem;
-        border: 0;
-        background: var(--tcno-white, #FEFEFE);
-        color: var(--tcno-dark, #1F2937);
-        font-family: var(--tcno-font-heading, 'Josefin Sans', sans-serif);
-        font-size: 1rem;
-        font-weight: 600;
-        text-align: left;
-        transition: color .2s ease, background-color .2s ease;
-    }
-
-    .tcno-faq .accordion-button::after {
-        width: .65rem;
-        height: .65rem;
-        margin-left: auto;
-        border-right: 2px solid currentColor;
-        border-bottom: 2px solid currentColor;
-        transform: rotate(45deg) translateY(-2px);
-        transition: transform .2s ease;
-        content: '';
-    }
-
-    .tcno-faq .accordion-button:hover,
-    .tcno-faq .accordion-button:not(.collapsed) {
-        // color: var(--tcno-primary, #019D93);
-        border-radius: .7rem;
-        background: #f1fbfa;
-    }
-
-    .tcno-faq .accordion-button:not(.collapsed)::after {
-        transform: rotate(225deg) translate(-2px, -2px);
-    }
-
-    .tcno-faq .accordion-button:focus-visible {
-        outline: 3px solid color-mix(in srgb, var(--tcno-primary, #019D93) 30%, transparent);
-        outline-offset: -3px;
-    }
-
-    .tcno-faq .accordion-collapse {
-        border-top: 1px solid #d2efec;
-    }
-
-    .tcno-faq .accordion-body {
-        padding: 1rem 1.35rem 1.25rem;
-        color: #53636b;
-        font-family: var(--tcno-font-body, 'Inter', sans-serif);
-        font-size: .92rem;
-        line-height: 1.7;
-    }
+.contact-page > main {
+  color: var(--tcno-ink, #121515);
+  font-family: var(--tcno-font-body, Inter, sans-serif);
+  font-weight: 500;
+  line-height: 1.48;
 }
-    /* #endregion */
+
+.contact-wrap {
+  width: min(calc(100% - clamp(2.5rem, 6vw, 5rem)), 1240px);
+  margin-inline: auto;
+}
+
+:where(.contact-page main) :is(h1, h2, p, ul) { margin: 0; }
+
+.contact-page main :is(h1, h2) {
+  font: 700 clamp(1.65rem, 3vw, 2.55rem)/1.12 var(--tcno-font-heading, 'Josefin Sans', sans-serif);
+  letter-spacing: -.03em;
+  text-wrap: pretty;
+  -webkit-text-stroke: .55px currentColor;
+}
+
+.contact-page main :is(h1, h2) span { color: var(--contact-accent); }
+.contact-page main .contact-banner :is(h1, h2) span { color: var(--contact-accent-bright); }
+.contact-page main a { color: inherit; text-decoration: none; }
+.contact-page main a:focus-visible,
+.contact-page main summary:focus-visible { outline: 2px solid var(--contact-accent); outline-offset: 3px; }
+.contact-page main strong { font-weight: 650; }
+.contact-page main small { font-size: .8125rem; }
+
+/* #endregion */
+
+/* #region Banner y espacio de imagen */
+.contact-banner {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  min-height: clamp(13.75rem, 22vw, 20rem);
+  color: var(--tcno-white);
+  background: var(--tcno-ink, #121515);
+}
+
+.contact-banner::before {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+}
+
+.contact-banner::before {
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--tcno-ink, #121515) 6%, color-mix(in srgb, var(--tcno-ink, #121515) 92%, transparent) 29%, transparent 69%),
+    var(--contact-hero-image, none) center 47% / cover;
+}
+
+.contact-banner-copy { padding: 2rem clamp(1rem, 4.35vw, 4rem); }
+.contact-page main .contact-banner h1 { font-size: clamp(2.6rem, 4.7vw, 4.8rem); }
+.contact-page main .contact-banner h1 + p { max-width: 32ch; margin-top: .65rem; }
+.contact-kicker {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  text-transform: uppercase;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .015em;
+}
+
+.contact-kicker::before {
+  content: "";
+  width: 1.7rem;
+  height: 2px;
+  background: var(--tcno-primary);
+}
+
+.contact-banner .contact-kicker { margin-bottom: .5rem; letter-spacing: .11em; }
+.contact-banner .contact-kicker::before { order: 1; background: var(--tcno-primary-light); }
+.contact-content { padding-block: .75rem 2rem; }
+
+/* #endregion */
+
+/* #region Canales de atención */
+.contact-channels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: .9rem 0;
+  border-radius: var(--tcno-radius-lg);
+  border: var(--contact-tile-edge);
+  background: var(--tcno-white, #FEFEFE);
+  box-shadow: var(--contact-tile-shadow);
+}
+
+.contact-channel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: clamp(.5rem, 1.65vw, 1.25rem);
+  align-items: center;
+  padding-inline: clamp(.8rem, 2.9vw, 2rem);
+  font-size: .88rem;
+}
+
+.contact-channel + .contact-channel { border-inline-start: 1px solid #d4dadd; }
+.contact-channel small { display: block; margin-top: .25rem; }
+.contact-channel:hover strong { color: var(--contact-accent); }
+.contact-icon {
+  display: grid;
+  flex: none;
+  width: 3.4rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: .85rem;
+  border: var(--contact-tile-edge);
+  background: var(--contact-tile);
+  box-shadow: var(--contact-tile-shadow);
+  color: #101515;
+  font-size: 1.85rem;
+  line-height: 1;
+}
+
+/* #endregion */
+
+/* #region Formulario de contacto */
+.contact-primary,
+.contact-secondary {
+  display: grid;
+  gap: clamp(.85rem, 1.55vw, 1.45rem);
+  grid-template-columns: minmax(0, 1.27fr) minmax(0, 1fr);
+  margin-top: 1.5rem;
+}
+
+.contact-card {
+  border: 1px solid rgb(255 255 255 / 72%);
+  border-radius: var(--tcno-radius-lg);
+  background: var(--contact-panel);
+  box-shadow: var(--tcno-shadow-soft), var(--contact-shadow);
+}
+
+.contact-form-panel {
+  padding: 1.2rem clamp(1rem, 2.45vw, 2rem);
+  background: var(--tcno-white, #fefefe);
+}
+.contact-form-panel > :is(p, h2) { margin-inline: .6rem; }
+.contact-form-panel > h2,
+.contact-faq > h2,
+.contact-social h2 { margin-top: .48rem; }
+.contact-form-panel > h2 + p {
+  margin-top: .4rem;
+  max-width: 42ch;
+  font-size: .925rem;
+}
+
+.contact-form {
+  display: grid;
+  gap: 1rem 1.2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.45rem;
+}
+
+.contact-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  min-width: 0;
+  padding-inline: .75rem;
+  border: 1px solid var(--tcno-line, #dfe3e3);
+  border-radius: .85rem;
+  background: var(--tcno-white, #fefefe);
+  box-shadow: 0 2px 4px rgb(18 21 21 / 4%);
+}
+
+.contact-field:focus-within { border-color: var(--contact-accent); }
+.contact-field :is(input, select, textarea) {
+  width: 100%;
+  min-width: 0;
+  padding: .6rem 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: .875rem;
+}
+
+.contact-field :is(input, select) { min-height: 2.35rem; }
+.contact-field :is(input, select, textarea):focus { outline: none; }
+.contact-field input::placeholder { color: inherit; opacity: 1; }
+.contact-field select {
+  appearance: none;
+  padding-inline-end: 1.25rem;
+  cursor: pointer;
+}
+.contact-field select:invalid { color: var(--tcno-muted, #4b5353); }
+.contact-field select option { background: #fafbfb; color: var(--tcno-ink, #121515); }
+.contact-select-chevron {
+  position: absolute;
+  inset-inline-end: .85rem;
+  width: .45rem;
+  height: .45rem;
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  color: var(--contact-accent);
+  transform: translateY(-25%) rotate(45deg);
+  pointer-events: none;
+}
+
+@supports (appearance: base-select) and selector(select::picker(select)) {
+  .contact-field select, .contact-field select::picker(select) { appearance: base-select; }
+  .contact-field select::picker-icon { display: none; }
+  .contact-field select:open + .contact-select-chevron { transform: translateY(25%) rotate(225deg); }
+  .contact-field select::picker(select) {
+    box-sizing: border-box;
+    min-inline-size: max(anchor-size(width), 13.5rem);
+    margin-block: .45rem;
+    padding: .3rem;
+    border: 1px solid #e0e8e7;
+    border-radius: .85rem;
+    background: #fafbfb;
+    color: var(--tcno-ink, #121515);
+    box-shadow: 0 8px 22px rgb(18 21 21 / 12%);
+  }
+  .contact-field select option {
+    gap: .55rem;
+    padding: .6rem .65rem;
+    border-radius: .5rem;
+    background: transparent;
+    font: inherit;
+  }
+  .contact-field select option[hidden] { display: none; }
+  .contact-field select option:checked { color: #005e58; background: #e9f4f2; }
+  .contact-field select option:is(:hover, :focus-visible) { background: #e1efed; }
+  .contact-field select option::checkmark { color: var(--contact-accent); }
+}
+
+.contact-message {
+  display: grid;
+  gap: 0;
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: .55rem;
+}
+
+.contact-message label { display: flex; align-items: center; gap: .65rem; font-size: .875rem; }
+.contact-message textarea { min-height: 4.8rem; padding-inline-start: 1.65rem; resize: vertical; }
+.contact-message output { color: var(--tcno-muted); font-size: .8125rem; text-align: right; }
+
+.contact-form > :is(.contact-message, button, #form-status) { grid-column: 1 / -1; }
+.contact-form #form-status:empty { display: none; }
+.contact-form #form-status { font-size: .85rem; padding: .65rem .85rem; border-radius: .6rem; }
+.contact-form .is-success { color: #146c43; background: #ecfdf3; }
+.contact-form .is-error { color: #9e202a; background: #fce9e9; }
+.contact-send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .75rem;
+  min-height: 2.75rem;
+  margin-top: .2rem;
+  border: 0;
+  border-radius: 2rem;
+  background: var(--tcno-black, #0c0e0e);
+  box-shadow: 0 3px 5px rgb(12 14 14 / 15%);
+  color: var(--tcno-white, #fefefe);
+  font: inherit;
+  font-size: .88rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+.contact-send:enabled:is(:hover, :focus-visible) { background: var(--contact-accent); }
+.contact-send:focus-visible { outline: 2px solid var(--contact-accent); outline-offset: 3px; }
+.contact-send:disabled { opacity: .7; cursor: wait; }
+
+/* #endregion */
+
+/* #region Información de contacto */
+.contact-info {
+  padding: .85rem;
+  overflow: hidden;
+  background: var(--contact-info-surface);
+}
+.contact-store {
+  width: 100%;
+  aspect-ratio: 1.96;
+  border-radius: 1rem;
+  background: #e5ebed var(--contact-store-image, none) center / cover no-repeat;
+}
+.contact-info-copy { padding: .8rem clamp(.65rem, 1.7vw, 1.1rem) .45rem; }
+.contact-page main .contact-info h2 { font-size: clamp(1.25rem, 2.15vw, 1.9rem); }
+.contact-info ul {
+  margin-top: .85rem;
+  display: grid;
+  gap: clamp(.85rem, 1.7vw, 1.12rem);
+  padding: .05rem 0 .45rem 1rem;
+  border-inline-start: 2px solid var(--tcno-primary);
+  list-style: none;
+}
+.contact-info li { display: flex; gap: .9rem; align-items: center; font-size: .85rem; }
+.contact-info li p { font-size: .875rem; line-height: 1.35; overflow-wrap: anywhere; }
+.contact-info li a:hover { text-decoration: underline; }
+.contact-info .contact-icon { width: 2.9rem; font-size: 1.4rem; }
+
+/* #endregion */
+
+/* #region Preguntas frecuentes y mapa */
+.contact-secondary {
+  grid-template-columns: minmax(0, 1.125fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3.25vw, 2.5rem);
+  margin: 2.1rem 1.2rem 0;
+}
+
+/* Reserva espacio para la respuesta más larga y estabiliza la fila del mapa. */
+.contact-faq { min-block-size: 19rem; }
+
+.contact-faq details {
+  margin-top: .5rem;
+  border-radius: .85rem;
+  border: var(--contact-tile-edge);
+  background: linear-gradient(150deg, var(--tcno-white, #fefefe) 40%, var(--tcno-surface, #f6f7f7));
+  box-shadow: var(--contact-tile-shadow);
+  font-size: .875rem;
+}
+.contact-faq details:first-of-type { margin-top: .9rem; }
+.contact-faq details[open] { border-color: #e1ecea; }
+.contact-faq details[open] summary { color: var(--contact-accent); }
+.contact-faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+  padding: .56rem .9rem;
+  cursor: pointer;
+  font-weight: 650;
+  list-style: none;
+}
+.contact-faq summary::-webkit-details-marker { display: none; }
+.contact-faq details[open] summary .lucide-chevron-down { transform: rotate(180deg); }
+.contact-page main .contact-faq details p { padding: 0 .9rem .65rem; }
+.contact-page main .contact-faq details a { text-decoration: underline; }
+
+.contact-map {
+  position: relative;
+  align-self: stretch;
+  overflow: hidden;
+  min-height: 15rem;
+  border-radius: 1.1rem;
+  background: #10201f;
+}
+.contact-map iframe {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: invert(.9) hue-rotate(160deg) saturate(.85) brightness(.85);
+}
+.contact-map-link {
+  position: absolute;
+  z-index: 1;
+  bottom: 1rem;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  width: max-content;
+  max-width: calc(100% - 5rem);
+  padding: .65rem;
+  transform: translateX(-50%);
+  border-radius: .9rem;
+  background: #f8f9fa;
+  box-shadow: var(--contact-shadow);
+  font-size: .875rem;
+}
+.contact-map-marker {
+  display: grid;
+  flex: none;
+  width: 2.25rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: .55rem;
+  background: var(--tcno-black, #0c0e0e);
+  color: var(--tcno-primary-light, #14c4b6);
+}
+.contact-map-marker svg { width: 1.1rem; height: 1.1rem; }
+.contact-map-link small { display: block; }
+.contact-map-link .lucide { color: var(--contact-accent); }
+
+/* #endregion */
+
+/* #region Redes sociales */
+.contact-social {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr);
+  align-items: center;
+  gap: clamp(1rem, 4vw, 3rem);
+  margin: clamp(2.35rem, 4vw, 3.2rem) 1.2rem 0;
+}
+.contact-social-heading { padding-right: 1rem; border-inline-end: 1px solid #d3dadc; }
+.contact-social h2 { max-width: 13ch; }
+.contact-social-links {
+  display: grid;
+  gap: clamp(.5rem, 2.75vw, 2.1rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.contact-social a {
+  display: grid;
+  gap: .27rem;
+  justify-items: center;
+  align-content: center;
+  min-block-size: 6.7rem;
+  padding: .85rem .35rem;
+  border: var(--contact-tile-edge);
+  border-radius: 1.15rem;
+  background: var(--contact-info-surface);
+  box-shadow: var(--contact-tile-shadow);
+  font-size: .84rem;
+  text-align: center;
+  overflow-wrap: anywhere;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.contact-social a:is(:hover, :focus-visible) {
+  transform: translateY(-.25rem);
+  box-shadow: 0 9px 17px rgb(18 21 21 / 13%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-social a { transition: none; }
+  .contact-social a:is(:hover, :focus-visible) { transform: none; }
+}
+.contact-social-icon {
+  display: block;
+  width: 1.55rem;
+  height: 1.55rem;
+  margin-bottom: .18rem;
+  color: var(--tcno-black, #0c0e0e);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.85;
+}
+.contact-page main .lucide {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  stroke-width: 1.75;
+}
+.contact-page .tc-footer {
+  background-image: linear-gradient(180deg, var(--tcno-white, #fefefe), var(--tcno-surface, #f6f7f7));
+}
+
+/* #endregion */
+
+/* #region Asesoría y espacio de imagen */
+.contact-advice {
+  min-height: clamp(12.75rem, 20vw, 17rem);
+  width: min(calc(100% - 2.75rem), 80rem);
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+}
+.contact-advice::before {
+  background:
+    linear-gradient(90deg, var(--tcno-ink, #121515) 5%, color-mix(in srgb, var(--tcno-ink, #121515) 93%, transparent) 28%, transparent 69%),
+    var(--contact-advice-image, none) center 63% / cover;
+}
+.contact-advice .contact-banner-copy { padding: 1.25rem clamp(1.6rem, 9.6vw, 8rem); }
+.contact-advice h2 { position: relative; max-width: 15ch; }
+.contact-advice h2::before {
+  position: absolute;
+  top: .4em;
+  left: -2.85rem;
+  width: 1.8rem;
+  height: 2px;
+  background: var(--tcno-primary-light);
+  content: "";
+}
+.contact-page main .contact-advice p { max-width: 35ch; margin-top: .55rem; font-size: .9rem; }
+.contact-page main .contact-advice a {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  margin-top: .85rem;
+  padding: .58rem 1.25rem;
+  border: 1px solid var(--contact-accent-bright);
+  border-radius: 2rem;
+  background: rgb(0 0 0 / 28%);
+  font-size: .875rem;
+  font-weight: 650;
+}
+.contact-page main .contact-advice a:hover { background: #005a55; }
+
+/* #endregion */
+
+/* #region Adaptación a pantallas pequeñas */
+@media (max-width: 820px) {
+  .contact-wrap { width: min(calc(100% - 2rem), 42rem); }
+  .contact-primary, .contact-secondary { grid-template-columns: minmax(0, 1fr); }
+  .contact-secondary, .contact-social { margin-inline: 0; }
+  .contact-channels { grid-template-columns: minmax(0, 1fr); padding: .2rem 1rem; }
+  .contact-channel { padding: .65rem .25rem; }
+  .contact-channel + .contact-channel { border-inline-start: 0; border-top: 1px solid #d4dadd; }
+  .contact-social { grid-template-columns: minmax(0, 1fr); }
+  .contact-social-heading { border: 0; }
+  .contact-social h2 { max-width: none; }
+  .contact-advice h2::before { display: none; }
+  .contact-advice .contact-banner-copy { padding-inline: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .contact-faq { min-block-size: 21rem; }
+  .contact-form { grid-template-columns: minmax(0, 1fr); gap: .72rem; }
+  .contact-social-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .contact-banner::before {
+    background:
+      linear-gradient(90deg, color-mix(in srgb, var(--tcno-ink, #121515) 98%, transparent), color-mix(in srgb, var(--tcno-ink, #121515) 70%, transparent) 60%, color-mix(in srgb, var(--tcno-ink, #121515) 30%, transparent)),
+      var(--contact-hero-image, none) 70% center / cover;
+  }
+  .contact-advice::before {
+    background:
+      linear-gradient(90deg, color-mix(in srgb, var(--tcno-ink, #121515) 96%, transparent), color-mix(in srgb, var(--tcno-ink, #121515) 67%, transparent) 70%, color-mix(in srgb, var(--tcno-ink, #121515) 30%, transparent)),
+      var(--contact-advice-image, none) 74% center / cover;
+  }
+}
+/* #endregion */
+
+
 
     
 
 
-    // Footer Component
-        .tcno-footer {
-            background-color: var(--tcno-primary, #019D93);
-            color: var(--tcno-white, #FEFEFE);
-            border-radius: 0;
-            padding: 2.25rem 2.5rem 1.25rem;
-            box-sizing: border-box;
 
-        .tcno-footer-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+/* ===== FOOTER ===== */
 
-        .tcno-footer-main {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 2rem;
-        }
+/* #region Footer */
+/* ===== FOOTER ===== */
 
-        .tcno-footer-brand {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+.tc-footer {
+  --footer-bg: var(--tcno-white, #FEFEFE);
+  --footer-ink: var(--tcno-ink, #121515);
+  --footer-accent: var(--tcno-primary-light, #14C4B6);
+  --footer-line: #DFE3E3;
 
-            .tcno-brand-link {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.75rem;
-                text-decoration: none;
-                color: var(--tcno-white, #FEFEFE);
-
-                &:hover {
-                    text-decoration: none;
-                    color: var(--tcno-white, #FEFEFE);
-                }
-            }
-
-            .tcno-logo-symbol {
-                width: 44px;
-                height: 44px;
-                color: var(--tcno-white, #FEFEFE);
-                flex-shrink: 0;
-            }
-
-            .tcno-brand-title {
-                font-family: var(--tcno-font-logo);
-                color: var(--tcno-white, #FEFEFE);
-                font-size: 1.65rem;
-                font-weight: 700;
-                letter-spacing: 0.08em;
-                line-height: 1;
-                text-transform: uppercase;
-            }
-
-            .tcno-slogan {
-                color: var(--tcno-light, #6BC4BE);
-                font-family: var(--tcno-font-body);
-                font-size: 1.05rem;
-                font-weight: 400;
-                letter-spacing: 0.01em;
-                margin-top: 0.45rem;
-                margin-bottom: 0;
-                margin-left: 0.25rem;
-            }
-        }
-
-        .tcno-footer-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3.5rem;
-        }
-
-        .tcno-footer-col {
-            min-width: 110px;
-
-            .tcno-footer-heading {
-                font-family: var(--tcno-font-heading);
-                color: var(--tcno-white, #FEFEFE);
-                font-size: 1.05rem;
-                font-weight: 700;
-                margin-top: 0;
-                margin-bottom: 0.85rem;
-                line-height: 1.2;
-            }
-
-            .tcno-footer-list {
-                list-style: none;
-                padding-left: 0;
-                margin: 0;
-
-                li {
-                    margin-bottom: 0.35rem;
-                    line-height: 1.4;
-                }
-            }
-
-            .tcno-footer-link {
-                color: var(--tcno-white, #FEFEFE);
-                text-decoration: none;
-                font-family: var(--tcno-font-body);
-                font-size: 0.95rem;
-                transition: opacity 0.2s ease;
-                display: inline-block;
-
-                &:hover {
-                    color: var(--tcno-white, #FEFEFE);
-                    opacity: 0.85;
-                    text-decoration: underline;
-                }
-            }
-
-            .tcno-footer-phone {
-                white-space: nowrap;
-            }
-
-            .tcno-footer-text {
-                color: var(--tcno-white, #FEFEFE);
-                font-family: var(--tcno-font-body);
-                font-size: 0.95rem;
-                margin-top: 0.65rem;
-                margin-bottom: 0.25rem;
-            }
-
-            .tcno-social-links {
-                display: flex;
-                align-items: center;
-                gap: 0.65rem;
-                margin-top: 0.35rem;
-            }
-
-            .tcno-social-icon {
-                color: var(--tcno-white, #FEFEFE);
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                transition: transform 0.2s ease, opacity 0.2s ease;
-
-                svg,
-                i {
-                    width: 1.25rem;
-                    height: 1.25rem;
-                    display: inline-block;
-                }
-
-                svg {
-                    fill: currentColor;
-
-                    &[fill="none"] {
-                        fill: none;
-                        stroke: currentColor;
-                    }
-                }
-
-                &:hover {
-                    transform: translateY(-2px);
-                    opacity: 0.85;
-                    text-decoration: none;
-                }
-            }
-        }
-
-        .tcno-footer-divider {
-            border: 0;
-            border-top: 1px solid var(--tcno-medium, rgba(254, 254, 254, 0.45));
-            opacity: 0.55;
-            margin: 1.75rem 0 1rem;
-        }
-
-        .tcno-copyright {
-            text-align: center;
-            color: var(--tcno-white, #FEFEFE);
-            font-family: var(--tcno-font-body);
-            font-size: 0.875rem;
-            opacity: 0.95;
-
-            p {
-                margin: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            padding: 1.75rem 1.5rem 1rem;
-
-            .tcno-footer-main {
-                flex-direction: column;
-                gap: 1.75rem;
-            }
-
-            .tcno-footer-nav {
-                width: 100%;
-                gap: 2rem;
-                justify-content: space-between;
-            }
-        }
-
-        @media (max-width: 540px) {
-            .tcno-footer-nav {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-        }
-    }
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, .04);
+  background: linear-gradient(
+    180deg,
+    #F9FBFB 0%,
+    var(--footer-bg) 28%,
+    var(--footer-bg) 75%,
+    #F5F9F8 100%
+  );
+  color: var(--footer-ink);
+  font-family: var(--tcno-font-body, Inter, system-ui, sans-serif);
 }
+
+.tc-footer *,
+.tc-footer *::before,
+.tc-footer *::after {
+  box-sizing: border-box;
+}
+
+// Curvas plateadas con brillo cian fluorescente.
+.tc-footer::before,
+.tc-footer::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(20rem, 40vw, 52rem);
+  height: 13rem;
+  border: 1px solid #AEBFC2;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow:
+    inset 0 0 0 1px #F3FFFF,
+    0 0 4px #00F4FF,
+    0 0 12px #00DCEBA6,
+    0 0 25px #00DCEB47;
+  pointer-events: none;
+}
+
+.tc-footer::before {
+  top: -10rem;
+  right: -9rem;
+  transform: rotate(22deg);
+}
+
+.tc-footer::after {
+  bottom: -10rem;
+  left: -7rem;
+  transform: rotate(20deg);
+}
+
+// Distribución y estilos base.
+.tc-footer__inner {
+  width: min(calc(100% - clamp(2rem, 10vw, 12rem)), 124rem);
+  margin-inline: auto;
+  padding-block: clamp(3rem, 6vw, 5rem) 1.5rem;
+}
+
+.tc-footer__grid {
+  display: grid;
+  grid-template-columns:
+    minmax(10rem, 1.55fr)
+    max-content
+    max-content
+    max-content
+    minmax(17rem, 1.5fr);
+  gap: clamp(.75rem, 2vw, 2.75rem);
+  font-size: clamp(.875rem, .8rem + .22vw, 1.125rem);
+}
+
+.tc-footer h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1rem, .87rem + .32vw, 1.25rem);
+  line-height: 1.3;
+}
+
+.tc-footer p {
+  margin: 0;
+}
+
+.tc-footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tc-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tc-footer a[href]:hover {
+  color: #006F68;
+  text-decoration: underline;
+}
+
+.tc-footer :is(a, input, button):focus-visible {
+  outline: 2px solid #006F68;
+  outline-offset: 3px;
+}
+
+// Marca y redes sociales.
+.tc-footer__logo img {
+  display: block;
+  width: min(100%, 17rem);
+  height: auto;
+  mix-blend-mode: multiply;
+}
+
+.tc-footer p.tc-footer__tagline {
+  margin-block: .35rem 1rem;
+  font-weight: 600;
+}
+
+.tc-footer__brand > p:last-of-type {
+  max-width: 34ch;
+}
+
+.tc-footer ul.tc-footer__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-top: 1rem;
+}
+
+.tc-footer__socials li {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: .65rem;
+  background: #F1F2F2;
+}
+
+.tc-footer__socials img {
+  width: 1.35rem;
+  height: 1.35rem;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+// Navegación y contacto.
+.tc-footer__links,
+.tc-footer__contact {
+  min-width: 0;
+  padding-inline-start: clamp(.65rem, 1.2vw, 1.5rem);
+  border-inline-start: 1px solid var(--footer-line);
+}
+
+.tc-footer__links h2::after {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 3px;
+  margin-top: .65rem;
+  background: var(--footer-accent);
+}
+
+.tc-footer__links ul,
+.tc-footer__contact ul {
+  display: grid;
+  gap: .65rem;
+}
+
+.tc-footer__contact address {
+  margin: 0;
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+
+.tc-footer__contact address li {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.tc-footer__contact address img,
+.tc-footer__newsletter img {
+  width: 1.35rem;
+  height: 1.35rem;
+  object-fit: contain;
+  flex: none;
+  mix-blend-mode: multiply;
+}
+
+// Formulario de suscripción.
+.tc-footer__newsletter {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--footer-line);
+}
+
+.tc-footer__newsletter form {
+  display: flex;
+  align-items: center;
+  min-height: 2.9rem;
+  padding-inline-start: .7rem;
+  border: 1px solid var(--footer-line);
+  border-radius: .65rem;
+}
+
+.tc-footer__newsletter input {
+  flex: 1;
+  min-width: 0;
+  padding-inline: .5rem;
+  border: 0;
+  border-radius: inherit;
+  background: var(--footer-bg);
+  color: inherit;
+  font: inherit;
+}
+
+.tc-footer__newsletter button {
+  align-self: stretch;
+  flex: 0 0 clamp(2.6rem, 3.8vw, 3.5rem);
+  border: 1px solid var(--footer-accent);
+  border-radius: .6rem;
+  background: #0C0E0E;
+  color: var(--footer-accent);
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+.tc-footer__newsletter button:hover {
+  background: var(--footer-accent);
+  color: var(--footer-ink);
+  box-shadow: 0 0 .75rem #14C4B650;
+}
+
+.tc-footer p.tc-footer__status {
+  margin-top: .4rem;
+  font-size: .8rem;
+}
+
+.tc-footer__status:empty {
+  display: none;
+}
+
+// Derechos reservados y métodos de pago.
+.tc-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-inline-start: clamp(0rem, 16vw, 18rem);
+  gap: .75rem 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--footer-line);
+  font-size: .875rem;
+}
+
+.tc-footer__bottom p {
+  flex: 1;
+  text-align: center;
+}
+
+.tc-footer ul.tc-footer__payments {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem clamp(.6rem, 2vw, 1.6rem);
+  padding-inline-start: clamp(.75rem, 2vw, 2rem);
+  border-inline-start: 1px solid var(--footer-line);
+}
+
+.tc-footer__payments img {
+  display: block;
+  height: 1.5rem;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
+// Escritorio.
+@media (min-width: 76rem) {
+  .tc-footer__links a,
+  .tc-footer__contact address li {
+    white-space: nowrap;
+  }
+}
+
+// Tableta.
+@media (width < 76rem) {
+  .tc-footer__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tc-footer__brand,
+  .tc-footer__contact {
+    grid-column: 1 / -1;
+  }
+
+  .tc-footer__bottom {
+    margin-inline-start: 0;
+  }
+}
+
+// Móvil.
+@media (max-width: 36rem) {
+  .tc-footer__inner {
+    width: calc(100% - 2rem);
+  }
+
+  .tc-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tc-footer__links,
+  .tc-footer__contact {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+
+  .tc-footer__bottom {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .tc-footer ul.tc-footer__payments {
+    justify-content: center;
+    border: 0;
+    padding-inline-start: 0;
+  }
+}
+
+/* #endregion */
+
+
 
 // ============================================================================
 // INICIO: COMPONENTE REUTILIZABLE ADMIN DASHBOARD (NAVBAR & SIDEBAR)

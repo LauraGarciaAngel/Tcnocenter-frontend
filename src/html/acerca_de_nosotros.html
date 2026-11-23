@@ -1,369 +1,233 @@
 <!DOCTYPE html>
 <html lang="es" data-bs-theme="light">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description"
-            content="Conoce a Tcnocenter, nuestra tienda de tecnología y el compromiso con nuestros clientes.">
-        <link rel="icon" type="image/png" href="../assets/images/tcnocenter/Logo.png">
-        <title>tcnocenter | Acerca de Nosotros</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&family=Audiowide&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="../css/main.css">
-        <script src="../js/lucide.min.js"></script>
-        <script src="../js/main.js" defer></script>
-        <script src="../js/navbar-footer.js" defer></script>
-        <script src="../js/cart.js" defer></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Conoce a Tcnocenter, nuestra tienda de tecnología y el compromiso con nuestros clientes.">
+    <link rel="icon" type="image/png" href="../assets/images/tcnocenter/Logo.png">
+    <title>Tcnocenter | Acerca de Nosotros</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Audiowide&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/lucide.min.js"></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/navbar-footer.js" defer></script>
+    <script src="../js/cart.js" defer></script>
+    <!-- Interacciones exclusivas de esta vista -->
+    <script src="../js/acerca_de_nosotros.js" defer></script>
+</head>
 
 <body>
-    <!-- ==== NAVBAR ===== -->
     <div data-component="navbar"></div>
 
-    <!-- ==== ACERCA DE NOSOTROS (QUIENES SOMOS) ===== -->
-    <section class="tcno-about-page py-3 py-lg-4">
-        <div class="container px-3 px-lg-4">
+    <main id="contenido-principal" class="tc-about">
+        <!-- 01 · HERO. Fotografías PNG independientes; la tipografía la define SCSS. -->
+        <section class="tc-hero" aria-labelledby="tc-hero-title">
+            <img class="tc-hero__image"
+                src="../assets/images/tcnocenter/acerca-de/hero-acerca.png"
+                alt="" fetchpriority="high" decoding="async">
+            <div class="tc-about__container tc-hero__inner">
+                <div class="tc-hero__content">
+                    <p class="tc-eyebrow tc-eyebrow--after tc-eyebrow--light">Acerca de nosotros</p>
+                    <h1 class="tc-hero__title" id="tc-hero-title">
+                        Conectando<br>personas con<br>
+                        <span class="tc-accent tc-accent--light">tecnología</span>
+                    </h1>
+                    <p class="tc-hero__description">Conoce la historia, el propósito y al equipo que hace posible TCNOCENTER.</p>
+                </div>
+            </div>
+        </section>
 
-            <div class="tcno-about-layout mb-2">
-
-                <!-- Columna izquierda: contenido -->
-                <div class="tcno-about-content">
-
-                    <h2 class="tcno-about-title fw-bold mb-3">
-                        ¿Quiénes <span>somos?</span>
+        <!-- 02 · NUESTRA HISTORIA -->
+        <section class="tc-story tc-section" aria-labelledby="tc-story-title">
+            <div class="tc-about__container tc-story__grid">
+                <div class="tc-story__visual">
+                    <img src="../assets/images/tcnocenter/acerca-de/tienda.png"
+                        alt="Exhibición de smartphones en un espacio tecnológico TCNOCENTER"
+                        loading="lazy" decoding="async">
+                </div>
+                <div class="tc-story__body">
+                    <span class="tc-story__dots" aria-hidden="true"></span>
+                    <p class="tc-eyebrow">Nuestra historia</p>
+                    <h2 class="tc-title" id="tc-story-title">
+                        Más que una tienda,<br>
+                        un <span class="tc-accent">aliado tecnológico</span>
                     </h2>
-
-                    <p class="tcno-about-description text-secondary mb-4">
-                        Somos una tienda de electrónica y tecnología
-                        dedicada a acercar
-                        soluciones útiles a personas, hogares y negocios.
-                        Buscamos que
-                        elegir tus productos sea sencillo, con información
-                        clara y una
-                        atención cercana durante tu experiencia de compra.
-                    </p>
-
-                    <!-- Beneficios -->
-                    <div class="tcno-about-benefits">
-
-                        <!-- Calidad y confianza -->
-                        <div class="tcno-about-benefit">
-
-                            <svg class="tcno-about-icon tcno-about-icon-shield" viewBox="0 0 40 44" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-
-                                <path d="M20 2L34 7V19C34 29 28 37 20 42C12 37 6 29 6 19V7L20 2Z" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linejoin="round" />
-
-                                <path d="M14 21L18 25L26 16" stroke="currentColor" stroke-width="2.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-
-                            </svg>
-
-                            <div>
-                                <h3 class="tcno-about-benefit-title fw-bold text-dark mb-0">
-                                    Calidad y confianza
-                                </h3>
-
-                                <p class="tcno-about-benefit-description text-muted mb-0">
-                                    Información clara y compra segura.
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <!-- Divisor vertical -->
-                        <div class="tcno-about-divider" aria-hidden="true">
-                        </div>
-
-                        <!-- Tecnología para todos -->
-                        <div class="tcno-about-benefit">
-
-                            <svg class="tcno-about-icon tcno-about-icon-team" viewBox="0 0 52 44" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-
-                                <circle cx="26" cy="10" r="6" stroke="currentColor" stroke-width="2.5" />
-
-                                <circle cx="10" cy="19" r="5" stroke="currentColor" stroke-width="2.5" />
-
-                                <circle cx="42" cy="19" r="5" stroke="currentColor" stroke-width="2.5" />
-
-                                <path d="M15 36V33C15 27 19 23 26 23C33 23 37 27 37 33V36" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linecap="round" />
-
-                                <path d="M1 36V33C1 28 4 25 9 25C12 25 14 26 16 28" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linecap="round" />
-
-                                <path d="M51 36V33C51 28 48 25 43 25C40 25 38 26 36 28" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linecap="round" />
-
-                            </svg>
-
-                            <div>
-                                <h3 class="tcno-about-benefit-title fw-bold text-dark mb-0">
-                                    Tecnología para todos
-                                </h3>
-
-                                <p class="tcno-about-benefit-description text-muted mb-0">
-                                    Opciones para distintas necesidades.
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Columna derecha: imagen -->
-                <div class="tcno-about-image-container">
-
-                    <img src="../assets/images/tienda-tecnologia.png"
-                        alt="Exhibición de productos electrónicos en TCNOCENTER"
-                        class="tcno-about-image img-fluid rounded-4 shadow-sm w-100" loading="lazy">
-
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- FIN ACERCA DE NOSOTROS -->
-
-    <!-- ==== JHOINER (LO QUE NOS MUEVE, NUESTRO EQUIPO Y BENEFICIOS) ===== -->
-    <section class="py-3 py-lg-4">
-        <div class="container px-3 px-lg-4">
-
-            <!-- LO QUE NOS MUEVE -->
-            <div class="mb-4">
-                <h2 class="fw-bold mb-3">
-                    Lo que nos <span class="tcno-text-primary">mueve</span>
-                </h2>
-                <div class="tcno-grid-3">
-                    <!-- Misión -->
-                    <div class="tcno-moves-card">
-                        <div class="tcno-moves-icon-wrapper">
-                            <div class="tcno-icon-box">
-                                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <circle cx="11" cy="13" r="9"></circle>
-                                    <circle cx="11" cy="13" r="5"></circle>
-                                    <circle cx="11" cy="13" r="1"></circle>
-                                    <path d="m13 11 8-8m-6 0h6v6"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tcno-moves-content">
-                            <h3>Nuestra misión</h3>
-                            <p>Ofrecer productos tecnológicos de calidad con
-                                atención cercana y una experiencia
-                                confiable.</p>
-                        </div>
-                    </div>
-                    <!-- Visión -->
-                    <div class="tcno-moves-card">
-                        <div class="tcno-moves-icon-wrapper">
-                            <div class="tcno-icon-box">
-                                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tcno-moves-content">
-                            <h3>Nuestra visión</h3>
-                            <p>Ser una tienda reconocida por su servicio,
-                                variedad e innovación, creciendo junto a
-                                nuestros clientes.</p>
-                        </div>
-                    </div>
-                    <!-- Valores -->
-                    <div class="tcno-moves-card">
-                        <div class="tcno-moves-icon-wrapper">
-                            <div class="tcno-icon-box">
-                                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="m12 2 10 7-10 13L2 9l10-7Z"></path>
-                                    <path d="M2 9h20M8 9l4 13 4-13M8 9l4-7 4 7"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tcno-moves-content">
-                            <h3>Nuestros valores</h3>
-                            <p>Honestidad, compromiso y respeto guían
-                                nuestro trabajo y la forma en que atendemos
-                                a cada cliente.</p>
-                        </div>
-                    </div>
+                    <p class="tc-story__description"><strong>TCNOCENTER</strong> es una tienda colombiana especializada en smartphones y accesorios de las principales marcas. Nacimos con el propósito de ofrecer tecnología de calidad, asesoría experta y una experiencia de compra confiable, moderna y cercana.</p>
                 </div>
             </div>
+        </section>
 
-            <!-- NUESTRO EQUIPO -->
-            <div class="mb-4">
-                <h2 class="fw-bold mb-1">
-                    Nuestro <span class="tcno-text-primary">equipo</span>
-                </h2>
-                <p class="text-secondary mb-3">Personas dispuestas a
-                    ayudarte a encontrar la tecnología que necesitas.</p>
-
-                <div class="tcno-grid-5">
-                    <!-- Miembro 1 -->
-                    <div class="tcno-member-card">
-                        <a href="https://www.linkedin.com/in/laura-garcia-angel-developer/" target="_blank"
-                            rel="noopener noreferrer" class="tcno-member-link" style="display: block; width: 100%;">
-                            <div class="tcno-member-avatar-wrapper">
-                                <img src="../assets/images/desarrolladores/1791398817678.png" class="rounded-circle"
-                                    alt="Dev Backend">
-                            </div>
-                            <div class="tcno-member-info">
-                                <h5>Dev Frontend</h5>
-                                <p>Te ayudamos a elegir.</p>
-                            </div>
-                        </a>
+        <!-- 03 · MISIÓN, VISIÓN Y PROPÓSITO -->
+        <section class="tc-pillars" aria-label="Misión, visión y propósito de TCNOCENTER">
+            <div class="tc-about__container tc-pillars__grid">
+                <article class="tc-pillar" tabindex="0" role="button" aria-pressed="false" aria-label="Destacar Misión">
+                    <span class="tc-pillar__icon" aria-hidden="true">
+                        <!-- Diana con flecha (la versión simple «target» no la incluye) -->
+                        <svg class="tc-pillar__target" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                            <path d="M34.5 12.4A17.2 17.2 0 1 0 39.2 22"/>
+                            <path d="M28.4 17.2A9.2 9.2 0 1 0 33 24"/>
+                            <circle cx="24" cy="24" r="2.5"/>
+                            <path d="M25.5 22.5 39.8 8.2M35 7.5l5.6-.9-.9 5.6M36.2 12l6.3-6.2"/>
+                        </svg>
+                    </span>
+                    <div class="tc-pillar__content">
+                        <h3 class="tc-pillar__title">Misión</h3>
+                        <p class="tc-pillar__description">Acercar la mejor tecnología a más personas, con calidad, respaldo y un servicio excepcional.</p>
                     </div>
-
-                    <!-- Miembro 2 -->
-                    <div class="tcno-member-card">
-                        <a href="https://www.linkedin.com/in/camilo-andres-ospina-villa-tech-backend-software-developer/"
-                            target="_blank" rel="noopener noreferrer" class="tcno-member-link"
-                            style="display: block; width: 100%;">
-                            <div class="tcno-member-avatar-wrapper">
-                                <img src="../assets/images/desarrolladores/1751851955828.jpeg" class="rounded-circle"
-                                    alt="Dev Debug">
-                            </div>
-                            <div class="tcno-member-info">
-                                <h5>Dev Backend</h5>
-                                <p>Te ayudamos a elegir.</p>
-                            </div>
-                        </a>
+                </article>
+                <article class="tc-pillar tc-pillar--featured is-selected" tabindex="0" role="button" aria-pressed="true" aria-label="Destacar Visión">
+                    <span class="tc-pillar__icon" aria-hidden="true"><i data-lucide="eye"></i></span>
+                    <div class="tc-pillar__content">
+                        <h3 class="tc-pillar__title">Visión</h3>
+                        <p class="tc-pillar__description">Ser la tienda líder en tecnología móvil en Colombia, reconocida por la confianza, la innovación y la experiencia de nuestros clientes.</p>
                     </div>
-
-                    <!-- Miembro 3 -->
-                    <div class="tcno-member-card">
-                        <a href="https://www.linkedin.com/in/jhoiner-silva-montaño-1b705b322/" target="_blank"
-                            rel="noopener noreferrer" class="tcno-member-link" style="display: block; width: 100%;">
-                            <div class="tcno-member-avatar-wrapper">
-                                <img src="../assets/images/desarrolladores/1791578806762.png" class="rounded-circle"
-                                    alt="Dev Frontend">
-                            </div>
-                            <div class="tcno-member-info">
-                                <h5>Dev Frontend</h5>
-                                <p>Te ayudamos a elegir.</p>
-                            </div>
-                        </a>
+                </article>
+                <article class="tc-pillar" tabindex="0" role="button" aria-pressed="false" aria-label="Destacar Propósito">
+                    <span class="tc-pillar__icon" aria-hidden="true"><i data-lucide="gem"></i></span>
+                    <div class="tc-pillar__content">
+                        <h3 class="tc-pillar__title">Propósito</h3>
+                        <p class="tc-pillar__description">Conectar a las personas con la tecnología que impulsa su día a día.</p>
                     </div>
+                </article>
+            </div>
+        </section>
 
-                    <!-- Miembro 4 -->
-                    <div class="tcno-member-card">
-                        <a href="https://www.linkedin.com/in/juan-andrés-bohórquez-acevedo-dev/" target="_blank"
-                            rel="noopener noreferrer" class="tcno-member-link" style="display: block; width: 100%;">
-                            <div class="tcno-member-avatar-wrapper">
-                                <img src="../assets/images/desarrolladores/1766770287599.jpeg" class="rounded-circle"
-                                    alt="Dev Frontend">
-                            </div>
-                            <div class="tcno-member-info">
-                                <h5>Dev Backend</h5>
-                                <p>Te ayudamos a elegir.</p>
-                            </div>
-                        </a>
-                    </div>
+        <!-- 04 · VALORES -->
+        <section class="tc-values tc-section" aria-labelledby="tc-values-title">
+            <div class="tc-about__container tc-values__grid">
+                <div class="tc-values__intro">
+                    <p class="tc-eyebrow">Nuestros valores</p>
+                    <h2 class="tc-title" id="tc-values-title">
+                        Principios que<br><span class="tc-accent">nos definen</span>
+                    </h2>
+                </div>
+                <article class="tc-value">
+                    <i data-lucide="shield-check" class="tc-value__icon" aria-hidden="true"></i>
+                    <h3 class="tc-value__title">Confianza</h3>
+                    <p class="tc-value__description">Compras seguras y transparentes.</p>
+                </article>
+                <article class="tc-value">
+                    <i data-lucide="badge-check" class="tc-value__icon" aria-hidden="true"></i>
+                    <h3 class="tc-value__title">Calidad</h3>
+                    <p class="tc-value__description">Productos 100 % originales.</p>
+                </article>
+                <article class="tc-value">
+                    <i data-lucide="users-round" class="tc-value__icon" aria-hidden="true"></i>
+                    <h3 class="tc-value__title">Cercanía</h3>
+                    <p class="tc-value__description">Un equipo que te escucha y te asesora.</p>
+                </article>
+                <article class="tc-value">
+                    <i data-lucide="zap" class="tc-value__icon" aria-hidden="true"></i>
+                    <h3 class="tc-value__title">Innovación</h3>
+                    <p class="tc-value__description">Siempre con lo último en tecnología.</p>
+                </article>
+            </div>
+        </section>
 
-                    <!-- Miembro 5 -->
-                    <div class="tcno-member-card">
-                        <a href="https://www.linkedin.com/in/ana-cristina-lizarazo-páez-053899441/" target="_blank"
-                            rel="noopener noreferrer" class="tcno-member-link" style="display: block; width: 100%;">
-                            <div class="tcno-member-avatar-wrapper">
-                                <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 130px; height: 130px; margin: 0 auto; font-family: var(--tcno-font-heading); font-size: 2.2rem; color: var(--tcno-primary, #019D93); background-color: #FEFEFE; border: 3px solid var(--tcno-primary, #019D93); box-shadow: 0 4px 12px rgba(1, 157, 147, .15);">A</div>
+        <!-- 05 · EQUIPO. Cinco integrantes. Sustituye los nombres y fotos 4 y 5. -->
+        <section id="equipo" class="tc-team tc-section" aria-labelledby="tc-team-title">
+            <div class="tc-about__container tc-team__layout">
+                <div class="tc-team__intro">
+                    <p class="tc-eyebrow tc-eyebrow--light">Nuestro equipo</p>
+                    <h2 class="tc-title tc-title--light" id="tc-team-title">
+                        Conoce al equipo<br>de <span class="tc-accent tc-accent--light">desarrollo</span>
+                    </h2>
+                    <p class="tc-team__description">Un equipo apasionado por la tecnología, la calidad y la creación de experiencias digitales que conectan.</p>
+                    <!-- Frase visual de marca: sin redirección ni modal. -->
+                    <span class="tc-button tc-button--outline tc-button--decorative">
+                        Tecnología hecha en equipo <i data-lucide="sparkles" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="tc-team__gallery" id="integrantes">
+                    <ul class="tc-team__track" data-team-track aria-label="Integrantes del equipo">
+                        <li class="tc-member" tabindex="0" role="button" aria-pressed="false" aria-label="Destacar a Ana Lizarazo">
+                            <img class="tc-member__portrait"
+                                src="../assets/images/tcnocenter/acerca-de/01_Laura_Angel.png"
+                                alt="" loading="lazy" decoding="async">
+                            <div class="tc-member__detail">
+                                <h3 class="tc-member__name">Laura  G. Angel</h3>
+                                <p class="tc-member__role">Full Stack Developer</p>
                             </div>
-                            <div class="tcno-member-info">
-                                <h5>Dev Frontend</h5>
-                                <p>Te ayudamos a elegir.</p>
+                            <span class="tc-member__badge" aria-hidden="true"><i data-lucide="code-2"></i></span>
+                        </li>
+                        <li class="tc-member" tabindex="0" role="button" aria-pressed="false" aria-label="Destacar a Carlos M.">
+                            <img class="tc-member__portrait"
+                                src="../assets/images/tcnocenter/acerca-de/02_Camilo_Ospina.png"
+                                alt="" loading="lazy" decoding="async">
+                            <div class="tc-member__detail">
+                                <h3 class="tc-member__name">Camilo A. Ospina</h3>
+                                <p class="tc-member__role">Full Stack Developer</p>
                             </div>
-                        </a>
-                    </div>
+                            <span class="tc-member__badge" aria-hidden="true"><i data-lucide="server"></i></span>
+                        </li>
+                        <li class="tc-member" tabindex="0" role="button" aria-pressed="false" aria-label="Destacar a Valentina R.">
+                            <img class="tc-member__portrait"
+                                src="../assets/images/tcnocenter/acerca-de/03_Jhoiner_Silva.png"
+                                alt="" loading="lazy" decoding="async">
+                            <div class="tc-member__detail">
+                                <h3 class="tc-member__name">Jhoiner A. Silva</h3>
+                                <p class="tc-member__role">Full Stack Developer</p>
+                            </div>
+                            <span class="tc-member__badge" aria-hidden="true"><i data-lucide="panels-top-left"></i></span>
+                        </li>
+                        <li class="tc-member" tabindex="0" role="button" aria-pressed="false" aria-label="Destacar a Integrante 4">
+                            <img class="tc-member__portrait"
+                                src="../assets/images/tcnocenter/acerca-de/04_Juan_Bohorquez.png"
+                                alt="" loading="lazy" decoding="async">
+                            <div class="tc-member__detail">
+                                <h3 class="tc-member__name">Juan A. Bohorquez</h3>
+                                <p class="tc-member__role">Full Stack Developer</p>
+                            </div>
+                            <span class="tc-member__badge" aria-hidden="true"><i data-lucide="database"></i></span>
+                        </li>
+                        <li class="tc-member" tabindex="0" role="button" aria-pressed="false" aria-label="Destacar a Integrante 5">
+                            <img class="tc-member__portrait"
+                                src="../assets/images/tcnocenter/acerca-de/05_Lizarazo_Ana.png"
+                                alt="" loading="lazy" decoding="async">
+                            <div class="tc-member__detail">
+                                <h3 class="tc-member__name">Ana C. Lizarazo</h3>
+                                <p class="tc-member__role">Full Stack Developer</p>
+                            </div>
+                            <span class="tc-member__badge" aria-hidden="true"><i data-lucide="network"></i></span>
+                        </li>
+                    </ul>
+                    <!-- Controles para recorrer las cinco tarjetas. -->
+                    <button type="button" class="tc-team__next" data-team-next
+                        aria-label="Mostrar siguiente integrante" aria-controls="integrantes" hidden>
+                        <i data-lucide="chevron-right" aria-hidden="true"></i>
+                    </button>
+                    <div class="tc-team__pagination" aria-label="Navegación del equipo" data-team-pagination hidden></div>
                 </div>
             </div>
+        </section>
 
-            <!-- FRANJA INFERIOR DE BENEFICIOS (BARRA ÚNICA HORIZONTAL CON DIVISORES EXACTOS) -->
-            <div class="tcno-banner-benefits shadow-sm">
-                <div class="tcno-banner-row">
-
-                    <!-- Item 1 -->
-                    <div class="tcno-banner-item">
-                        <div class="d-flex align-items-center">
-                            <div class="me-3 text-white flex-shrink-0">
-                                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h6 class="text-white fw-bold mb-1">Productos
-                                    seleccionados</h6>
-                                <p class="text-white opacity-75 small mb-0">Opciones
-                                    para tus necesidades.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Divisor 1 -->
-                    <div class="tcno-banner-divider" aria-hidden="true"></div>
-
-                    <!-- Item 2 -->
-                    <div class="tcno-banner-item">
-                        <div class="d-flex align-items-center">
-                            <div class="me-3 text-white flex-shrink-0">
-                                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h6 class="text-white fw-bold mb-1">Atención
-                                    cercana</h6>
-                                <p class="text-white opacity-75 small mb-0">Acompañamiento
-                                    en tu compra.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Divisor 2 -->
-                    <div class="tcno-banner-divider" aria-hidden="true"></div>
-
-                    <!-- Item 3 -->
-                    <div class="tcno-banner-item">
-                        <div class="d-flex align-items-center">
-                            <div class="me-3 text-white flex-shrink-0">
-                                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h6 class="text-white fw-bold mb-1">Compra
-                                    informada</h6>
-                                <p class="text-white opacity-75 small mb-0">Claridad
-                                    en cada paso.</p>
-                            </div>
-                        </div>
-                    </div>
-
+        <!-- 06 · CTA / CATÁLOGO -->
+        <section class="tc-cta-wrap" aria-labelledby="tc-cta-title">
+            <div class="tc-cta">
+                <img class="tc-cta__image"
+                    src="../assets/images/tcnocenter/acerca-de/cta-catalogo.png"
+                    alt="" loading="lazy" decoding="async">
+                <div class="tc-cta__content">
+                    <h2 class="tc-cta__title" id="tc-cta-title">
+                        <span class="tc-cta__line">Vive la experiencia</span>
+                        <span class="tc-cta__brand">TCNOCENTER</span>
+                    </h2>
+                    <p class="tc-cta__description">Descubre nuestro catálogo, novedades y promociones diseñadas para ti.</p>
+                    <!-- Ajusta la ruta si tu archivo de catálogo tiene otro nombre. -->
+                    <a href="catalogo.html" class="tc-button tc-button--dark">
+                        Explorar catálogo <i data-lucide="arrow-right" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
+        </section>
+    </main>
 
-        </div>
-    </section>
-    <!-- FIN SECCIÓN ASIGNADA -->
-
-    <!-- ==== FOOTER ===== -->
-    <div data-component="footer"></div>
+  <div data-component="footer"></div>
 </body>
-
 </html>
