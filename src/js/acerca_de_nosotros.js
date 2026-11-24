@@ -46,8 +46,6 @@
     previous.removeAttribute('data-team-next');
     previous.setAttribute('data-team-prev', '');
     previous.setAttribute('aria-label', 'Mostrar integrante anterior');
-    previous.style.right = 'auto';
-    previous.style.left = '0';
     const arrowIcon = previous.firstElementChild;
     if (arrowIcon) arrowIcon.style.transform = 'scaleX(-1)';
     next.before(previous);

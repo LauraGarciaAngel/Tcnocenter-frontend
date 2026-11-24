@@ -19871,7 +19871,6 @@
 }
 
 /* #region Acerca de nosotros */
-/* ===== ACERCA DE NOSOTROS ===== */
 .tc-about {
   font-family: var(--tcno-font-body, "Inter", sans-serif);
   background: #FEFEFE;
@@ -20142,7 +20141,7 @@
   width: 3.55rem;
   height: 3.55rem;
   border-radius: 0.9rem;
-  background: linear-gradient(145deg, #EFF0F1 0%, #E2E4E5 100%);
+  background: linear-gradient(150deg, #fafbfb, #f6f7f7);
   box-shadow: 0 5px 13px rgba(20, 24, 24, 0.14), inset 0 1px 1px rgba(255, 255, 255, 0.65);
   color: #101515;
 }
@@ -20312,16 +20311,22 @@
   font-weight: 400;
 }
 .tc-about .tc-team__gallery {
-  position: relative;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  -moz-column-gap: 0.75rem;
+       column-gap: 0.75rem;
   min-width: 0;
 }
 .tc-about .tc-team__track {
+  grid-area: 1/1/2/-1;
+  min-inline-size: 0;
   display: flex;
   gap: clamp(0.65rem, 1.65vw, 1.15rem);
   margin: 0;
-  padding: 0.9rem 0.8rem 1rem;
+  padding: 0.9rem 0.45rem 1rem;
   margin-block: -0.9rem -1rem;
-  margin-inline: -0.8rem;
+  scroll-padding-inline: 0.45rem;
   list-style: none;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
@@ -20332,13 +20337,10 @@
   display: none;
 }
 .tc-about .tc-team__next {
-  position: absolute;
-  top: 50%;
-  right: -1rem;
-  z-index: 3;
+  grid-area: 2/3;
+  margin-block-start: 1rem;
   display: grid;
   place-items: center;
-  transform: translateY(-50%);
   width: 2.6rem;
   height: 2.6rem;
   border: 1px solid rgba(255, 255, 255, 0.55);
@@ -20346,6 +20348,12 @@
   background: rgba(23, 26, 26, 0.96);
   color: #FEFEFE;
   cursor: pointer;
+}
+.tc-about .tc-team__next[data-team-prev] {
+  grid-area: 2/1;
+}
+.tc-about .tc-team__next[hidden] {
+  display: none;
 }
 .tc-about .tc-team__next:hover {
   background: #00857C;
@@ -20360,10 +20368,14 @@
   stroke-width: 2.3;
 }
 .tc-about .tc-team__pagination {
+  grid-area: 2/2;
   display: flex;
   justify-content: center;
   gap: 0.55rem;
   padding-top: 1rem;
+}
+.tc-about .tc-team__pagination[hidden] {
+  display: none;
 }
 .tc-about .tc-team__dot {
   min-width: 0.5rem;
@@ -20379,6 +20391,22 @@
   width: 1.25rem;
   border-radius: 20px;
   background: var(--tcno-primary-light, #14C4B6);
+}
+@media (min-width: 960px) {
+  .tc-about .tc-team__gallery {
+    position: relative;
+  }
+  .tc-about .tc-team__next {
+    position: absolute;
+    grid-area: 1/1/2/-1;
+    inset-block: 0;
+    inset-inline-end: -2.65rem;
+    margin-block: auto;
+  }
+  .tc-about .tc-team__next[data-team-prev] {
+    grid-area: 1/1/2/-1;
+    inset-inline: -2.65rem auto;
+  }
 }
 .tc-about .tc-member {
   position: relative;
@@ -20710,9 +20738,6 @@
     flex-basis: min(73%, 265px);
     aspect-ratio: 0.78;
   }
-  .tc-about .tc-team__next {
-    right: -0.45rem;
-  }
   .tc-about .tc-cta {
     min-height: 385px;
     align-items: flex-start;
@@ -20754,11 +20779,10 @@
 }
 
 /* #endregion */
-/* #region Contacto — base y navegación */
+/* #region Vista de contacto */
 .contact-page {
   --contact-accent: var(--tcno-primary-dark, #00857c);
   --contact-accent-bright: var(--tcno-primary-light, #14c4b6);
-  /* Imágenes propias en src/assets/images/tcnocenter/contacto. Las rutas son relativas al CSS. */
   --contact-hero-image: url("../assets/images/tcnocenter/contacto/banner.png");
   --contact-store-image: url("../assets/images/tcnocenter/contacto/tienda.png");
   --contact-advice-image: url("../assets/images/tcnocenter/contacto/asesoria.png");
@@ -20821,8 +20845,6 @@
   font-size: 0.8125rem;
 }
 
-/* #endregion */
-/* #region Banner y espacio de imagen */
 .contact-banner {
   position: relative;
   isolation: isolate;
@@ -20890,8 +20912,6 @@
   padding-block: 0.75rem 2rem;
 }
 
-/* #endregion */
-/* #region Canales de atención */
 .contact-channels {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -20939,8 +20959,6 @@
   line-height: 1;
 }
 
-/* #endregion */
-/* #region Formulario de contacto */
 .contact-primary,
 .contact-secondary {
   display: grid;
@@ -21185,8 +21203,6 @@
   cursor: wait;
 }
 
-/* #endregion */
-/* #region Información de contacto */
 .contact-info {
   padding: 0.85rem;
   overflow: hidden;
@@ -21239,15 +21255,12 @@
   font-size: 1.4rem;
 }
 
-/* #endregion */
-/* #region Preguntas frecuentes y mapa */
 .contact-secondary {
   grid-template-columns: minmax(0, 1.125fr) minmax(0, 1fr);
   gap: clamp(1rem, 3.25vw, 2.5rem);
   margin: 2.1rem 1.2rem 0;
 }
 
-/* Reserva espacio para la respuesta más larga y estabiliza la fila del mapa. */
 .contact-faq {
   min-block-size: 19rem;
 }
@@ -21361,8 +21374,6 @@
   color: var(--contact-accent);
 }
 
-/* #endregion */
-/* #region Redes sociales */
 .contact-social {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr);
@@ -21438,8 +21449,6 @@
   background-image: linear-gradient(180deg, var(--tcno-white, #fefefe), var(--tcno-surface, #f6f7f7));
 }
 
-/* #endregion */
-/* #region Asesoría y espacio de imagen */
 .contact-advice {
   min-height: clamp(12.75rem, 20vw, 17rem);
   width: min(100% - 2.75rem, 80rem);
@@ -21493,8 +21502,6 @@
   background: #005a55;
 }
 
-/* #endregion */
-/* #region Adaptación a pantallas pequeñas */
 @media (max-width: 820px) {
   .contact-wrap {
     width: min(100% - 2rem, 42rem);
