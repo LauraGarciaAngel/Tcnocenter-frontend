@@ -1,6 +1,26 @@
+document.addEventListener('tcno:components-ready', () => {
+  document.querySelectorAll('.tcno-footer a[href]').forEach((link) => {
+    if (['http:', 'https:'].includes(link.protocol) &&
+        (link.pathname !== location.pathname || link.origin !== location.origin) &&
+        !link.getAttribute('href').startsWith('#')) {
+      link.target = '_blank';
+      link.relList.add('noopener');
+    }
+  });
+});
+
 // Referencias al formulario y al contenedor donde se muestra el mensaje
   const form = document.querySelector('.form-card');
   const status = document.getElementById('form-status');
+  const message = document.getElementById('mensaje');
+  const count = document.getElementById('message-count');
+
+  function updateMessageCount() {
+    count.value = message.value.length + ' / ' + message.maxLength;
+  }
+
+  message.addEventListener('input', updateMessageCount);
+  window.addEventListener('pageshow', updateMessageCount);
 
   // Guarda el temporizador que oculta el mensaje, para poder cancelarlo si hace falta
   let hideTimer;
@@ -52,6 +72,7 @@
     e.preventDefault();
 
     const btn = form.querySelector('button[type="submit"]');
+    const buttonLabel = btn.querySelector('span');
 
     // Cancela cualquier temporizador anterior y limpia el mensaje previo
     clearTimeout(hideTimer);
@@ -60,7 +81,7 @@
 
     // Deshabilita el botón mientras se envía, para evitar envíos duplicados
     btn.disabled = true;
-    btn.textContent = 'Enviando...';
+    buttonLabel.textContent = 'Enviando...';
 
     try {
       // Envía los datos a Formspree sin salir de la página
@@ -83,6 +104,7 @@
 
       // Limpia los campos del formulario
       form.reset();
+      updateMessageCount();
 
       // Oculta el mensaje automáticamente a los 6 segundos
       hideTimer = setTimeout(() => {
@@ -100,43 +122,6 @@
     } finally {
       // Siempre, haya éxito o error, vuelve a habilitar el botón
       btn.disabled = false;
-      btn.textContent = 'Enviar mensaje';
+      buttonLabel.textContent = 'Enviar mensaje';
     }
-  });
-
-
-  
-  // 2. Control interactivo de colapso para elementos con data-bs-toggle="collapse"
-    const faqButtons = document.querySelectorAll(
-    '#faqAccordion .accordion-button'
-  );
-
-  // 3. Control de colapso para el acordeón de preguntas frecuentes
-  faqButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const target = document.querySelector(
-        button.getAttribute("data-bs-target"),
-      );
-
-      const isOpen = target.classList.contains("show");
-
-      document
-        .querySelectorAll("#faqAccordion .accordion-collapse.show")
-        .forEach((panel) => {
-          panel.classList.remove("show");
-        });
-
-      document
-        .querySelectorAll("#faqAccordion .accordion-button")
-        .forEach((item) => {
-          item.classList.add("collapsed");
-          item.setAttribute("aria-expanded", "false");
-        });
-
-      if (!isOpen) {
-        target.classList.add("show");
-        button.classList.remove("collapsed");
-        button.setAttribute("aria-expanded", "true");
-      }
-    });
   });

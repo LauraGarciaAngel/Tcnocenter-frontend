@@ -1,24 +1,12 @@
-// =================================================================
-// ARCHIVO: src/js/Administrador/productos.js
-// Fuente única de productos: la usan el admin y el catálogo.
-// 1ª vez: carga celulares.json y lo copia a localStorage.
-// Después: lee y escribe siempre en localStorage.
-// =================================================================
-
+// Fuente de productos compartida por el administrador y el catálogo.
 const KEY = 'tcno_productos';
-
-// Ruta del JSON relativa a ESTE archivo (src/js/Administrador/ -> src/data/)
 const JSON_URL = new URL('../../data/celulares.json', import.meta.url);
 
-// Opciones de producto: ÚNICO lugar donde se definen.
-// Las usan el formulario del admin (listas desplegables y casillas de color)
-// y los filtros del catálogo (marcas, almacenamiento y bolitas de color).
-// Para agregar una marca, capacidad, etiqueta o color nuevo, basta con sumarlo aquí.
 export const OPCIONES = {
   marcas: ['Samsung', 'Apple', 'Xiaomi', 'Motorola', 'Huawei', 'Tecno', 'Oppo', 'Infinix', 'Nubia'],
-  almacenamientos: [64, 128, 256, 512], // en GB
+  almacenamientos: [64, 128, 256, 512],
   etiquetas: ['Nuevo', 'En oferta'],
-  colores: { // nombre -> código (neutros suaves como los del catálogo y tonos de color más vivos)
+  colores: {
     Negro: '#2B3440',
     Grafito: '#4A5967',
     Gris: '#79818A',
@@ -34,7 +22,6 @@ export const OPCIONES = {
   }
 };
 
-// Completa los campos que el JSON no trae
 function normalizar(p) {
   return {
     ...p,
@@ -56,7 +43,9 @@ export async function cargarProductos() {
     if (guardado) {
       const listaGuardada = JSON.parse(guardado).map((item) => {
         const base = basePorId.get(item.id);
-        const esInfinixAntiguo = item.id === 15 && item.modelo === 'Note 60 Pro';
+        const esInfinixAntiguo = Boolean(base && item.id === 15 && item.modelo === 'Note 60 Pro');
+        // Completa datos técnicos de copias antiguas si pertenecen al mismo equipo.
+        const ficha = esInfinixAntiguo || (item.sku && item.sku === base?.sku) ? base : undefined;
         return normalizar({
           ...item,
           modelo: esInfinixAntiguo ? base.modelo : item.modelo,
@@ -64,16 +53,21 @@ export async function cargarProductos() {
           imagen: esInfinixAntiguo ? base.imagen : item.imagen,
           colores: (esInfinixAntiguo || !item.colores?.length) ? (base?.colores ?? []) : item.colores,
           imagenesPorColor:
-              (!esInfinixAntiguo && item.imagenesPorColor && Object.keys(item.imagenesPorColor).length)
+            (!esInfinixAntiguo && item.imagenesPorColor && Object.keys(item.imagenesPorColor).length)
               ? item.imagenesPorColor
-              : (base?.imagenesPorColor ?? {})
+              : (base?.imagenesPorColor ?? {}),
+          pantalla: esInfinixAntiguo ? ficha.pantalla : (item.pantalla || ficha?.pantalla),
+          camaraPrincipal: esInfinixAntiguo ? ficha.camaraPrincipal : (item.camaraPrincipal ?? ficha?.camaraPrincipal),
+          fuenteEspecificaciones: esInfinixAntiguo
+            ? ficha.fuenteEspecificaciones
+            : (item.fuenteEspecificaciones || ficha?.fuenteEspecificaciones)
         });
       });
       guardarProductos(listaGuardada);
       return listaGuardada;
     }
   } catch (e) {
-    // Si el almacenamiento está corrupto, se vuelve a cargar desde el JSON
+    // Si el almacenamiento está corrupto, se vuelve a cargar desde el JSON.
   }
 
   guardarProductos(baseJson);
@@ -84,7 +78,6 @@ export function guardarProductos(lista) {
   localStorage.setItem(KEY, JSON.stringify(lista));
 }
 
-// Útil en pruebas: borra los cambios y vuelve a cargar el JSON original
 export function reiniciarProductos() {
   localStorage.removeItem(KEY);
 }

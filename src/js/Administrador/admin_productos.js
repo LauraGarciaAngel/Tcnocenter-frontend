@@ -33,6 +33,8 @@ const aAdmin = (p) => ({
   sku: p.sku ?? '',
   // Acepta 256 o "256 GB": se queda solo con el número
   storage: String(parseInt(p.almacenamiento, 10) || ''),
+  display: p.pantalla ?? '',
+  camera: p.camaraPrincipal ?? '',
   badge: p.etiqueta || '',
   price: p.precio,
   oldPrice: p.precioAnterior ?? null,
@@ -59,6 +61,8 @@ const deAdmin = (a, previo = {}) => {
     sku: a.sku ?? previo.sku ?? '',
     categoria: previo.categoria ?? 'Celulares',
     almacenamiento: Number(a.storage) || 0,
+    pantalla: a.display || previo.pantalla,
+    camaraPrincipal: a.camera === '' ? previo.camaraPrincipal : a.camera,
     etiqueta: a.badge || null,
     precio: a.price,
     precioAnterior: a.oldPrice,
@@ -170,6 +174,8 @@ const inputNombre = document.getElementById('pName');
 const inputSku = document.getElementById('pSku');
 const selectMarca = document.getElementById('pBrand');
 const selectAlmacenador = document.getElementById('pStorage');
+const inputPantalla = document.getElementById('pDisplay');
+const inputCamara = document.getElementById('pCamera');
 const selectEtiqueta = document.getElementById('pBadge');
 const inputPrecio = document.getElementById('pPrice');
 const inputPrecioAnterior = document.getElementById('pOld');
@@ -673,6 +679,8 @@ function abrirDrawer(esEdicion = false, producto = null) {
     inputSku.value = producto.sku || '';
     selectMarca.value = producto.brand || '';
     selectAlmacenador.value = producto.storage || '';
+    inputPantalla.value = producto.display;
+    inputCamara.value = Number.parseFloat(producto.camera) || '';
     selectEtiqueta.value = producto.badge || '';
     inputPrecio.value = formatoMiles(producto.price);
     inputPrecioAnterior.value = formatoMiles(producto.oldPrice);
@@ -1139,6 +1147,8 @@ formulario.addEventListener('submit', (evento) => {
   // El precio de venta debe ser mayor a 0 (el campo es de texto, no tiene min)
   inputPrecio.setCustomValidity(leerMonto(inputPrecio) > 0 ? '' : 'Escribe un precio de venta mayor a 0.');
 
+  inputPantalla.value = inputPantalla.value.trim();
+
   // Validaciones básicas del navegador (campos required, min, max)
   if (!formulario.checkValidity()) {
     formulario.reportValidity();
@@ -1157,6 +1167,8 @@ formulario.addEventListener('submit', (evento) => {
     sku: inputSku.value.trim(),
     brand: selectMarca.value,
     storage: selectAlmacenador.value,
+    display: inputPantalla.value,
+    camera: inputCamara.valueAsNumber,
     badge: selectEtiqueta.value,
     price: leerMonto(inputPrecio),
     oldPrice: leerMonto(inputPrecioAnterior) || null,
