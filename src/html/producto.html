@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Detalle del producto en Tcnocenter." />
+    <link rel="icon" type="image/png" href="../assets/images/tcnocenter/Logo.png" />
+    <title>tcnocenter | Producto</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <script src="../js/lucide.min.js"></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/navbar-footer.js" defer></script>
+    <script src="../js/cart.js" defer></script>
+    <script src="../js/producto.js" defer></script>
+</head>
+
+<body class="tcno-product-page">
+    <div data-component="navbar"></div>
+
+    <main class="tcno-product-detail">
+        <div class="tcno-product-status" data-product-status hidden>
+            <p data-status-message>Cargando producto…</p>
+            <a class="tcno-btn-outline" href="catalogo.html">Volver al catálogo</a>
+        </div>
+
+        <div class="tcno-product-shell" data-product-shell hidden>
+            <nav class="tcno-breadcrumb" aria-label="Miga de pan">
+                <a href="catalogo.html">Catálogo</a>
+                <span aria-hidden="true">/</span>
+                <a href="catalogo.html" data-breadcrumb-brand>Celulares</a>
+                <span aria-hidden="true">/</span>
+                <span data-breadcrumb-name>Producto</span>
+            </nav>
+
+            <div class="tcno-product-layout">
+                <section class="tcno-product-gallery" aria-label="Imágenes del producto">
+                    <div class="tcno-product-main-image">
+                        <img data-main-image src="" alt="" />
+                    </div>
+                    <div class="tcno-product-thumbs" data-thumbs>
+                        <button type="button" class="tcno-thumb-nav" data-thumb-prev aria-label="Imagen anterior">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="tcno-thumbs-track" data-thumbs-track></div>
+                        <button type="button" class="tcno-thumb-nav" data-thumb-next aria-label="Imagen siguiente">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="tcno-product-info-panel">
+                    <h1 class="tcno-product-title" data-product-title>Product name</h1>
+
+                    <div class="tcno-product-rating-row">
+                        <div class="tcno-stars" data-stars aria-hidden="true"></div>
+                        <span class="tcno-reviews" data-reviews>0 reseñas</span>
+                    </div>
+
+                    <p class="tcno-product-price" data-product-price>$0</p>
+                    <p class="tcno-product-old-price" data-product-old-price hidden></p>
+
+                    <p class="tcno-product-desc" data-product-desc>Descripción del producto.</p>
+
+                    <div class="tcno-product-colors" data-product-colors hidden>
+                        <p class="tcno-product-colors-label">
+                            Color: <span data-selected-color></span>
+                        </p>
+                        <div class="tcno-color-dots" data-color-dots role="list"></div>
+                    </div>
+
+                    <div class="tcno-product-actions">
+                        <button type="button" class="tcno-btn-cart" data-add-cart>
+                            Agregar al carrito
+                        </button>
+                    </div>
+
+                    <div class="tcno-product-extras">
+                        <button type="button" class="tcno-wishlist" data-wishlist aria-pressed="false">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                                    fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Agregar a favoritos
+                        </button>
+                        <span class="tcno-guarantee">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                                <polyline points="22 4 12 14.01 9 11.01" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            30 días de garantía de devolución
+                        </span>
+                    </div>
+
+                    <div class="tcno-product-tabs" role="tablist" aria-label="Información del producto">
+                        <button type="button" class="tcno-tab is-active" role="tab" aria-selected="true"
+                            data-tab="details">Detalles</button>
+                        <button type="button" class="tcno-tab" role="tab" aria-selected="false"
+                            data-tab="packaging">Empaque</button>
+                        <button type="button" class="tcno-tab" role="tab" aria-selected="false"
+                            data-tab="shipping">Envío</button>
+                    </div>
+
+                    <div class="tcno-tab-panels">
+                        <div class="tcno-tab-panel is-active" data-panel="details" role="tabpanel">
+                            <p data-tab-details></p>
+                        </div>
+                        <div class="tcno-tab-panel" data-panel="packaging" role="tabpanel" hidden>
+                            <p data-tab-packaging></p>
+                        </div>
+                        <div class="tcno-tab-panel" data-panel="shipping" role="tabpanel" hidden>
+                            <p data-tab-shipping></p>
+                        </div>
+                    </div>
+
+                    <div class="tcno-specs">
+                        <button type="button" class="tcno-specs-toggle" data-specs-toggle aria-expanded="false">
+                            <span>Especificaciones técnicas</span>
+                            <span class="tcno-specs-icon" aria-hidden="true">+</span>
+                        </button>
+                        <div class="tcno-specs-body" data-specs-body hidden>
+                            <dl data-specs-list></dl>
+                        </div>
+                    </div>
+
+                    <p class="tcno-cart-feedback" data-cart-feedback role="status" aria-live="polite"></p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div data-component="footer"></div>
+</body>
+
+</html>
