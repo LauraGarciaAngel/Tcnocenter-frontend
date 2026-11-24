@@ -26,7 +26,10 @@
       "Gris": "../assets/images/celulares/01-samsung-galaxy-s24-ultra-gris.jpg",
       "Negro": "../assets/images/celulares/01-samsung-galaxy-s24-ultra-negro.jpg",
       "Morado": "../assets/images/celulares/01-samsung-galaxy-s24-ultra-morado.jpg"
-    }
+    },
+    "pantalla": "6,8″ AMOLED",
+    "camaraPrincipal": 200,
+    "fuenteEspecificaciones": "https://www.samsung.com/ph/support/mobile-devices/differences-between-galaxy-s24-models/"
   },
   {
     "id": 2,
@@ -55,7 +58,10 @@
       "Gris": "../assets/images/celulares/02-apple-iphone-15-pro-gris.jpg",
       "Blanco": "../assets/images/celulares/02-apple-iphone-15-pro-blanco.jpg",
       "Negro": "../assets/images/celulares/02-apple-iphone-15-pro-negro.jpg"
-    }
+    },
+    "pantalla": "6,1″ OLED",
+    "camaraPrincipal": 48,
+    "fuenteEspecificaciones": "https://support.apple.com/en-us/111829"
   },
   {
     "id": 3,
@@ -84,7 +90,10 @@
       "Gris": "../assets/images/celulares/03-samsung-galaxy-s24-gris.jpg",
       "Morado": "../assets/images/celulares/03-samsung-galaxy-s24-morado.jpg",
       "Dorado": "../assets/images/celulares/03-samsung-galaxy-s24-dorado.jpg"
-    }
+    },
+    "pantalla": "6,2″ AMOLED",
+    "camaraPrincipal": 50,
+    "fuenteEspecificaciones": "https://www.samsung.com/ph/support/mobile-devices/differences-between-galaxy-s24-models/"
   },
   {
     "id": 4,
@@ -113,7 +122,10 @@
       "Morado": "../assets/images/celulares/04-samsung-galaxy-a55-5g-morado.jpg",
       "Grafito": "../assets/images/celulares/04-samsung-galaxy-a55-5g-grafito.jpg",
       "Dorado": "../assets/images/celulares/04-samsung-galaxy-a55-5g-dorado.jpg"
-    }
+    },
+    "pantalla": "6,6″ AMOLED",
+    "camaraPrincipal": 50,
+    "fuenteEspecificaciones": "https://news.samsung.com/global/samsung-galaxy-a55-5g-and-galaxy-a35-5g-awesome-innovations-and-security-engineered-for-everyone"
   },
   {
     "id": 5,
@@ -144,7 +156,10 @@
       "Verde": "../assets/images/celulares/05-apple-iphone-15-verde.jpg",
       "Dorado": "../assets/images/celulares/05-apple-iphone-15-dorado.jpg",
       "Negro": "../assets/images/celulares/05-apple-iphone-15-negro.jpg"
-    }
+    },
+    "pantalla": "6,1″ OLED",
+    "camaraPrincipal": 48,
+    "fuenteEspecificaciones": "https://support.apple.com/en-us/111831"
   },
   {
     "id": 6,
@@ -171,7 +186,10 @@
       "Morado": "../assets/images/celulares/06-xiaomi-redmi-note-13-pro-5g.jpg",
       "Negro": "../assets/images/celulares/06-xiaomi-redmi-note-13-pro-5g-negro.jpg",
       "Celeste": "../assets/images/celulares/06-xiaomi-redmi-note-13-pro-5g-celeste.jpg"
-    }
+    },
+    "pantalla": "6,67″ AMOLED",
+    "camaraPrincipal": 200,
+    "fuenteEspecificaciones": "https://www.mi.com/global/product/redmi-note-13-pro-5g/specs/"
   },
   {
     "id": 7,
@@ -198,7 +216,10 @@
       "Blanco": "../assets/images/celulares/07-xiaomi-xiaomi-14.jpg",
       "Negro": "../assets/images/celulares/07-xiaomi-xiaomi-14-negro.jpg",
       "Verde": "../assets/images/celulares/07-xiaomi-xiaomi-14-verde.jpg"
-    }
+    },
+    "pantalla": "6,36″ AMOLED",
+    "camaraPrincipal": 50,
+    "fuenteEspecificaciones": "https://www.mi.com/global/product/xiaomi-14/specs/"
   },
   {
     "id": 8,
@@ -227,7 +248,10 @@
       "Negro": "../assets/images/celulares/08-motorola-edge-40-neo-negro.jpg",
       "Celeste": "../assets/images/celulares/08-motorola-edge-40-neo-celeste.jpg",
       "Rosado": "../assets/images/celulares/08-motorola-edge-40-neo-rosado.jpg"
-    }
+    },
+    "pantalla": "6,55″ pOLED",
+    "camaraPrincipal": 50,
+    "fuenteEspecificaciones": "https://es-latam.support.motorola.com/app/answers/detail/a_id/176648/~/especificaciones---motorola-edge-40-neo"
   },
   {
     "id": 9,
@@ -254,7 +278,10 @@
       "Rojo": "../assets/images/celulares/09-motorola-moto-g84-5g.jpg",
       "Celeste": "../assets/images/celulares/09-motorola-moto-g84-5g-celeste.jpg",
       "Grafito": "../assets/images/celulares/09-motorola-moto-g84-5g-grafito.jpg"
-    }
+    },
+    "pantalla": "6,5″ pOLED",
+    "camaraPrincipal": 50,
+    "fuenteEspecificaciones": "https://en-us.support.motorola.com/app/answers/detail/a_id/176175/~/moto-g84-5g---technischen-daten-"
   },
   {
     "id": 10,
@@ -281,7 +308,10 @@
       "Morado": "../assets/images/celulares/10-huawei-pura-70-pro.jpg",
       "Blanco": "../assets/images/celulares/10-huawei-pura-70-pro-blanco.jpg",
       "Negro": "../assets/images/celulares/10-huawei-pura-70-pro-negro.jpg"
-    }
+    },
+    "pantalla": "6,8″ LTPO OLED",
+    "camaraPrincipal": 50,
+    "fuenteEspecificaciones": "https://consumer.huawei.com/sg/phones/pura70-pro/specs/"
   },
   {
     "id": 11,
@@ -308,7 +338,10 @@
       "Verde": "../assets/images/celulares/11-tecno-camon-30-pro-5g.jpg",
       "Plata": "../assets/images/celulares/11-tecno-camon-30-pro-5g-plata.jpg",
       "Negro": "../assets/images/celulares/11-tecno-camon-30-pro-5g-negro.jpg"
-    }
+    },
+    "pantalla": "6,78″ AMOLED",
+    "camaraPrincipal": 50,
+    "fuenteEspecificaciones": "https://www.tecno-mobile.com/phones/tech-specs/techspecs/camon-30-pro-5g/"
   },
   {
     "id": 12,
@@ -337,7 +370,10 @@
       "Blanco": "../assets/images/celulares/12-tecno-spark-20-pro-blanco.jpg",
       "Dorado": "../assets/images/celulares/12-tecno-spark-20-pro-dorado.jpg",
       "Verde": "../assets/images/celulares/12-tecno-spark-20-pro-verde.jpg"
-    }
+    },
+    "pantalla": "6,78″ LCD",
+    "camaraPrincipal": 108,
+    "fuenteEspecificaciones": "https://www.tecno-mobile.com/lb-en/phones/product-detail/product/spark-20-pro/"
   },
   {
     "id": 13,
@@ -362,7 +398,10 @@
     "imagenesPorColor": {
       "Verde": "../assets/images/celulares/13-oppo-reno11-5g.jpg",
       "Gris": "../assets/images/celulares/13-oppo-reno11-5g-gris.jpg"
-    }
+    },
+    "pantalla": "6,7″ AMOLED",
+    "camaraPrincipal": 50,
+    "fuenteEspecificaciones": "https://www.oppo.com/co/smartphones/series-reno/reno11/specs/"
   },
   {
     "id": 14,
@@ -389,7 +428,10 @@
       "Verde": "../assets/images/celulares/14-oppo-a78.jpg",
       "Negro": "../assets/images/celulares/14-oppo-a78-negro.jpg",
       "Morado": "../assets/images/celulares/14-oppo-a78-morado.jpg"
-    }
+    },
+    "pantalla": "6,43″ AMOLED",
+    "camaraPrincipal": 50,
+    "fuenteEspecificaciones": "https://www.oppo.com/es/smartphones/series-a/a78/specs/"
   },
   {
     "id": 15,
@@ -414,7 +456,10 @@
     "imagenesPorColor": {
       "Plata": "../assets/images/celulares/15-infinix-gt-20-pro-plata.jpg",
       "Grafito": "../assets/images/celulares/15-infinix-gt-20-pro-grafito.jpg"
-    }
+    },
+    "pantalla": "6,78″ AMOLED",
+    "camaraPrincipal": 108,
+    "fuenteEspecificaciones": "https://wap.infinixmobility.com/learn/GT-20-Pro-Flagship-Laucnch"
   },
   {
     "id": 16,
@@ -441,6 +486,9 @@
       "Grafito": "../assets/images/celulares/16-nubia-red-magic-9-pro.jpg",
       "Negro": "../assets/images/celulares/16-nubia-red-magic-9-pro-negro.jpg",
       "Plata": "../assets/images/celulares/16-nubia-red-magic-9-pro-plata.jpg"
-    }
+    },
+    "pantalla": "6,8″ AMOLED",
+    "camaraPrincipal": 50,
+    "fuenteEspecificaciones": "https://global.redmagic.gg/pages/redmagic-9-pro-specs"
   }
 ]

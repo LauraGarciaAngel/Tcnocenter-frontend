@@ -14,6 +14,7 @@
     href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/catalogo.css" />
 
   <script src="../js/lucide.min.js"></script>
   <script src="../js/main.js" defer></script>
@@ -27,13 +28,21 @@
   <main class="tcno-catalog">
     <header class="tcno-catalog-hero">
       <div class="tcno-catalog-hero-inner">
-        <p>Catálogo de productos</p>
-        <h1>Celulares</h1>
-        <span>Encuentra el smartphone perfecto para ti. Calidad, rendimiento y
-          la mejor tecnología.</span>
+        <p class="tcno-catalog-eyebrow">Catálogo</p>
+        <h1>Smart<span class="tcno-catalog-hero-accent">phones</span></h1>
+        <p class="tcno-catalog-tagline">Tecnología que se adapta a ti.</p>
+        <ul class="tcno-catalog-benefits">
+          <li><i data-lucide="truck" aria-hidden="true"></i> Envío a todo el país</li>
+          <li><i data-lucide="shield-check" aria-hidden="true"></i> Garantía oficial</li>
+          <li><i data-lucide="credit-card" aria-hidden="true"></i> Pagos seguros</li>
+          <li><i data-lucide="headphones" aria-hidden="true"></i> Soporte especializado</li>
+        </ul>
       </div>
     </header>
 
+    <nav class="tcno-catalog-breadcrumb" aria-label="Ruta de navegación">
+      <a href="index.html">Inicio</a><span aria-hidden="true">›</span><span aria-current="page">Catálogo</span>
+    </nav>
     <div class="tcno-catalog-layout" data-catalog-layout>
       <aside class="tcno-catalog-sidebar" aria-label="Filtros del catálogo" data-filters-panel>
         <div class="tcno-filter-heading">
@@ -43,90 +52,98 @@
             </svg>
             <span>Filtros</span>
           </button>
-          <button class="tcno-filter-clear" type="button" data-clear-filters>Limpiar</button>
+          <button class="tcno-filter-clear" type="button" data-clear-filters>Limpiar todo</button>
         </div>
 
         <form class="tcno-filter-form" id="catalog-filter-form" data-filter-form>
-          <fieldset class="tcno-filter-group">
-            <legend>Rango de precio</legend>
+          <details class="tcno-filter-group" open>
+            <summary>Categoría</summary>
+            <label class="tcno-check-option"><input type="checkbox" name="category" checked /> Celulares <small data-category-count></small></label>
+          </details>
+          <details class="tcno-filter-group" open>
+            <summary>Marca</summary>
+            <div data-filter-options="brand"></div>
+            <button class="tcno-filter-more" type="button" data-more-brands aria-expanded="false" aria-controls="catalog-more-brands" hidden>Ver más</button>
+            <div id="catalog-more-brands" data-extra-brands hidden></div>
+          </details>
+          <details class="tcno-filter-group" open>
+            <summary>Precio</summary>
+            <div class="tcno-price-slider">
+              <label class="tcno-visually-hidden" for="catalog-price-min">Precio mínimo</label>
+              <input id="catalog-price-min" class="tcno-price-range" type="range" min="800000" max="7000000" step="1000" value="800000" data-price-min />
+              <label class="tcno-visually-hidden" for="catalog-price">Precio máximo</label>
+              <input id="catalog-price" class="tcno-price-range" type="range" min="800000" max="7000000" step="1000" value="7000000" data-price-filter />
+            </div>
             <div class="tcno-price-values">
-              <span>$ 0</span>
-              <span data-price-value>$ 5.000.000</span>
+              <output for="catalog-price-min" data-price-min-value>$ 800.000</output>
+              <output for="catalog-price" data-price-value>$ 7.000.000</output>
             </div>
-            <label class="tcno-visually-hidden" for="catalog-price">Precio
-              máximo</label>
-            <input id="catalog-price" class="tcno-price-range" type="range" min="0" max="5000000" step="50000"
-              value="5000000" data-price-filter />
-            <div class="tcno-price-values tcno-price-limits">
-              <span>$0</span>
-              <span>$5.000.000</span>
-            </div>
-          </fieldset>
-
-          <!-- Marca: las casillas las genera catalogo.js desde productos.js -->
-          <fieldset class="tcno-filter-group" data-filter-options="brand">
-            <legend>Marca</legend>
-          </fieldset>
-
-          <!-- Almacenamiento: las casillas las genera catalogo.js desde productos.js -->
-          <fieldset class="tcno-filter-group" data-filter-options="storage">
-            <legend>Almacenamiento</legend>
-          </fieldset>
-
-          <fieldset class="tcno-filter-group tcno-rating-filter">
-            <legend>Valoración</legend>
+          </details>
+          <details class="tcno-filter-group">
+            <summary>Almacenamiento</summary>
+            <div data-filter-options="storage"></div>
+          </details>
+          <details class="tcno-filter-group" open>
+            <summary>Color</summary>
+            <div class="tcno-filter-swatches" data-filter-options="color"></div>
+          </details>
+          <details class="tcno-filter-group">
+            <summary>Estado</summary>
+            <div data-filter-options="status"></div>
+          </details>
+          <details class="tcno-filter-group">
+            <summary>Etiqueta</summary>
+            <div data-filter-options="badge"></div>
+          </details>
+          <details class="tcno-filter-group">
+            <summary>Valoración</summary>
             <label class="tcno-rating-option"><input type="radio" name="rating" value="0" checked /><span>Todas las
                 calificaciones</span></label>
             <label class="tcno-rating-option"><input type="radio" name="rating" value="4" /><span class="tcno-stars"
-                aria-label="4 estrellas o más">★★★★★</span><small>(4 o
+                aria-label="4 estrellas o más">★★★★<span>☆</span></span><small>(4 o
                 más)</small></label>
             <label class="tcno-rating-option"><input type="radio" name="rating" value="3" /><span class="tcno-stars"
-                aria-label="3 estrellas o más">★★★★<span>★</span></span><small>(3
+                aria-label="3 estrellas o más">★★★<span>☆☆</span></span><small>(3
                 o más)</small></label>
             <label class="tcno-rating-option"><input type="radio" name="rating" value="2" /><span class="tcno-stars"
-                aria-label="2 estrellas o más">★★★<span>★★</span></span><small>(2
+                aria-label="2 estrellas o más">★★<span>☆☆☆</span></span><small>(2
                 o más)</small></label>
             <label class="tcno-rating-option"><input type="radio" name="rating" value="1" /><span class="tcno-stars"
-                aria-label="1 estrella o más">★★<span>★★★</span></span><small>(1
+                aria-label="1 estrella o más">★<span>☆☆☆☆</span></span><small>(1
                 o más)</small></label>
-          </fieldset>
-
-          <button class="tcno-apply-filters" type="submit">Aplicar
-            filtros</button>
+          </details>
         </form>
       </aside>
 
       <section class="tcno-catalog-results" aria-label="Productos disponibles">
         <div class="tcno-catalog-toolbar">
-          <!-- Botones de marca: "Todos" va fijo; los demás los genera catalogo.js -->
-          <div class="tcno-brand-chips" role="group" aria-label="Filtrar por marca" data-brand-chips>
-            <button type="button" class="tcno-brand-chip is-active" data-brand-chip="Todos"
-              aria-pressed="true">Todos</button>
-          </div>
-
+          <p class="tcno-product-count" data-product-count role="status">Cargando productos…</p>
           <div class="tcno-sort-controls">
-            <label for="catalog-sort">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 6h16M7 12h10m-7 6h4" />
-                <circle cx="8" cy="6" r="2" />
-                <circle cx="16" cy="12" r="2" />
-              </svg>
-              <span class="tcno-visually-hidden">Ordenar productos</span>
-            </label>
+            <label for="catalog-sort">Ordenar por</label>
             <select id="catalog-sort" data-sort>
-              <option value="popular">Ordenar por: Más vendidos</option>
-              <option value="price-asc">Precio: menor a mayor</option>
-              <option value="price-desc">Precio: mayor a menor</option>
+              <option value="popular">Más vendidos</option>
+              <option value="price-asc">Menor precio</option>
+              <option value="price-desc">Mayor precio</option>
               <option value="rating">Mejor valoración</option>
             </select>
-            <span class="tcno-product-count" data-product-count aria-live="polite">Cargando productos…</span>
+            <div class="tcno-catalog-views" role="group" aria-label="Vista de productos">
+              <button type="button" data-catalog-view="grid" aria-label="Cuadrícula" aria-pressed="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              </button>
+              <button type="button" data-catalog-view="list" aria-label="Lista" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5h12M9 12h12M9 19h12M3 5h1M3 12h1M3 19h1"/></svg>
+              </button>
+            </div>
           </div>
         </div>
-
-        <div class="tcno-product-grid" data-product-grid aria-live="polite"></div>
+        <div class="tcno-brand-chips" role="group" aria-label="Filtrar por marca" data-brand-chips>
+          <button type="button" class="tcno-brand-chip is-active" data-brand-chip="Todos" aria-pressed="true">Todos</button>
+        </div>
+        <div class="tcno-product-grid" data-product-grid></div>
         <p class="tcno-catalog-empty" data-empty-state hidden>No encontramos
           productos con esos filtros. Prueba con otra
           selección.</p>
+        <nav class="tcno-catalog-pages" data-catalog-pages aria-label="Páginas de productos" hidden></nav>
       </section>
     </div>
   </main>
