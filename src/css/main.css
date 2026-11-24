@@ -20183,7 +20183,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .tcno-catalog-page .tcno-catalog .tcno-catalog-hero::before {
-    background-image: linear-gradient(90deg, rgba(16, 18, 22, 0.9607843137) 0%, rgba(16, 18, 22, 0.768627451) 48%, rgba(16, 18, 22, 0.2666666667) 100%), url("../assets/images/tcnocenter/catalogo/smartphone-destellos-cian.png");
+    background-image: linear-gradient(90deg, rgba(16, 18, 22, 0.9607843137) 0%, rgba(16, 18, 22, 0.768627451) 48%, rgba(16, 18, 22, 0.2666666667) 100%), url("../assets/images/tcnocenter/catalogo-hero.png");
     background-position: center, 78% 58%;
   }
   .tcno-catalog-page .tcno-catalog .tcno-catalog-benefits li + li {
@@ -21113,10 +21113,11 @@
 }
 
 /* #endregion */
-/* #region Vista de contacto */
+/* #region Contacto */
 .contact-page {
   --contact-accent: var(--tcno-primary-dark, #00857c);
   --contact-accent-bright: var(--tcno-primary-light, #14c4b6);
+  /* Imágenes propias en src/assets/images/tcnocenter/contacto. Las rutas son relativas al CSS. */
   --contact-hero-image: url("../assets/images/tcnocenter/contacto/banner.png");
   --contact-store-image: url("../assets/images/tcnocenter/contacto/tienda.png");
   --contact-advice-image: url("../assets/images/tcnocenter/contacto/asesoria.png");
@@ -21595,6 +21596,7 @@
   margin: 2.1rem 1.2rem 0;
 }
 
+/* Reserva espacio para la respuesta más larga y estabiliza la fila del mapa. */
 .contact-faq {
   min-block-size: 19rem;
 }

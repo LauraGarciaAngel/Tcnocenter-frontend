@@ -1,153 +1,151 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es" data-bs-theme="light">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Explora celulares y smartphones en el catálogo de Tcnocenter." />
-  <link rel="icon" type="image/png" href="../assets/images/tcnocenter/Logo.png" />
-  <title>tcnocenter | Catálogo de celulares</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../css/main.css" />
-  <link rel="stylesheet" href="../css/catalogo.css" />
-
-  <script src="../js/lucide.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compara celulares, especificaciones y ofertas de TCNOCENTER.">
+  <title>TCNOCENTER | Catálogo de smartphones</title>
+  <link rel="icon" href="../assets/images/tcnocenter/Logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&amp;family=Inter:wght@400..700&amp;family=Josefin+Sans:wght@700&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="../js/lucide.min.js" defer></script>
   <script src="../js/main.js" defer></script>
   <script src="../js/navbar-footer.js" defer></script>
+  <script src="../js/footer.js" defer></script>
   <script src="../js/cart.js" defer></script>
   <script src="../js/catalogo.js" defer></script>
 </head>
-
 <body class="tcno-catalog-page">
   <div data-component="navbar"></div>
+
   <main class="tcno-catalog">
     <header class="tcno-catalog-hero">
       <div class="tcno-catalog-hero-inner">
         <p class="tcno-catalog-eyebrow">Catálogo</p>
         <h1>Smart<span class="tcno-catalog-hero-accent">phones</span></h1>
-        <p class="tcno-catalog-tagline">Tecnología que se adapta a ti.</p>
+        <p class="tcno-catalog-tagline">Compara los celulares de nuestro catálogo.</p>
         <ul class="tcno-catalog-benefits">
-          <li><i data-lucide="truck" aria-hidden="true"></i> Envío a todo el país</li>
-          <li><i data-lucide="shield-check" aria-hidden="true"></i> Garantía oficial</li>
-          <li><i data-lucide="credit-card" aria-hidden="true"></i> Pagos seguros</li>
-          <li><i data-lucide="headphones" aria-hidden="true"></i> Soporte especializado</li>
+          <li><i class="bi bi-shield-check" aria-hidden="true"></i> Garantía</li>
+          <li><i class="bi bi-truck" aria-hidden="true"></i> Envíos</li>
+          <li><i class="bi bi-credit-card" aria-hidden="true"></i> Pagos seguros</li>
         </ul>
       </div>
     </header>
 
     <nav class="tcno-catalog-breadcrumb" aria-label="Ruta de navegación">
-      <a href="index.html">Inicio</a><span aria-hidden="true">›</span><span aria-current="page">Catálogo</span>
+      <a href="index.html">Inicio</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Catálogo</span>
     </nav>
+
     <div class="tcno-catalog-layout" data-catalog-layout>
-      <aside class="tcno-catalog-sidebar" aria-label="Filtros del catálogo" data-filters-panel>
+      <aside class="tcno-catalog-sidebar" aria-label="Filtros del catálogo">
         <div class="tcno-filter-heading">
-          <button type="button" class="tcno-filters-toggle" data-toggle-filters aria-expanded="true" aria-controls="catalog-filter-form">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 6h16M7 12h10m-7 6h4" />
-            </svg>
-            <span>Filtros</span>
+          <button class="tcno-filters-toggle" type="button" aria-controls="catalog-filters"
+                  aria-expanded="true" data-toggle-filters>
+            <i class="bi bi-sliders" aria-hidden="true"></i> Filtros
           </button>
-          <button class="tcno-filter-clear" type="button" data-clear-filters>Limpiar todo</button>
+          <button class="tcno-filter-clear" type="button" data-clear-filters>Limpiar filtros</button>
         </div>
 
-        <form class="tcno-filter-form" id="catalog-filter-form" data-filter-form>
+        <form class="tcno-filter-form" id="catalog-filters" data-filter-form>
           <details class="tcno-filter-group" open>
             <summary>Categoría</summary>
-            <label class="tcno-check-option"><input type="checkbox" name="category" checked /> Celulares <small data-category-count></small></label>
+            <label class="tcno-check-option">
+              <input type="checkbox" name="category" value="Celulares" checked>
+              <span>Celulares</span><small data-category-count></small>
+            </label>
           </details>
+
           <details class="tcno-filter-group" open>
             <summary>Marca</summary>
             <div data-filter-options="brand"></div>
-            <button class="tcno-filter-more" type="button" data-more-brands aria-expanded="false" aria-controls="catalog-more-brands" hidden>Ver más</button>
-            <div id="catalog-more-brands" data-extra-brands hidden></div>
+            <div id="catalog-extra-brands" data-extra-brands hidden></div>
+            <button class="tcno-filter-more" type="button" aria-controls="catalog-extra-brands"
+                    aria-expanded="false" data-more-brands>Ver más</button>
           </details>
+
           <details class="tcno-filter-group" open>
             <summary>Precio</summary>
             <div class="tcno-price-slider">
-              <label class="tcno-visually-hidden" for="catalog-price-min">Precio mínimo</label>
-              <input id="catalog-price-min" class="tcno-price-range" type="range" min="800000" max="7000000" step="1000" value="800000" data-price-min />
-              <label class="tcno-visually-hidden" for="catalog-price">Precio máximo</label>
-              <input id="catalog-price" class="tcno-price-range" type="range" min="800000" max="7000000" step="1000" value="7000000" data-price-filter />
+              <input class="tcno-price-range" type="range" min="0" max="7000000" step="1000" value="0"
+                     aria-label="Precio mínimo" data-price-min>
+              <input class="tcno-price-range" type="range" min="0" max="7000000" step="1000" value="7000000"
+                     aria-label="Precio máximo" data-price-filter>
             </div>
             <div class="tcno-price-values">
-              <output for="catalog-price-min" data-price-min-value>$ 800.000</output>
-              <output for="catalog-price" data-price-value>$ 7.000.000</output>
+              <span data-price-min-value></span>
+              <span data-price-value></span>
             </div>
           </details>
-          <details class="tcno-filter-group">
+
+          <details class="tcno-filter-group" open>
             <summary>Almacenamiento</summary>
             <div data-filter-options="storage"></div>
           </details>
-          <details class="tcno-filter-group" open>
+
+          <details class="tcno-filter-group">
             <summary>Color</summary>
             <div class="tcno-filter-swatches" data-filter-options="color"></div>
           </details>
+
           <details class="tcno-filter-group">
-            <summary>Estado</summary>
+            <summary>Disponibilidad</summary>
             <div data-filter-options="status"></div>
           </details>
+
           <details class="tcno-filter-group">
             <summary>Etiqueta</summary>
             <div data-filter-options="badge"></div>
           </details>
+
           <details class="tcno-filter-group">
             <summary>Valoración</summary>
-            <label class="tcno-rating-option"><input type="radio" name="rating" value="0" checked /><span>Todas las
-                calificaciones</span></label>
-            <label class="tcno-rating-option"><input type="radio" name="rating" value="4" /><span class="tcno-stars"
-                aria-label="4 estrellas o más">★★★★<span>☆</span></span><small>(4 o
-                más)</small></label>
-            <label class="tcno-rating-option"><input type="radio" name="rating" value="3" /><span class="tcno-stars"
-                aria-label="3 estrellas o más">★★★<span>☆☆</span></span><small>(3
-                o más)</small></label>
-            <label class="tcno-rating-option"><input type="radio" name="rating" value="2" /><span class="tcno-stars"
-                aria-label="2 estrellas o más">★★<span>☆☆☆</span></span><small>(2
-                o más)</small></label>
-            <label class="tcno-rating-option"><input type="radio" name="rating" value="1" /><span class="tcno-stars"
-                aria-label="1 estrella o más">★<span>☆☆☆☆</span></span><small>(1
-                o más)</small></label>
+            <label class="tcno-rating-option"><input type="radio" name="rating" value="0" checked> Todas</label>
+            <label class="tcno-rating-option"><input type="radio" name="rating" value="4"> 4 estrellas o más</label>
+            <label class="tcno-rating-option"><input type="radio" name="rating" value="4.5"> 4,5 estrellas o más</label>
           </details>
         </form>
       </aside>
 
-      <section class="tcno-catalog-results" aria-label="Productos disponibles">
+      <section aria-labelledby="catalog-results-title">
+        <h2 class="tcno-visually-hidden" id="catalog-results-title">Productos del catálogo</h2>
         <div class="tcno-catalog-toolbar">
-          <p class="tcno-product-count" data-product-count role="status">Cargando productos…</p>
+          <p class="tcno-product-count" data-product-count aria-live="polite">Cargando productos…</p>
           <div class="tcno-sort-controls">
             <label for="catalog-sort">Ordenar por</label>
             <select id="catalog-sort" data-sort>
-              <option value="popular">Más vendidos</option>
+              <option value="popular">Popularidad</option>
               <option value="price-asc">Menor precio</option>
               <option value="price-desc">Mayor precio</option>
               <option value="rating">Mejor valoración</option>
             </select>
-            <div class="tcno-catalog-views" role="group" aria-label="Vista de productos">
+            <div class="tcno-catalog-views" role="group" aria-label="Vista del catálogo">
               <button type="button" data-catalog-view="grid" aria-label="Cuadrícula" aria-pressed="true">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                <i class="bi bi-grid" aria-hidden="true"></i>
               </button>
               <button type="button" data-catalog-view="list" aria-label="Lista" aria-pressed="false">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5h12M9 12h12M9 19h12M3 5h1M3 12h1M3 19h1"/></svg>
+                <i class="bi bi-list" aria-hidden="true"></i>
               </button>
             </div>
           </div>
         </div>
+
         <div class="tcno-brand-chips" role="group" aria-label="Filtrar por marca" data-brand-chips>
-          <button type="button" class="tcno-brand-chip is-active" data-brand-chip="Todos" aria-pressed="true">Todos</button>
+          <button class="tcno-brand-chip is-active" type="button" data-brand-chip="Todos"
+                  aria-pressed="true">Todos</button>
         </div>
+
+        <p data-empty-state hidden>No hay productos que coincidan con tus filtros.</p>
         <div class="tcno-product-grid" data-product-grid></div>
-        <p class="tcno-catalog-empty" data-empty-state hidden>No encontramos
-          productos con esos filtros. Prueba con otra
-          selección.</p>
-        <nav class="tcno-catalog-pages" data-catalog-pages aria-label="Páginas de productos" hidden></nav>
+        <nav class="tcno-catalog-pages" aria-label="Páginas del catálogo" data-catalog-pages hidden></nav>
       </section>
     </div>
   </main>
-  <div data-component="footer"></div>
-</body>
 
+  <div id="footer-container" data-component="footer"></div>
+</body>
 </html>

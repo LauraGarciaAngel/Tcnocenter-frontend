@@ -17,13 +17,14 @@
     <script src="../js/lucide.min.js"></script>
     <script src="../js/main.js" defer></script>
     <script src="../js/navbar-footer.js" defer></script>
+    <script src="../js/footer.js" defer></script>
     <script src="../js/cart.js" defer></script>
     <!-- Interacciones exclusivas de esta vista -->
     <script src="../js/acerca_de_nosotros.js" defer></script>
 </head>
 
-<body>
-    <div data-component="navbar"></div>
+<body class="tcno-catalog-page">
+  <div data-component="navbar"></div>
 
     <main id="contenido-principal" class="tc-about">
         <!-- 01 · HERO. Fotografías PNG independientes; la tipografía la define SCSS. -->
@@ -151,7 +152,7 @@
                                 src="../assets/images/tcnocenter/acerca-de/01_Laura_Angel.png"
                                 alt="" loading="lazy" decoding="async">
                             <div class="tc-member__detail">
-                                <h3 class="tc-member__name">Laura  G. Angel</h3>
+                                <h3 class="tc-member__name">Laura G. Angel</h3>
                                 <p class="tc-member__role">Full Stack Developer</p>
                             </div>
                             <span class="tc-member__badge" aria-hidden="true"><i data-lucide="code-2"></i></span>
@@ -191,7 +192,7 @@
                                 src="../assets/images/tcnocenter/acerca-de/05_Lizarazo_Ana.png"
                                 alt="" loading="lazy" decoding="async">
                             <div class="tc-member__detail">
-                                <h3 class="tc-member__name">Ana C. Lizarazo</h3>
+                                <h3 class="tc-member__name">Ana C.Lizarazo</h3>
                                 <p class="tc-member__role">Full Stack Developer</p>
                             </div>
                             <span class="tc-member__badge" aria-hidden="true"><i data-lucide="network"></i></span>
@@ -228,6 +229,7 @@
         </section>
     </main>
 
-  <div data-component="footer"></div>
+    <div id="footer-container" data-component="footer"></div>
 </body>
 </html>
+

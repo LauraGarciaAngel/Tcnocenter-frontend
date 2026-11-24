@@ -124,6 +124,21 @@ window.addEventListener('storage', (event) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  const offers = document.querySelector('.tcno-catalog-offers');
+  const image = offers?.querySelector('.tcno-catalog-offers-image');
+  if (image) {
+    const revealImage = () => {
+      if (!image.naturalWidth) return;
+      image.hidden = false;
+      offers.classList.add('has-offers-image');
+      offers.querySelector('.tcno-catalog-offers-title')?.classList.add('tcno-visually-hidden');
+      offers.querySelector('[data-show-catalog-offers] span')?.classList.add('tcno-visually-hidden');
+    };
+
+    image.addEventListener('load', revealImage, { once: true });
+    if (image.complete) revealImage();
+  }
+
   initializeCatalog().catch((error) => {
     console.error('Error al cargar las tarjetas del catálogo:', error);
     const emptyState = document.querySelector('[data-empty-state]');
@@ -148,6 +163,8 @@ async function initializeCatalog() {
   const sortSelect = document.querySelector('[data-sort]');
   let brandChips = []; // se llena al generar las opciones de marca
   const clearButton = document.querySelector('[data-clear-filters]');
+  const offersButton = document.querySelector('[data-show-catalog-offers]');
+  let onlyOffers = false;
   const layout = document.querySelector('[data-catalog-layout]');
   const filterForm = document.querySelector('[data-filter-form]');
   const filterToggle = document.querySelector('[data-toggle-filters]');
@@ -392,9 +409,10 @@ async function initializeCatalog() {
       const priceMatches = price >= minimumPrice && price <= maximumPrice;
       const extrasMatch = extraFilters.every(([name, selected]) =>
         selected.length === 0 || filterValues(card, name).some((value) => selected.includes(value)));
+      const offerMatches = !onlyOffers || card.dataset.onOffer === 'true';
       const ratingMatches = Number(card.dataset.rating) >= minimumRating;
       const queryMatches = !query || card.dataset.searchName.includes(query);
-      const visible = (category?.checked ?? true) && extrasMatch && brandMatches && brandCheckboxMatches && storageMatches && priceMatches && ratingMatches && queryMatches;
+      const visible = (category?.checked ?? true) && extrasMatch && brandMatches && brandCheckboxMatches && storageMatches && priceMatches && ratingMatches && queryMatches && offerMatches;
 
       return visible;
     });
@@ -409,7 +427,8 @@ async function initializeCatalog() {
     filteredCards = sortedCards;
     currentPage = 1;
     renderPage();
-    count.textContent = `${visibleCards.length} ${visibleCards.length === 1 ? 'producto encontrado' : 'productos encontrados'}`;
+    const resultLabel = visibleCards.length === 1 ? 'producto encontrado' : 'productos encontrados';
+    count.textContent = `${visibleCards.length} ${resultLabel}${onlyOffers ? ' en oferta' : ''}`;
     emptyState.hidden = visibleCards.length > 0;
   }
 
@@ -455,7 +474,7 @@ async function initializeCatalog() {
     });
   });
 
-  clearButton?.addEventListener('click', () => {
+  function resetFilters() {
     form.reset();
     selectedChipBrand = 'Todos';
     // form.reset() devuelve el control al valor del HTML; se vuelve al máximo real
@@ -470,7 +489,21 @@ async function initializeCatalog() {
       chip.classList.toggle('is-active', isActive);
       chip.setAttribute('aria-pressed', String(isActive));
     });
+  }
+
+  clearButton?.addEventListener('click', () => {
+    onlyOffers = false;
+    resetFilters();
     applyFilters();
+  });
+
+  offersButton?.addEventListener('click', () => {
+    onlyOffers = true;
+    resetFilters();
+    applyFilters();
+    count.setAttribute('tabindex', '-1');
+    count.focus({ preventScroll: true });
+    count.scrollIntoView({ block: 'center' });
   });
 
   document.addEventListener('input', (event) => {
@@ -490,6 +523,7 @@ function decorateCatalogCard(card, product) {
   const validOffer = Number.isFinite(currentAmount) && Number.isFinite(previousAmount)
     && currentAmount > 0 && previousAmount > currentAmount;
   const discount = validOffer ? Math.round(100 * (1 - currentAmount / previousAmount)) : 0;
+  card.dataset.onOffer = String(discount > 0);
 
   if (!label || (label.includes('oferta') && !discount)) {
     badge.hidden = false;
