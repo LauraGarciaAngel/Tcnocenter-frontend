@@ -1616,11 +1616,9 @@
     font-style: italic;
     font-weight: 800;
   }
-  .tcno-add-cart { border: 1px solid transparent; border-radius: 8px; padding: 9px 12px; }
   .tcno-brand-chip.is-active,
   .tcno-catalog-views button[aria-pressed="true"],
-  .tcno-catalog-pages button[aria-current="page"],
-  .tcno-add-cart {
+  .tcno-catalog-pages button[aria-current="page"] {
     border-color: var(--catalog-dark);
     color: var(--catalog-white);
     background: var(--tcno-dark-gradient, var(--catalog-dark));
@@ -1829,19 +1827,26 @@
     gap: 7px;
     width: 100%;
     min-height: 38px;
-    padding: 6px;
+    padding: 6px 14px;
     border: 0;
-    border-radius: 10px;
-    background: #191919;
-    color: #fff;
+    border-radius: 999px;
+    background: var(--catalog-primary);
+    color: var(--catalog-white);
     font: 700 .76rem/1.25 var(--catalog-copy);
     cursor: pointer;
+    transition: background-color .18s ease, transform .18s ease;
 
     &:hover, &:focus-visible { background: #00776f; }
+    &:active { transform: translateY(1px); }
   }
 
   .tcno-add-cart.is-added,
-  .tcno-add-cart.is-added:hover { background: #00776f; }
+  .tcno-add-cart.is-added:hover { background: #00665d; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tcno-add-cart { transition: none; }
+    .tcno-add-cart:active { transform: none; }
+  }
 
   .tcno-product-card:focus-visible,
   .tcno-product-favorite:focus-visible,
