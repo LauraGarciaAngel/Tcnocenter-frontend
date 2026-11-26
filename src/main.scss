@@ -3334,11 +3334,34 @@ $tc-turquoise-bright: #14C4B6;
 }
 
 // Marca y redes sociales.
-.tc-footer__logo img {
-  display: block;
-  width: min(100%, 17rem);
-  height: auto;
-  mix-blend-mode: multiply;
+.tc-footer__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  line-height: 1;
+}
+
+.tc-footer__logo-mark {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+.tc-footer__logo-text {
+  font-family: var(--tcno-font-logo, 'Audiowide', sans-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.tc-footer__logo-tcno {
+  color: var(--tcno-dark, #1F2937);
+}
+
+.tc-footer__logo-center {
+  color: var(--tcno-primary, #019D93);
 }
 
 .tc-footer p.tc-footer__tagline {
