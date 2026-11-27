@@ -43,9 +43,6 @@
           <a class="nav-link" href="./catalogo.html">Catálogo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./garantia.html">Garantía</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="./acerca_de_nosotros.html">Acerca de nosotros</a>
         </li>
         <li class="nav-item">
@@ -56,7 +53,7 @@
       <!-- Barra de Búsqueda y Botones de Acción (Siempre en fila horizontal) -->
       <div class="tcno-nav-right-group">
         <!-- Input de Búsqueda redondeado -->
-        <form class="tcno-search-wrapper" role="search" onsubmit="event.preventDefault();">
+        <!-- <form class="tcno-search-wrapper" role="search" onsubmit="event.preventDefault();">
           <span class="tcno-search-icon-prefix" aria-hidden="true">
             <i data-lucide="search">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
@@ -76,7 +73,7 @@
               </svg>
             </i>
           </button>
-        </form>
+        </form> -->
 
         <!-- Acciones: Perfil y Carrito con Lucide Icons -->
         <div class="tcno-nav-actions">
@@ -180,7 +177,7 @@
 
       <label class="tcno-register-terms">
         <input name="terms" type="checkbox" required>
-        <span>Acepto los <strong>Términos y Condiciones.</strong></span>
+        <span>Acepto la <strong><a href="https://www.tcnocenter.com/politicas_datos.pdf?v=1780061165" target="_blank" rel="noopener noreferrer">política de tratamiento de datos.</a></strong></span>
       </label>
       <small class="tcno-register-error" data-error-for="terms"></small>
       <p class="tcno-register-status" data-register-status role="status" aria-live="polite"></p>
@@ -190,6 +187,50 @@
 
     <p class="tcno-register-login-link">¿Ya tienes una cuenta?
       <button type="button" data-account-login>Inicia sesión aquí</button>
+    </p>
+  </section>
+</div>
+
+<div class="tcno-modal-backdrop" data-login-modal hidden>
+  <section class="tcno-register-modal" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <button type="button" class="tcno-modal-close" data-login-close aria-label="Cerrar inicio de sesión">
+      <i data-lucide="x" aria-hidden="true"></i>
+    </button>
+    <h2 id="login-title">Iniciar Sesión</h2>
+    <p class="tcno-register-intro">Ingresa tus datos para acceder a tu cuenta.</p>
+
+    <form class="tcno-register-form" data-login-form novalidate>
+      <div class="tcno-register-field">
+        <label for="login-email">Correo electrónico</label>
+        <div class="tcno-register-input-wrapper">
+          <i data-lucide="mail" aria-hidden="true"></i>
+          <input id="login-email" name="email" type="email" autocomplete="email"
+            placeholder="ejemplo@email.com" required>
+        </div>
+        <small class="tcno-register-error" data-error-for="email"></small>
+      </div>
+
+      <div class="tcno-register-field">
+        <label for="login-password">Contraseña</label>
+        <div class="tcno-register-input-wrapper">
+          <i data-lucide="lock" aria-hidden="true"></i>
+          <input id="login-password" name="password" type="password" autocomplete="current-password"
+            placeholder="Mínimo 8 caracteres" required minlength="8">
+          <button type="button" class="tcno-password-toggle" data-password-toggle="login-password"
+            aria-label="Mostrar contraseña">
+            <i data-lucide="eye" aria-hidden="true"></i>
+          </button>
+        </div>
+        <small class="tcno-register-error" data-error-for="password"></small>
+      </div>
+
+      <p class="tcno-register-status" data-login-status role="status" aria-live="polite"></p>
+
+      <button type="submit" class="tcno-register-submit">Iniciar sesión</button>
+    </form>
+
+    <p class="tcno-register-login-link">¿No tienes una cuenta?
+      <button type="button" data-register-open>Regístrate aquí</button>
     </p>
   </section>
 </div>
