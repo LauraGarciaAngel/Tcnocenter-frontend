@@ -171,6 +171,51 @@ function renderProduct(item) {
     if (crumbName) crumbName.textContent = copy.name;
 
     document.querySelector('[data-product-title]').textContent = copy.name;
+
+    const brandEl = document.querySelector('[data-product-brand]');
+    if (brandEl) {
+        brandEl.textContent = item.marca || '';
+        brandEl.hidden = !item.marca;
+    }
+
+    const metaEl = document.querySelector('[data-product-meta]');
+    if (metaEl) {
+        const parts = [];
+        if (item.almacenamiento) parts.push(`${item.almacenamiento} GB`);
+        if (initialColorEntry?.nombre) parts.push(initialColorEntry.nombre);
+        metaEl.textContent = parts.join(' | ');
+        metaEl.hidden = parts.length === 0;
+    }
+
+    const badgesEl = document.querySelector('[data-product-badges]');
+    if (badgesEl) {
+        // Solo las etiquetas del catálogo: Nuevo, Oferta y Disponible
+        const badges = [];
+        const rawLabel = String(item.etiqueta || '').trim().toLocaleLowerCase('es');
+        const stock = Number(item.stock ?? 0);
+        const previous = Number(item.precioAnterior);
+        const current = Number(item.precio);
+        const hasDiscount = Number.isFinite(previous) && previous > current && current > 0;
+
+        if (rawLabel.includes('nuevo')) {
+            badges.push({ text: 'Nuevo', tone: 'new' });
+        } else if (rawLabel.includes('oferta') || hasDiscount) {
+            badges.push({ text: 'Oferta', tone: 'offer' });
+        } else if (stock > 0) {
+            badges.push({ text: 'Disponible', tone: 'available' });
+        }
+
+        badgesEl.replaceChildren(
+            ...badges.map(({ text, tone }) => {
+                const span = document.createElement('span');
+                span.className = `tcno-product-badge is-${tone}`;
+                span.textContent = text;
+                return span;
+            })
+        );
+        badgesEl.hidden = badges.length === 0;
+    }
+
     document.querySelector('[data-stars]').innerHTML = renderStars(item.rating ?? 0);
     document.querySelector('[data-reviews]').textContent = `${item.reviews ?? 0} reseñas`;
     document.querySelector('[data-product-price]').textContent = `${formatCurrency(item.precio)} COP`;
@@ -178,11 +223,21 @@ function renderProduct(item) {
     if (addCartBtn) addCartBtn.dataset.productData = JSON.stringify(cartProduct);
 
     const oldPriceEl = document.querySelector('[data-product-old-price]');
-    if (item.precioAnterior) {
-        oldPriceEl.hidden = false;
-        oldPriceEl.innerHTML = `${formatCurrency(item.precioAnterior)} <span class="tcno-discount">-${item.descuento ?? 0}%</span>`;
-    } else {
-        oldPriceEl.hidden = true;
+    const discountEl = document.querySelector('[data-product-discount]');
+    const previous = Number(item.precioAnterior);
+    const current = Number(item.precio);
+    const hasDiscount = Number.isFinite(previous) && previous > current && current > 0;
+    const discountPct = hasDiscount
+        ? (item.descuento ? Number(item.descuento) : Math.round(100 * (1 - current / previous)))
+        : 0;
+
+    if (oldPriceEl) {
+        oldPriceEl.hidden = !hasDiscount;
+        oldPriceEl.textContent = hasDiscount ? formatCurrency(previous) : '';
+    }
+    if (discountEl) {
+        discountEl.hidden = !hasDiscount || !discountPct;
+        discountEl.textContent = hasDiscount && discountPct ? `-${discountPct}%` : '';
     }
 
     document.querySelector('[data-product-desc]').textContent = copy.desc;
@@ -247,6 +302,11 @@ function renderProduct(item) {
         if (colorName) {
             cartProduct.selectedColor = colorName;
             if (selectedColorLabel) selectedColorLabel.textContent = colorName;
+            const metaEl = document.querySelector('[data-product-meta]');
+            if (metaEl && item.almacenamiento) {
+                metaEl.textContent = `${item.almacenamiento} GB | ${colorName}`;
+                metaEl.hidden = false;
+            }
         }
         if (addCartBtn) addCartBtn.dataset.productData = JSON.stringify(cartProduct);
 
@@ -346,17 +406,17 @@ function renderProduct(item) {
     return cartProduct;
 }
 
+
 function bindInteractions(cartProduct) {
     const cartBtn = document.querySelector('[data-add-cart]');
     const wishlist = document.querySelector('[data-wishlist]');
-    const specsToggle = document.querySelector('[data-specs-toggle]');
-    const specsBody = document.querySelector('[data-specs-body]');
+    const mainImg = document.querySelector('[data-main-image]');
+    const zoomBtn = document.querySelector('[data-image-zoom]');
+    const lightbox = document.querySelector('[data-image-lightbox]');
+    const lightboxImg = document.querySelector('[data-lightbox-image]');
 
-    cartBtn?.addEventListener('click', (event) => {
-        event?.preventDefault();
-        event?.stopPropagation();
-        // Siempre agrega 1 unidad (sin selector de cantidad)
-        window.TcnoCart?.add(cartProduct, 1);
+    const flashCartButton = () => {
+        if (!cartBtn) return;
         const original = cartBtn.textContent;
         cartBtn.classList.add('is-added');
         cartBtn.textContent = 'Agregado ✓';
@@ -364,19 +424,24 @@ function bindInteractions(cartProduct) {
             cartBtn.classList.remove('is-added');
             cartBtn.textContent = original;
         }, 1800);
+    };
+
+    const addCurrentToCart = () => {
+        window.TcnoCart?.add(cartProduct, 1);
+        flashCartButton();
+    };
+
+    cartBtn?.addEventListener('click', (event) => {
+        event?.preventDefault();
+        event?.stopPropagation();
+        addCurrentToCart();
     });
+
 
     wishlist?.addEventListener('click', () => {
         const pressed = wishlist.getAttribute('aria-pressed') === 'true';
         wishlist.setAttribute('aria-pressed', String(!pressed));
         wishlist.classList.toggle('is-active', !pressed);
-    });
-
-    specsToggle?.addEventListener('click', () => {
-        const open = specsToggle.getAttribute('aria-expanded') === 'true';
-        specsToggle.setAttribute('aria-expanded', String(!open));
-        specsBody.hidden = open;
-        specsToggle.querySelector('.tcno-specs-icon').textContent = open ? '+' : '−';
     });
 
     document.querySelectorAll('[data-tab]').forEach((tab) => {
@@ -397,10 +462,46 @@ function bindInteractions(cartProduct) {
 
     const track = document.querySelector('[data-thumbs-track]');
     document.querySelector('[data-thumb-prev]')?.addEventListener('click', () => {
-        track?.scrollBy({ left: -120, behavior: 'smooth' });
+        track?.scrollBy({ top: -88, behavior: 'smooth' });
     });
     document.querySelector('[data-thumb-next]')?.addEventListener('click', () => {
-        track?.scrollBy({ left: 120, behavior: 'smooth' });
+        track?.scrollBy({ top: 88, behavior: 'smooth' });
+    });
+
+    const openLightbox = () => {
+        if (!lightbox || !lightboxImg || !mainImg?.src) return;
+        lightboxImg.src = mainImg.src;
+        lightboxImg.alt = mainImg.alt || 'Imagen ampliada del producto';
+        lightbox.hidden = false;
+        document.body.classList.add('tcno-lightbox-open');
+        lightbox.querySelector('[data-lightbox-close]')?.focus();
+    };
+
+    const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.hidden = true;
+        document.body.classList.remove('tcno-lightbox-open');
+        if (lightboxImg) lightboxImg.removeAttribute('src');
+        zoomBtn?.focus();
+    };
+
+    zoomBtn?.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        openLightbox();
+    });
+
+    // Clic sobre la imagen grande también abre el zoom
+    mainImg?.addEventListener('click', openLightbox);
+
+    lightbox?.querySelectorAll('[data-lightbox-close]').forEach((el) => {
+        el.addEventListener('click', closeLightbox);
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && lightbox && !lightbox.hidden) {
+            closeLightbox();
+        }
     });
 }
 
