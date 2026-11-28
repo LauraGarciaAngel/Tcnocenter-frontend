@@ -3,6 +3,36 @@
 // ============================================================================
 
 const componentsBaseUrl = new URL('../components/', document.currentScript.src);
+const adminDashboardUrl = new URL('../html/Administrador/admin_dashboard.html', document.currentScript.src).href;
+
+// Credencial semilla de Administradora (pre-cargada en localStorage)
+const SEED_ADMIN_USER = {
+  name: 'Admin Tcnocenter',
+  email: 'admin@tcnocenter.com',
+  password: 'admin1234',
+  role: 'admin',
+  terms: true,
+  createdAt: '2026-01-01T00:00:00.000Z'
+};
+
+function ensureSeedUsers() {
+  try {
+    const stored = JSON.parse(localStorage.getItem('tcnoUsers') || '[]');
+    const users = Array.isArray(stored) ? stored : [];
+    const existingIndex = users.findIndex(
+      (u) => String(u.email || '').toLowerCase() === SEED_ADMIN_USER.email
+    );
+    if (existingIndex === -1) {
+      users.unshift(SEED_ADMIN_USER);
+    } else {
+      users[existingIndex] = { ...users[existingIndex], ...SEED_ADMIN_USER };
+    }
+    localStorage.setItem('tcnoUsers', JSON.stringify(users));
+    return users;
+  } catch {
+    return [SEED_ADMIN_USER];
+  }
+}
 
 async function loadComponents() {
   const allowedComponents = new Set(['navbar', 'footer', 'admin-layout', 'cart-drawer']);
@@ -84,21 +114,45 @@ function initializeAccountRegistration() {
   const accountMenu = document.querySelector('[data-account-menu]');
   const registerModal = document.querySelector('[data-register-modal]');
   const registerForm = document.querySelector('[data-register-form]');
+  const loginModal = document.querySelector('[data-login-modal]');
+  const loginForm = document.querySelector('[data-login-form]');
 
   if (!accountToggle || !accountMenu || !registerModal || !registerForm) {
     return;
   }
+
+  ensureSeedUsers();
+
+  const syncBodyModalClass = () => {
+    const anyModalOpen = !registerModal.hidden || Boolean(loginModal && !loginModal.hidden);
+    document.body.classList.toggle('tcno-modal-open', anyModalOpen);
+  };
 
   const setAccountMenuVisibility = (isVisible) => {
     accountMenu.hidden = !isVisible;
     accountToggle.setAttribute('aria-expanded', String(isVisible));
   };
 
-  const setModalVisibility = (isVisible) => {
+  const setRegisterModalVisibility = (isVisible) => {
     registerModal.hidden = !isVisible;
-    document.body.classList.toggle('tcno-modal-open', isVisible);
+    if (isVisible && loginModal) {
+      loginModal.hidden = true;
+    }
+    syncBodyModalClass();
     if (isVisible) {
       registerModal.querySelector('input')?.focus();
+    }
+  };
+
+  const setLoginModalVisibility = (isVisible) => {
+    if (!loginModal) return;
+    loginModal.hidden = !isVisible;
+    if (isVisible) {
+      registerModal.hidden = true;
+    }
+    syncBodyModalClass();
+    if (isVisible) {
+      loginModal.querySelector('input')?.focus();
     }
   };
 
@@ -109,24 +163,34 @@ function initializeAccountRegistration() {
   document.querySelectorAll('[data-register-open]').forEach((button) => {
     button.addEventListener('click', () => {
       setAccountMenuVisibility(false);
-      setModalVisibility(true);
+      setRegisterModalVisibility(true);
     });
   });
 
   document.querySelectorAll('[data-account-login]').forEach((button) => {
     button.addEventListener('click', () => {
       setAccountMenuVisibility(false);
-      setModalVisibility(false);
+      setLoginModalVisibility(true);
     });
   });
 
   document.querySelector('[data-register-close]')?.addEventListener('click', () => {
-    setModalVisibility(false);
+    setRegisterModalVisibility(false);
+  });
+
+  document.querySelector('[data-login-close]')?.addEventListener('click', () => {
+    setLoginModalVisibility(false);
   });
 
   registerModal.addEventListener('click', (event) => {
     if (event.target === registerModal) {
-      setModalVisibility(false);
+      setRegisterModalVisibility(false);
+    }
+  });
+
+  loginModal?.addEventListener('click', (event) => {
+    if (event.target === loginModal) {
+      setLoginModalVisibility(false);
     }
   });
 
@@ -175,6 +239,55 @@ function initializeAccountRegistration() {
     registerForm.querySelector('[data-register-status]').textContent = 'Cuenta creada correctamente.';
   });
 
+  loginForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const formData = new FormData(loginForm);
+    const credentials = {
+      email: String(formData.get('email') || '').trim().toLowerCase(),
+      password: String(formData.get('password') || ''),
+      remember: formData.get('remember') === 'on'
+    };
+    const errors = validateLogin(credentials);
+    renderLoginErrors(loginForm, errors);
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
+    const users = ensureSeedUsers();
+    const matchedUser = users.find((storedUser) => storedUser.email === credentials.email);
+
+    if (!matchedUser) {
+      renderLoginErrors(loginForm, { email: 'No encontramos una cuenta con este correo.' });
+      return;
+    }
+
+    if (matchedUser.password !== credentials.password) {
+      renderLoginErrors(loginForm, { password: 'La contraseña ingresada es incorrecta.' });
+      return;
+    }
+
+    const sessionData = {
+      name: matchedUser.name,
+      email: matchedUser.email,
+      role: matchedUser.role || 'user',
+      remember: credentials.remember,
+      loggedInAt: new Date().toISOString()
+    };
+    localStorage.setItem('tcnoCurrentUser', JSON.stringify(sessionData));
+    loginForm.reset();
+    const statusEl = loginForm.querySelector('[data-login-status]');
+    if (statusEl) {
+      statusEl.textContent = `¡Bienvenido(a), ${matchedUser.name}! Redirigiendo al panel...`;
+    }
+
+    if (matchedUser.role === 'admin' || matchedUser.email === SEED_ADMIN_USER.email) {
+      window.setTimeout(() => {
+        window.location.href = adminDashboardUrl;
+      }, 450);
+    }
+  });
+
   document.addEventListener('click', (event) => {
     if (!accountMenu.hidden && !accountMenu.parentElement.contains(event.target)) {
       setAccountMenuVisibility(false);
@@ -184,7 +297,8 @@ function initializeAccountRegistration() {
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       setAccountMenuVisibility(false);
-      setModalVisibility(false);
+      setRegisterModalVisibility(false);
+      setLoginModalVisibility(false);
     }
   });
 }
@@ -209,12 +323,34 @@ function validateRegistration(user) {
   return errors;
 }
 
+function validateLogin(credentials) {
+  const errors = {};
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(credentials.email)) {
+    errors.email = 'Ingresa un correo electrónico válido.';
+  }
+  if (!credentials.password || credentials.password.length < 8) {
+    errors.password = 'Ingresa tu contraseña (mínimo 8 caracteres).';
+  }
+  return errors;
+}
+
 function renderRegistrationErrors(form, errors) {
   form.querySelectorAll('.tcno-register-error').forEach((errorElement) => {
     const field = errorElement.dataset.errorFor;
     errorElement.textContent = errors[field] || '';
   });
   form.querySelector('[data-register-status]').textContent = '';
+}
+
+function renderLoginErrors(form, errors) {
+  form.querySelectorAll('.tcno-register-error').forEach((errorElement) => {
+    const field = errorElement.dataset.errorFor;
+    errorElement.textContent = errors[field] || '';
+  });
+  const statusEl = form.querySelector('[data-login-status]');
+  if (statusEl) {
+    statusEl.textContent = '';
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
