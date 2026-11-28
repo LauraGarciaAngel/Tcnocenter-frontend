@@ -3,6 +3,36 @@
 // ============================================================================
 
 const componentsBaseUrl = new URL('../components/', document.currentScript.src);
+const adminDashboardUrl = new URL('../html/Administrador/admin_dashboard.html', document.currentScript.src).href;
+
+// Credencial semilla de Administradora (pre-cargada en localStorage)
+const SEED_ADMIN_USER = {
+  name: 'Admin Tcnocenter',
+  email: 'admin@tcnocenter.com',
+  password: 'admin1234',
+  role: 'admin',
+  terms: true,
+  createdAt: '2026-01-01T00:00:00.000Z'
+};
+
+function ensureSeedUsers() {
+  try {
+    const stored = JSON.parse(localStorage.getItem('tcnoUsers') || '[]');
+    const users = Array.isArray(stored) ? stored : [];
+    const existingIndex = users.findIndex(
+      (u) => String(u.email || '').toLowerCase() === SEED_ADMIN_USER.email
+    );
+    if (existingIndex === -1) {
+      users.unshift(SEED_ADMIN_USER);
+    } else {
+      users[existingIndex] = { ...users[existingIndex], ...SEED_ADMIN_USER };
+    }
+    localStorage.setItem('tcnoUsers', JSON.stringify(users));
+    return users;
+  } catch {
+    return [SEED_ADMIN_USER];
+  }
+}
 
 async function loadComponents() {
   const allowedComponents = new Set(['navbar', 'footer', 'admin-layout', 'cart-drawer']);
@@ -90,6 +120,8 @@ function initializeAccountRegistration() {
   if (!accountToggle || !accountMenu || !registerModal || !registerForm) {
     return;
   }
+
+  ensureSeedUsers();
 
   const syncModalBodyLock = () => {
     const isAnyModalOpen = !registerModal.hidden || Boolean(loginModal && !loginModal.hidden);
@@ -193,13 +225,13 @@ function initializeAccountRegistration() {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem('tcnoUsers') || '[]');
+    const users = ensureSeedUsers();
     if (users.some((storedUser) => storedUser.email === user.email)) {
       renderRegistrationErrors(registerForm, { email: 'Este correo ya está registrado.' });
       return;
     }
 
-    users.push({ ...user, createdAt: new Date().toISOString() });
+    users.push({ ...user, role: 'user', createdAt: new Date().toISOString() });
     localStorage.setItem('tcnoUsers', JSON.stringify(users));
     registerForm.reset();
     registerForm.querySelector('[data-register-status]').textContent = 'Cuenta creada correctamente.';
@@ -219,7 +251,7 @@ function initializeAccountRegistration() {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem('tcnoUsers') || '[]');
+    const users = ensureSeedUsers();
     const matchedUser = users.find((storedUser) => storedUser.email === credentials.email);
 
     if (!matchedUser) {
@@ -237,13 +269,23 @@ function initializeAccountRegistration() {
       JSON.stringify({
         name: matchedUser.name,
         email: matchedUser.email,
+        role: matchedUser.role || 'user',
         loggedInAt: new Date().toISOString()
       })
     );
     loginForm.reset();
     const statusElement = loginForm.querySelector('[data-login-status]');
     if (statusElement) {
-      statusElement.textContent = 'Sesión iniciada correctamente.';
+      statusElement.textContent =
+        matchedUser.role === 'admin' || matchedUser.email === SEED_ADMIN_USER.email
+          ? `¡Bienvenido(a), ${matchedUser.name}! Redirigiendo al panel...`
+          : `¡Bienvenido(a), ${matchedUser.name}! Sesión iniciada correctamente.`;
+    }
+
+    if (matchedUser.role === 'admin' || matchedUser.email === SEED_ADMIN_USER.email) {
+      window.setTimeout(() => {
+        window.location.href = adminDashboardUrl;
+      }, 450);
     }
   });
 
